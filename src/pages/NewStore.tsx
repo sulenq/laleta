@@ -17,8 +17,11 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import createStoreCategory from "../const/createStoreCategory";
+import useJwt from "../globalState/useJwt";
 
 export default function NewStore() {
+  const jwt = useJwt();
+
   const formik = useFormik({
     validateOnChange: false,
 
@@ -40,7 +43,7 @@ export default function NewStore() {
 
     onSubmit: (values, { resetForm }) => {
       const data = {
-        emailOrUsername: values.storeName,
+        storeName: values.storeName,
         address: values.address,
         phone: values.phone,
         email: values.email,
@@ -51,22 +54,30 @@ export default function NewStore() {
         method: "POST",
         baseURL: process.env.REACT_APP_BASE_URL,
         url: "api/store-create",
+        headers: { Authorization: "Bearer " + jwt },
         data: data,
       };
 
       async function createStore() {
         try {
           const response = await axios.request(options);
+          // console.log(response.data);
+
           if (response.data.status === 201) {
             console.log(response.data.status);
 
             // navigate("/home");
+          } else if (response.data.status === 400) {
+            const keys = Object.keys(response.data.invalid);
+            keys.forEach((i) => {
+              alert(response.data.invalid[i]);
+            });
           } else {
             alert(response.data.message);
           }
         } catch (error) {
           console.error(error);
-          alert("Something wrong, try refreshing the page");
+          alert("Something wrong, try refreshing the page or comeback later");
         }
 
         // resetForm();

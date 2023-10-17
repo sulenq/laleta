@@ -14,20 +14,11 @@ import { Link } from "react-router-dom";
 import NavHeader from "../components/NavHeader";
 import ProfileSummary from "../components/ProfileSummary";
 import { SignOut } from "@phosphor-icons/react";
-import { useState, useEffect } from "react";
-import { AuthState } from "../types";
-import { getCookie } from "typescript-cookie";
 import Container from "../components/Container";
+import usePayload from "../globalState/usePayload";
 
 export default function Home() {
-  const [authState, setAuthState] = useState<AuthState | null>(null);
-
-  useEffect(() => {
-    const authStateCookie = getCookie("_authState");
-    if (authStateCookie) {
-      setAuthState(JSON.parse(authStateCookie));
-    }
-  }, []);
+  const authState = usePayload();
 
   return (
     <HomeContainer>

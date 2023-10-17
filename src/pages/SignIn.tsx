@@ -70,7 +70,7 @@ export default function SignIn() {
           }
         } catch (error) {
           console.error(error);
-          alert("Something wrong, try refreshing the page");
+          alert("Something wrong, try refreshing the page  or comeback later");
         }
 
         resetForm();
