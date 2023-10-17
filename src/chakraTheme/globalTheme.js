@@ -72,6 +72,9 @@ export const globalTheme = extendTheme({
           boxShadow: "none",
           borderRadius: "8px",
         },
+        overlay: {
+          bg: "var(--divider)",
+        },
       }),
     },
 

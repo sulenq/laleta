@@ -9,6 +9,10 @@ import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import NewStore from "./pages/NewStore";
 import Work from "./pages/Work";
+import Explore from "./pages/Explore";
+import Profile from "./pages/Profile";
+import Manual from "./pages/Manual";
+import Settings from "./pages/Settings";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>
@@ -20,6 +24,10 @@ export const App = () => (
         <Route path="/home" element={<Home />} />
         <Route path="/new-store" element={<NewStore />} />
         <Route path="/work" element={<Work />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/manual" element={<Manual />} />
+        <Route path="/settings" element={<Settings />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

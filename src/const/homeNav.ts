@@ -35,7 +35,7 @@ const homeNav: HomeNavItem[] = [
   },
   {
     name: "Manual",
-    link: "/manuak",
+    link: "/manual",
     icon: Book,
     bg: "var(--purple)",
   },

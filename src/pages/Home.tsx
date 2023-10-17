@@ -13,10 +13,10 @@ import homeNav from "../const/homeNav";
 import { Link } from "react-router-dom";
 import NavHeader from "../components/NavHeader";
 import ProfileSummary from "../components/ProfileSummary";
-import { SignOut } from "@phosphor-icons/react";
 import Container from "../components/Container";
 import usePayload from "../globalState/usePayload";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
+import SignOutModal from "../components/SignOutModal";
 
 export default function Home() {
   const authState = usePayload();
@@ -30,15 +30,7 @@ export default function Home() {
           <HStack gap={4}>
             <ColorModeSwitcher size={"sm"} borderRadius={"full"} />
 
-            <HStack
-              className="clicky"
-              transition={"200ms"}
-              // cursor={"pointer"}
-              flexShrink={0}
-            >
-              <Text fontWeight={600}>Sign Out</Text>
-              <Icon as={SignOut} weight="bold" fontSize={16} />
-            </HStack>
+            <SignOutModal />
           </HStack>
         }
       />

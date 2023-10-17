@@ -28,8 +28,7 @@ export default function NavHeader(props: any) {
         maxW={"1040px"}
         mx={"auto"}
         justify={"space-between"}
-        animation={"fade-in 300ms"}
-        align={props.align}
+        align={props.align || "center"}
       >
         {props.left === "backButton" ? (
           <BackButton />
