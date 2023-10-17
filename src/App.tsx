@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import NewStore from "./pages/NewStore";
+import Work from "./pages/Work";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>
@@ -18,6 +19,7 @@ export const App = () => (
 
         <Route path="/home" element={<Home />} />
         <Route path="/new-store" element={<NewStore />} />
+        <Route path="/work" element={<Work />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

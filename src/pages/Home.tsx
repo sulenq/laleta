@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Center,
   HStack,
   Icon,
@@ -17,6 +16,7 @@ import ProfileSummary from "../components/ProfileSummary";
 import { SignOut } from "@phosphor-icons/react";
 import Container from "../components/Container";
 import usePayload from "../globalState/usePayload";
+import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
 
 export default function Home() {
   const authState = usePayload();
@@ -24,19 +24,22 @@ export default function Home() {
   return (
     <HomeContainer>
       <NavHeader
+        align={"flex-start"}
         left={<ProfileSummary user={authState} />}
         right={
-          <Button
-            borderRadius={"full"}
-            className="clicky"
-            variant={"unstyled"}
-            flexShrink={0}
-          >
-            <HStack>
-              <Text>Sign Out</Text>
+          <HStack gap={4}>
+            <ColorModeSwitcher size={"sm"} borderRadius={"full"} />
+
+            <HStack
+              className="clicky"
+              transition={"200ms"}
+              // cursor={"pointer"}
+              flexShrink={0}
+            >
+              <Text fontWeight={600}>Sign Out</Text>
               <Icon as={SignOut} weight="bold" fontSize={16} />
             </HStack>
-          </Button>
+          </HStack>
         }
       />
 

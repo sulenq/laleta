@@ -20,7 +20,7 @@ export default function NavHeader(props: any) {
       position={"sticky"}
       top={0}
       left={0}
-      p={"10px" }
+      p={"10px"}
       {...cfg}
     >
       <HStack
@@ -29,6 +29,7 @@ export default function NavHeader(props: any) {
         mx={"auto"}
         justify={"space-between"}
         animation={"fade-in 300ms"}
+        align={props.align}
       >
         {props.left === "backButton" ? (
           <BackButton />
