@@ -1,3 +1,129 @@
 * {
   font-family: "Inter", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* COLORS */
+:root {
+  --p50: #f1f8ff;
+  --p100: #cbf8fd;
+  --p200: #97ecfc;
+  --p300: #63d6f8;
+  --p400: #3cbdf1;
+  --p500: #0097e8;
+  --p600: #0075c7;
+  --p700: #0057a7;
+  --p800: #003e86;
+  --p900: #002c6f;
+  --ba: #050505a6;
+  --bt: #333333;
+  --wt: #eeeeee;
+  --divider: #a3a3a320;
+  --divider2: #a3a3a330;
+  --divider3: #a3a3a3aa;
+  --trans: #ff000000;
+}
+
+::selection {
+  background: var(--p500);
+  color: white;
+}
+
+body {
+  -webkit-user-select: none; /* Chrome, Safari, Opera */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Standard syntax */
+}
+
+a {
+  text-decoration: none !important;
+}
+
+p {
+  font-size: 13px;
+}
+label {
+  font-size: 13px !important;
+}
+
+button {
+  font-size: 13px !important;
+}
+
+.btn-p-outline {
+  background: transparent !important;
+  border: 2px solid var(--p500);
+  color: var(--p500) !important;
+}
+.btn-p-outline:hover:not(:disabled) {
+  background: var(--p200a) !important;
+}
+.btn-solid {
+  background: var(--divider) !important;
+}
+.btn:hover:not(:disabled),
+.btn-solid:hover:not(:disabled) {
+  background: var(--divider2) !important;
+}
+.btn:active:not(:disabled),
+.btn-solid:active:not(:disabled) {
+  background: var(--divider2) !important;
+}
+
+.clicky:active:not(:disabled) {
+  transform: scale(0.95);
+}
+.sm-clicky:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+input {
+  border-radius: 4px !important;
+  outline: none !important;
+  border: 2px solid var(--divider) !important;
+  font-size: 14px !important;
+  /* backdrop-filter: blur(10px); */
+}
+input::placeholder {
+  /* opacity: 0.5; */
+  color: var(--divider3);
+}
+input:focus,
+input:focus-visible {
+  box-shadow: none !important;
+  border: 2px solid var(--p500) !important;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@media screen and (min-width: 770px) {
+  p {
+    font-size: 15px;
+  }
+  label {
+    font-size: 15px !important;
+  }
+  button {
+    font-size: 14px !important;
+  }
+  input {
+    font-size: 14px !important;
+  }
 }
