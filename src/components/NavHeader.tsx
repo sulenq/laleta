@@ -1,30 +1,47 @@
-import { Box, HStack, Text } from "@chakra-ui/react";
+import { Box, HStack, Text, VStack, useColorModeValue } from "@chakra-ui/react";
 import BackButton from "./BackButton";
-import { useComponentsBg } from "../const/colorModeValues";
 
 export default function NavHeader(props: any) {
-  const navHeaderBg = useComponentsBg();
+  const cfg = useColorModeValue(
+    {
+      bg: "linear-gradient(to bottom, #ffffff, #ffffffaa)",
+      backdropFilter: "blur(10px)",
+    },
+    {
+      bg: "linear-gradient(to bottom, #000000, #000000aa)",
+      backdropFilter: "blur(10px)",
+    }
+  );
 
   return (
-    <HStack
+    <VStack
       w={"100%"}
-      maxW={"1040px"}
-      mx={"auto"}
-      justify={"space-between"}
-      bg={props.bg || navHeaderBg}
-      animation={"fade-in 300ms"}
+      zIndex={99}
+      position={"sticky"}
+      top={0}
+      left={0}
+      p={"10px" }
+      {...cfg}
     >
-      {props.left === "backButton" ? (
-        <BackButton />
-      ) : (
-        props.left || <Box w={"40px"} h={"40px"} />
-      )}
+      <HStack
+        w={"100%"}
+        maxW={"1040px"}
+        mx={"auto"}
+        justify={"space-between"}
+        animation={"fade-in 300ms"}
+      >
+        {props.left === "backButton" ? (
+          <BackButton />
+        ) : (
+          props.left || <Box w={"40px"} h={"40px"} />
+        )}
 
-      <Text fontWeight={700} fontSize={15}>
-        {props.title}
-      </Text>
+        <Text fontWeight={700} fontSize={15}>
+          {props.title}
+        </Text>
 
-      {props.right || <Box w={"40px"} h={"40px"} />}
-    </HStack>
+        {props.right || <Box w={"40px"} h={"40px"} />}
+      </HStack>
+    </VStack>
   );
 }

@@ -17,7 +17,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import InputPassword from "../components/InputPassword";
 import { Link } from "react-router-dom";
-import { useComponentsBg } from "../const/colorModeValues";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
 import { PrimaryButton } from "../components/Buttons";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +25,6 @@ import { setCookie } from "typescript-cookie";
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const cfg = useComponentsBg();
 
   const formik = useFormik({
     validateOnChange: false,
@@ -91,19 +89,16 @@ export default function SignIn() {
 
   return (
     <>
-      <VStack zIndex={99} position={"sticky"} top={0} left={0} {...cfg} p={2}>
-        <NavHeader
-          title={"Sign In"}
-          backPath={"/"}
-          right={
-            <ColorModeSwitcher
-              className="btn sm-clicky"
-              borderRadius={"full"}
-              h={"40px !important"}
-            />
-          }
-        />
-      </VStack>
+      <NavHeader
+        title={"Sign In"}
+        right={
+          <ColorModeSwitcher
+            className="btn sm-clicky"
+            borderRadius={"full"}
+            h={"40px !important"}
+          />
+        }
+      />
 
       <Container>
         <VStack

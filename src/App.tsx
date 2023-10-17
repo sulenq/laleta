@@ -7,6 +7,7 @@ import { globalTheme } from "./chakraTheme/globalTheme";
 import NotFound from "./pages/NotFound";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
+import NewStore from "./pages/NewStore";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>
@@ -16,7 +17,7 @@ export const App = () => (
         <Route path="/signin" element={<SignIn />} />
 
         <Route path="/home" element={<Home />} />
-        <Route path="/store" element={<Home />} />
+        <Route path="/new-store" element={<NewStore />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
