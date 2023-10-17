@@ -18,8 +18,8 @@
   --ba: #050505a6;
   --bt: #333333;
   --wt: #eeeeee;
-  --divider: #a3a3a320;
-  --divider2: #a3a3a330;
+  --divider: #aeaeae30;
+  --divider2: #a3a3a340;
   --divider3: #a3a3a3aa;
   --trans: #ff000000;
 }
@@ -64,7 +64,7 @@ button {
 }
 .btn:hover:not(:disabled),
 .btn-solid:hover:not(:disabled) {
-  background: var(--divider2) !important;
+  background: var(--divider) !important;
 }
 .btn:active:not(:disabled),
 .btn-solid:active:not(:disabled) {

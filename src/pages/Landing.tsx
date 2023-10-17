@@ -36,7 +36,7 @@ export default function Landing() {
           w={"100%"}
           maxW={"420px"}
           justify={"center"}
-          borderRadius={6}
+          borderRadius={8}
           p={5}
           bg={bg}
           backdropFilter={"blur(10px)"}
@@ -56,7 +56,7 @@ export default function Landing() {
               <Text fontWeight={500} opacity={0.5}>
                 Welcome to the
               </Text>
-              <Text fontSize={30} fontWeight={800} lineHeight={1.4}>
+              <Text fontSize={28} fontWeight={800} lineHeight={1.4}>
                 LALETA POS
               </Text>
             </Box>
@@ -97,7 +97,7 @@ export default function Landing() {
               border={"none"}
               bg={bg}
               backdropFilter={"blur(10px)"}
-              borderRadius={6}
+              borderRadius={8}
             >
               <AccordionButton h={"40px !important"} borderRadius={6}>
                 <Text
@@ -113,7 +113,7 @@ export default function Landing() {
               </AccordionButton>
 
               <AccordionPanel px={4} pt={2} pb={4}>
-                <FormControl>
+                <FormControl mb={4}>
                   <FormLabel>Email/username</FormLabel>
                   <Input defaultValue={"adelia"} />
                 </FormControl>

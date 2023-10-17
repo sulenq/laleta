@@ -70,6 +70,7 @@ export const globalTheme = extendTheme({
           bg: props.colorMode === "dark" ? "black" : "white",
           color: props.colorMode === "dark" ? "wt" : "bt",
           boxShadow: "none",
+          borderRadius: "8px",
         },
       }),
     },
@@ -92,8 +93,8 @@ export const globalTheme = extendTheme({
 
     Button: {
       baseStyle: {
-        fontWeight: 700,
-        borderRadius: "4px",
+        fontWeight: 600,
+        borderRadius: "8px",
       },
     },
 

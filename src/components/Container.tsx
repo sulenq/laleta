@@ -9,8 +9,9 @@ export default function Container(props: any) {
       align={"stretch"}
       w={"100%"}
       maxW={"1080px"}
+      minH={"100%"}
       mx={"auto"}
-      px={props.px || [4, 5, 6]}
+      px={props.px || [4, null, 6]}
     >
       {props.children}
     </VStack>

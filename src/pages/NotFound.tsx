@@ -19,7 +19,6 @@ export default function NotFound() {
       </Text>
 
       <Button
-        h={"44px !important"}
         w={"231px"}
         colorScheme="bnw"
         px={8}
@@ -34,7 +33,6 @@ export default function NotFound() {
       </Button>
 
       <Button
-        h={"44px"}
         colorScheme="bnw"
         px={8}
         variant={"ghost"}
