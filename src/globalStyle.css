@@ -22,6 +22,11 @@
   --divider2: #a3a3a340;
   --divider3: #a3a3a3aa;
   --trans: #ff000000;
+  --cyan: #00ccff;
+  --yellow: #ffcc00;
+  --green: #33cc66;
+  --purple: #6699ff;
+  --gray: #808080;
 }
 
 ::selection {
@@ -62,7 +67,11 @@ button {
 .btn-solid {
   background: var(--divider) !important;
 }
+.btn-outline {
+  border: 1px solid var(--divider2);
+}
 .btn:hover:not(:disabled),
+.btn-outline:hover:not(:disabled),
 .btn-solid:hover:not(:disabled) {
   background: var(--divider) !important;
 }

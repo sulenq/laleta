@@ -1,54 +1,54 @@
 import {
-  Button,
-  HStack,
+  Box,
+  Center,
   Icon,
   Image,
   SimpleGrid,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { getCookie } from "typescript-cookie";
-import { useState, useEffect } from "react";
-import { AuthState } from "../types";
-import Container from "../components/Container";
-import ProfileSummary from "../components/ProfileSummary";
-import { SignOut } from "@phosphor-icons/react";
+import HomeContainer from "../components/HomeContainer";
+import homeNav from "../const/homeNav";
 
 export default function Home() {
-  const [authState, setAuthState] = useState<AuthState | null>(null);
-
-  useEffect(() => {
-    const authStateCookie = getCookie("_authState");
-    if (authStateCookie) {
-      setAuthState(JSON.parse(authStateCookie));
-    }
-  }, []);
-
   return (
-    <VStack minH={"100vh"}>
-      <Container minH={"100%"}>
-        <HStack justify={"space-between"} py={4}>
-          <ProfileSummary user={authState} />
+    <HomeContainer>
+      <VStack flex={1} justify={"center"}>
+        <Image src="/logo.svg" mb={4} title="Laleta Logo" />
+        <Text fontSize={28} fontWeight={800} mb={6}>
+          LALETA POS
+        </Text>
 
-          <Button
-            rightIcon={<Icon as={SignOut} />}
-            borderRadius={"full"}
-            className="btn clicky"
-            variant={"ghost"}
-          >
-            Sign Out
-          </Button>
-        </HStack>
+        <SimpleGrid columns={[2, null, 3]} gap={4} mb={4}>
+          {homeNav.map((n, i) => (
+            <VStack
+              key={i}
+              className="clicky"
+              justify={"center"}
+              p={4}
+              pb={2}
+              borderRadius={8}
+              transition={"200ms"}
+              cursor={"pointer"}
+              _hover={{ bg: "var(--divider)" }}
+            >
+              <Center bg={n.bg} borderRadius={8} p={4}>
+                <Icon as={n.icon} color={"wt"} fontSize={72} />
+              </Center>
+              <Text fontWeight={600} opacity={0.5}>
+                {n.name}
+              </Text>
+            </VStack>
+          ))}
+        </SimpleGrid>
+      </VStack>
 
-        <VStack minH={"100%"}>
-          <Image src="/logo.svg" />
-          <Text fontSize={28} fontWeight={800}>
-            LALETA POS
-          </Text>
-
-          <SimpleGrid></SimpleGrid>
-        </VStack>
-      </Container>
-    </VStack>
+      <Box opacity={0.5}>
+        <Text textAlign={"center"}>v.1</Text>
+        <Text textAlign={"center"} fontSize={[11, null, 13]}>
+          powered by Distro Studio
+        </Text>
+      </Box>
+    </HomeContainer>
   );
 }

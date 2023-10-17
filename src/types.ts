@@ -13,3 +13,10 @@ export type AuthState = {
   phone: string;
   image: string;
 };
+
+export type HomeNavItem = {
+  name: string;
+  link: string;
+  icon: any;
+  bg: string;
+};

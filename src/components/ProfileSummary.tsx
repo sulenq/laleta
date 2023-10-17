@@ -5,7 +5,7 @@ export default function ProfileSummary(props: any) {
   const user = props?.user;
 
   return (
-    <HStack w={"100%"} maxW={"200px"}>
+    <HStack w={"100%"} maxW={"150px"}>
       {user?.image ? (
         <Center
           bg={"var(--divider)"}
@@ -28,7 +28,7 @@ export default function ProfileSummary(props: any) {
       )}
 
       <Box>
-        <Text fontWeight={600} lineHeight={1} mb={"2px"}>
+        <Text fontWeight={600} lineHeight={1} mb={"2px"} noOfLines={1}>
           {user?.name}
         </Text>
         <Text fontSize={[11, null, 13]} lineHeight={1} opacity={0.5}>
