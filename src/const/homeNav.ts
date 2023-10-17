@@ -28,9 +28,9 @@ const homeNav: HomeNavItem[] = [
     bg: "var(--yellow)",
   },
   {
-    name: "Settings",
-    link: "/settings",
-    icon: GearSix,
+    name: "Profile",
+    link: "/profile",
+    icon: User,
     bg: "var(--green)",
   },
   {
@@ -40,9 +40,9 @@ const homeNav: HomeNavItem[] = [
     bg: "var(--purple)",
   },
   {
-    name: "Profile",
-    link: "/profile",
-    icon: User,
+    name: "Settings",
+    link: "/settings",
+    icon: GearSix,
     bg: "var(--gray)",
   },
 ];

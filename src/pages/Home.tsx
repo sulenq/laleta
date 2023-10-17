@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  HStack,
   Icon,
   Image,
   SimpleGrid,
@@ -26,13 +27,15 @@ export default function Home() {
         left={<ProfileSummary user={authState} />}
         right={
           <Button
-            rightIcon={<Icon as={SignOut} weight="bold" />}
             borderRadius={"full"}
-            className="btn clicky"
-            variant={"ghost"}
+            className="clicky"
+            variant={"unstyled"}
             flexShrink={0}
           >
-            Sign Out
+            <HStack>
+              <Text>Sign Out</Text>
+              <Icon as={SignOut} weight="bold" fontSize={16} />
+            </HStack>
           </Button>
         }
       />
