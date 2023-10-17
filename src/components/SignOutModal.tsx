@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import {
   Button,
   ButtonGroup,
@@ -16,39 +16,13 @@ import {
 import { SignOut } from "@phosphor-icons/react";
 import { removeCookie } from "typescript-cookie";
 import { useNavigate } from "react-router-dom";
+import useModalBackOnClose from "../utils/useModalBackOnClose";
 
 export default function SignOutModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
-  const handleOnClose = () => {
-    window.history.back();
-  };
-
-  const handlePopState = useCallback(() => {
-    if (isOpen) {
-      onClose();
-    }
-  }, [isOpen, onClose]);
-
-  useEffect(() => {
-    if (isOpen) {
-      // Push URL yang sama saat modal dibuka
-      window.history.pushState(null, "", window.location.href);
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen) {
-      window.addEventListener("popstate", handlePopState);
-    }
-
-    return () => {
-      if (isOpen) {
-        window.removeEventListener("popstate", handlePopState);
-      }
-    };
-  }, [isOpen, onClose, handlePopState]);
+  useModalBackOnClose(isOpen, onClose);
 
   return (
     <>
@@ -67,7 +41,7 @@ export default function SignOutModal() {
         isOpen={isOpen}
         onClose={() => {
           onClose();
-          handleOnClose();
+          window.history.back();
         }}
         isCentered
       >
@@ -88,7 +62,7 @@ export default function SignOutModal() {
                 colorScheme="bnw"
                 onClick={() => {
                   onClose();
-                  handleOnClose();
+                  window.history.back();
                 }}
               >
                 Cancel
