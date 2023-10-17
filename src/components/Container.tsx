@@ -12,7 +12,7 @@ export default function Container(props: any) {
       h={"100%"}
       minH={"100%"}
       mx={"auto"}
-      px={props.px || [4, null, 6]}
+      px={props.px || ["18px", null, 6]}
     >
       {props.children}
     </VStack>

@@ -37,7 +37,7 @@ export default function Home() {
           <Button
             rightIcon={<Icon as={SignOut} weight="bold" />}
             borderRadius={"full"}
-            className="btn-outline clicky"
+            className="btn clicky"
             variant={"ghost"}
             flexShrink={0}
           >

@@ -72,6 +72,8 @@ export default function SignIn() {
           console.error(error);
           alert("Something wrong, try refreshing the page");
         }
+
+        resetForm();
       }
 
       signin();
@@ -90,7 +92,7 @@ export default function SignIn() {
   return (
     <>
       <NavHeader
-        title={"Sign In"}
+        title={"Signing In"}
         right={
           <ColorModeSwitcher
             className="btn sm-clicky"
@@ -114,7 +116,7 @@ export default function SignIn() {
               transition={"300ms"}
             />
 
-            <VStack justify={"center"} gap={0}>
+            <VStack justify={"center"} w={"100%"} gap={0}>
               <form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>
                 <FormControl
                   mb={4}
@@ -166,7 +168,11 @@ export default function SignIn() {
                   SIGN IN
                 </PrimaryButton>
 
-                <Text textAlign={"center"} opacity={0.5}>
+                <Text
+                  fontSize={[11, null, 13]}
+                  textAlign={"center"}
+                  opacity={0.5}
+                >
                   By default you will stay signed in for 24 hours
                 </Text>
               </form>
