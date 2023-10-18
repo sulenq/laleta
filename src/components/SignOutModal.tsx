@@ -33,8 +33,8 @@ export default function SignOutModal() {
         flexShrink={0}
         onClick={onOpen}
       >
-        <Text fontWeight={600}>Sign Out</Text>
-        <Icon as={SignOut} weight="bold" fontSize={16} />
+        <Text>Sign Out</Text>
+        <Icon as={SignOut} fontSize={16} />
       </HStack>
 
       <Modal

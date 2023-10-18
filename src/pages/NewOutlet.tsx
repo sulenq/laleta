@@ -276,7 +276,7 @@ export default function NewOutlet() {
                 textAlign={"center"}
                 opacity={0.5}
               >
-                You will be the owner of this store
+                Your status will be the owner of this outlet
               </Text>
             </form>
           </SimpleGrid>

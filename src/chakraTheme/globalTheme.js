@@ -70,7 +70,7 @@ export const globalTheme = extendTheme({
           bg: props.colorMode === "dark" ? "#000000cc" : "#ffffffcc",
           color: props.colorMode === "dark" ? "wt" : "bt",
           boxShadow: "none",
-          borderRadius: "8px",
+          borderRadius: "10px",
           mx: "16px",
           backdropFilter: "blur(10px)",
         },
