@@ -45,7 +45,7 @@ export default function NewOutlet() {
       address: "",
       phone: "",
       email: "",
-      category: "Retail",
+      category: "",
     },
 
     onSubmit: (values, { resetForm }) => {
@@ -76,7 +76,7 @@ export default function NewOutlet() {
             setAlertModal({
               img: "/img/newOutletOpened.png",
               title: "New Outlet has Opened",
-              desc: "Your outlet is ready to set, go to Work at Home page then select your outlet and setup your outlet",
+              desc: "Your outlet is ready to set, go to Work menu at Home page then select your outlet, work as admin then setup your outlet",
               action: (
                 <Button
                   as={Link}
@@ -241,7 +241,10 @@ export default function NewOutlet() {
                 <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
               </FormControl>
 
-              <FormControl mb={4}>
+              <FormControl
+                mb={4}
+                isInvalid={formik.errors.category ? true : false}
+              >
                 <FormLabel>Category</FormLabel>
                 {/* <Input name="email" placeholder="Jasmine Kiosk" /> */}
                 <Select
@@ -249,6 +252,7 @@ export default function NewOutlet() {
                   onChange={(e) => {
                     formik.setFieldValue("category", e.target.value);
                   }}
+                  placeholder="Select outlet category"
                 >
                   {createStoreCategory.map((c, i) => (
                     <option key={i} value={c}>
@@ -256,6 +260,7 @@ export default function NewOutlet() {
                     </option>
                   ))}
                 </Select>
+                <FormErrorMessage>{formik.errors.category}</FormErrorMessage>
               </FormControl>
 
               <Button

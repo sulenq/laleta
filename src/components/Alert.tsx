@@ -23,7 +23,7 @@ export default function Alert({ alert, isOpen, onClose }: any) {
         onClose();
         window.history.back();
       }}
-      size={'sm'}
+      size={"sm"}
       isCentered
     >
       <ModalOverlay />
@@ -42,7 +42,9 @@ export default function Alert({ alert, isOpen, onClose }: any) {
               {alert?.title || "Wooops"}
             </Text>
 
-            <Text textAlign={"center"}>{alert?.desc || "Something wrong"}</Text>
+            <Text textAlign={"center"} opacity={0.5} w={'80%'}>
+              {alert?.desc || "Something wrong"}
+            </Text>
           </Center>
         </ModalBody>
         <ModalFooter>

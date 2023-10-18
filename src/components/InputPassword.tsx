@@ -26,17 +26,17 @@ export default function InputPassword({
         }}
         onChange={handleForm}
         value={formik.values.password}
+        pr={"40px !important"}
       />
       <IconButton
         aria-label="showPassword"
         icon={<Icon as={icon} fontSize={18} />}
-        className="btn sm-clicky"
         // borderRadius={"full"}
         size={"sm"}
-        variant={"ghost"}
+        variant={"unstyled"}
         position={"absolute"}
         right={1}
-        top={1}
+        top={"7px"}
         zIndex={2}
         onClick={() => {
           if (inputPasswordRef.current) {
