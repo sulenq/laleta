@@ -3,6 +3,8 @@ import HomeContainer from "../components/HomeContainer";
 import NavHeader from "../components/NavHeader";
 import Container from "../components/Container";
 import {
+  Badge,
+  Box,
   Center,
   HStack,
   Icon,
@@ -12,37 +14,44 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { Bookmark, GridFour, MapPin, Storefront } from "@phosphor-icons/react";
+import {
+  Bookmark,
+  GridFour,
+  MapPin,
+  Pulse,
+  Storefront,
+} from "@phosphor-icons/react";
 import { useComponentsBg } from "../const/colorModeValues";
 import ContentSpinner from "../components/ContentSpinner";
 import axios from "axios";
 import useJwt from "../globalState/useJwt";
 import useScreenWidth from "../utils/useGetScreenWidth";
+import { Link } from "react-router-dom";
 
 export default function Work() {
+  const cfg = useComponentsBg();
+  const jwt = useJwt();
+  const [data, setData] = useState<any>("loading");
   const stats = [
     {
       icon: Storefront,
-      value: 12,
+      value: data?.length || "~",
       name: "total outlet",
       bg: "var(--p500)",
     },
     {
       icon: GridFour,
-      value: 4,
-      name: "category",
+      value: "~",
+      name: "no info",
       bg: "var(--cyan)",
     },
     {
       icon: Bookmark,
-      value: 4,
-      name: "as owner",
+      value: "~",
+      name: "no info",
       bg: "var(--green)",
     },
   ];
-  const cfg = useComponentsBg();
-  const jwt = useJwt();
-  const [stores, setStores] = useState<any>(null);
   const sw = useScreenWidth();
 
   useEffect(() => {
@@ -53,25 +62,33 @@ export default function Work() {
       headers: { Authorization: "Bearer " + jwt },
     };
 
-    const getStores = async () => {
+    const getOutlets = async () => {
       try {
         const response = await axios.request(options);
         console.log(response.data);
 
-        setStores(response.data.stores);
+        if (response.data.status === 200) {
+          setData(response.data.data);
+        } else if (response.data.status === 404) {
+          setData(404);
+        }
       } catch (error) {
         console.error(error);
       }
     };
 
     if (jwt) {
-      getStores();
+      getOutlets();
     }
   }, [jwt]);
 
   return (
     <HomeContainer>
-      <NavHeader title={"Work"} left={"backButton"} />
+      <NavHeader
+        title={"Work Outlets"}
+        left={"backButton"}
+        backPath={"/home"}
+      />
 
       <Container flex={1} pb={4}>
         {/* <Text fontWeight={500} mb={2}>
@@ -127,64 +144,90 @@ export default function Work() {
           </SimpleGrid>
         </SimpleGrid>
 
-        <SimpleGrid columns={sw < 300 ? 1 : [2, 3, 4]} gap={4}>
-          {stores &&
-            stores?.map((s: any, i: number) => (
+        {data === "loading" && <ContentSpinner />}
+
+        {data === 404 && (
+          <VStack flex={1} py={4}>
+            <Text>You're curently not employed to any outlets</Text>
+          </VStack>
+        )}
+
+        {typeof data === "object" && (
+          <SimpleGrid columns={sw < 300 ? 1 : [2, 2, 3, 4]} gap={4}>
+            {data?.map((s: any, i: number) => (
               <VStack
+                as={Link}
+                to={"/work/" + s.employee.role}
                 key={i}
-                align={"flex-start"}
+                // align={"flex-start"}
                 cursor={"pointer"}
                 transition={"200ms"}
-                _hover={{ bg: "var(--divider)" }}
-                py={4}
-                px={5}
+                _hover={{
+                  bg: "linear-gradient(to top, var(--divider), transparent, transparent)",
+                }}
                 borderRadius={8}
-                border={"1px solid var(--divider3)"}
+                border={"1px solid var(--divider)"}
                 className="lg-clicky"
               >
-                {s.image ? (
-                  <Image
-                    borderRadius={"full"}
-                    w={"100%"}
-                    maxH={"80px"}
-                    maxW={"80px"}
-                    src={s.image}
-                    mb={4}
-                  />
-                ) : (
-                  <Image maxW={"80px"} src={"/logoOutline.svg"} mb={4} />
-                )}
+                <VStack p={4} pb={0}>
+                  {s.outlet.image ? (
+                    <Box
+                      bgImage={s.outlet.image}
+                      bgSize={"cover"}
+                      bgPos={"center"}
+                      w={"85px"}
+                      h={"85px"}
+                      borderRadius={"full"}
+                      mb={4}
+                    />
+                  ) : (
+                    <Image maxW={"80px"} src={"/logoOutline.svg"} mb={4} />
+                  )}
 
-                <Text fontSize={[11, null, 13]} opacity={0.5}>
-                  {"ID : " + s.id}
-                </Text>
+                  <Text fontSize={[11, null, 13]} opacity={0.5}>
+                    {"ID : " + s.outlet.id}
+                  </Text>
 
-                <Text
-                  fontWeight={600}
-                  fontSize={[17, null, 19]}
-                  color={"p.500"}
-                >
-                  {s.outletName}
-                </Text>
+                  <Text
+                    fontWeight={600}
+                    fontSize={[17, null, 19]}
+                    color={"p.500"}
+                  >
+                    {s.outlet.outletName}
+                  </Text>
 
-                <VStack w={"100%"} align={"flex-start"}>
+                  <Badge
+                    fontSize={[11, null, 13]}
+                    colorScheme={
+                      s.employee.role === "Admin" ? "purple" : "yellow"
+                    }
+                  >
+                    {s.employee.role}
+                  </Badge>
+                </VStack>
+
+                <VStack w={"100%"} align={"flex-start"} p={3} borderRadius={6}>
                   <HStack align={"flex-start"}>
-                    <Icon as={GridFour} fontSize={15} mt={"2px"} />
-                    <Text noOfLines={2}>{s.category}</Text>
+                    <Icon as={Pulse} fontSize={15} mt={"2px"} />
+                    <Text noOfLines={2}>{s.employee.status}</Text>
+                  </HStack>
+
+                  <HStack align={"flex-start"}>
+                    <Icon as={Storefront} fontSize={15} mt={"2px"} />
+                    <Text noOfLines={2}>{s.outlet.category}</Text>
                   </HStack>
 
                   <HStack align={"flex-start"}>
                     <Icon as={MapPin} fontSize={15} mt={"1px"} />
                     <Text noOfLines={3} fontSize={[11, null, 13]}>
-                      {s.address}
+                      {s.outlet.address}
                     </Text>
                   </HStack>
                 </VStack>
               </VStack>
             ))}
-        </SimpleGrid>
-
-        {!stores && <ContentSpinner />}
+          </SimpleGrid>
+        )}
       </Container>
     </HomeContainer>
   );

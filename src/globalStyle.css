@@ -100,7 +100,7 @@ input {
 }
 input::placeholder {
   /* opacity: 0.5; */
-  color: var(--divider3);
+  color: #96969691;
 }
 input:focus,
 input:focus-visible {

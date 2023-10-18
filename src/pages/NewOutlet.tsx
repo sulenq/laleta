@@ -18,7 +18,7 @@ import Container from "../components/Container";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-import createStoreCategory from "../const/createStoreCategory";
+import createStoreCategory from "../const/newOutletCategory";
 import useJwt from "../globalState/useJwt";
 import Alert from "../components/Alert";
 import { ArrowRight } from "@phosphor-icons/react";

@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import Manual from "./pages/Manual";
 import Settings from "./pages/Settings";
 import RequireRole from "./middleware/RequireAuth";
+import AdminDashboard from "./pages/AdminDashboard";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>
@@ -32,6 +33,7 @@ export const App = () => (
         />
         <Route path="/new-outlet" element={<NewStore />} />
         <Route path="/work" element={<Work />} />
+        <Route path="/work/Admin" element={<AdminDashboard />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/manual" element={<Manual />} />
