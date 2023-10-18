@@ -25,7 +25,7 @@ import { ArrowRight } from "@phosphor-icons/react";
 
 export default function Landing() {
   const bg = useColorModeValue("#ffffffcc", "#000000cc");
-  const authState = usePayload();
+  const user = usePayload();
 
   return (
     <VStack
@@ -67,7 +67,7 @@ export default function Landing() {
             </Box>
           </HStack>
 
-          {authState ? (
+          {user ? (
             <Button
               as={Link}
               to={"/home"}
@@ -76,11 +76,11 @@ export default function Landing() {
               h={"50px"}
               colorScheme="bnw"
               className="clicky"
-              pl={'6px'}
+              pl={"6px"}
               pr={3}
             >
               <HStack w={"100%"} justify={"space-between"}>
-                <ProfileSummary user={authState} />
+                <ProfileSummary user={user} />
 
                 <Icon as={ArrowRight} fontSize={20} />
               </HStack>

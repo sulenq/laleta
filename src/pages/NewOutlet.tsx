@@ -125,8 +125,7 @@ export default function NewOutlet() {
                     setAlertIsOpen(false);
                   }}
                   w={"100%"}
-                  className="clicky"
-                  colorScheme="bnw"
+                  className="btn-solid clicky"
                 >
                   Close
                 </Button>
@@ -136,21 +135,20 @@ export default function NewOutlet() {
             setAlertIsOpen(true);
           }
         } catch (error) {
+          console.error(error);
           setAlertModal({
             img: "/img/bad.png",
             title: "Something Wrong",
             desc: "Try to refreshing the page or comeback later",
             action: (
               <Button
-                as={Link}
-                to={"/home"}
+                onClick={() => {
+                  setAlertIsOpen(false);
+                }}
                 w={"100%"}
-                fontSize={[13, null, 15]}
-                className="clicky"
-                colorScheme="bnw"
-                rightIcon={<Icon as={ArrowRight} fontSize={16} />}
+                className="btn-solid clicky"
               >
-                Home
+                Close
               </Button>
             ),
           });
@@ -159,7 +157,9 @@ export default function NewOutlet() {
         }
       }
 
-      createOutlet();
+      if (jwt) {
+        createOutlet();
+      }
     },
   });
 

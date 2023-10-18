@@ -19,13 +19,13 @@ import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
 import SignOutModal from "../components/SignOutModal";
 
 export default function Home() {
-  const authState = usePayload();
+  const user = usePayload();
 
   return (
     <HomeContainer>
       <NavHeader
         align={"flex-start"}
-        left={<ProfileSummary user={authState} />}
+        left={<ProfileSummary user={user} />}
         right={
           <HStack gap={4} flexShrink={0}>
             <ColorModeSwitcher size={"sm"} borderRadius={"full"} />
@@ -35,8 +35,8 @@ export default function Home() {
         }
       />
 
-      <Container flex={1}>
-        <VStack flex={1} justify={"center"} py={4}>
+      <Container flex={1} py={4}>
+        <VStack flex={1} justify={"center"}>
           <Image src="/logo.svg" mb={4} title="Laleta Logo" />
           <Text fontSize={28} fontWeight={800} mb={6}>
             LALETA POS
