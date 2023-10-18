@@ -67,14 +67,25 @@ export const globalTheme = extendTheme({
     Modal: {
       baseStyle: (props) => ({
         dialog: {
-          bg: props.colorMode === "dark" ? "black" : "white",
+          bg: props.colorMode === "dark" ? "#000000cc" : "#ffffffcc",
           color: props.colorMode === "dark" ? "wt" : "bt",
           boxShadow: "none",
           borderRadius: "8px",
           mx: "16px",
+          backdropFilter: "blur(10px)",
         },
         overlay: {
           bg: "var(--divider)",
+          backdropFilter: "blur(5px)",
+        },
+        header: {
+          px: "16px",
+        },
+        body: {
+          px: "16px",
+        },
+        footer: {
+          px: "16px",
         },
       }),
     },

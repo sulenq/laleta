@@ -11,6 +11,7 @@ import {
   FormControl,
   FormLabel,
   HStack,
+  Icon,
   Image,
   Input,
   Text,
@@ -18,9 +19,13 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import usePayload from "../globalState/usePayload";
+import ProfileSummary from "../components/ProfileSummary";
+import { ArrowRight } from "@phosphor-icons/react";
 
 export default function Landing() {
   const bg = useColorModeValue("#ffffffcc", "#000000cc");
+  const authState = usePayload();
 
   return (
     <VStack
@@ -34,7 +39,7 @@ export default function Landing() {
           gap={3}
           mx={"auto"}
           w={"100%"}
-          maxW={"420px"}
+          maxW={"360px"}
           justify={"center"}
           borderRadius={8}
           p={5}
@@ -62,18 +67,39 @@ export default function Landing() {
             </Box>
           </HStack>
 
-          <Button
-            as={Link}
-            to={"/signin"}
-            className="clicky"
-            colorScheme="bnw"
-            w={"100%"}
-            h={"44px"}
-            borderRadius={"full"}
-            // h={["40px", null, "50px"]}
-          >
-            SIGN IN
-          </Button>
+          {authState ? (
+            <Button
+              as={Link}
+              to={"/home"}
+              w={"100%"}
+              borderRadius={"full"}
+              h={"50px"}
+              colorScheme="bnw"
+              className="clicky"
+              pl={'6px'}
+              pr={3}
+            >
+              <HStack w={"100%"} justify={"space-between"}>
+                <ProfileSummary user={authState} />
+
+                <Icon as={ArrowRight} fontSize={20} />
+              </HStack>
+            </Button>
+          ) : (
+            <Button
+              as={Link}
+              to={"/signin"}
+              className="clicky"
+              colorScheme="bnw"
+              w={"100%"}
+              h={"44px"}
+              borderRadius={"full"}
+              fontWeight={700}
+              // h={["40px", null, "50px"]}
+            >
+              Sign In
+            </Button>
+          )}
 
           <HStack gap={1}>
             <Text>Don't have an account?</Text>
@@ -91,7 +117,7 @@ export default function Landing() {
       </Container>
 
       <Container>
-        <VStack w={"100%"} maxW={"420px"} mx={"auto"}>
+        <VStack w={"100%"} maxW={"360px"} mx={"auto"}>
           <Accordion allowMultiple mb={4} w={"100%"}>
             <AccordionItem
               border={"none"}

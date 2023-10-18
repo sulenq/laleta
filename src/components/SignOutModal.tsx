@@ -45,13 +45,13 @@ export default function SignOutModal() {
         }}
         isCentered
       >
-        <ModalOverlay backdropFilter={"blur(10px)"} />
+        <ModalOverlay />
 
         <ModalContent>
           <ModalHeader>Signing Out</ModalHeader>
 
           <ModalBody>
-            <Text>Finish working, wanna break?</Text>
+            <Text>Finish working, wanna take a break or just leave?</Text>
           </ModalBody>
 
           <ModalFooter>

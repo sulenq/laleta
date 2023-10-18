@@ -7,12 +7,13 @@ import { globalTheme } from "./chakraTheme/globalTheme";
 import NotFound from "./pages/NotFound";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
-import NewStore from "./pages/NewStore";
+import NewStore from "./pages/NewOutlet";
 import Work from "./pages/Work";
 import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import Manual from "./pages/Manual";
 import Settings from "./pages/Settings";
+import RequireRole from "./middleware/RequireAuth";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>
@@ -21,8 +22,15 @@ export const App = () => (
         <Route path="/" element={<Landing />} />
         <Route path="/signin" element={<SignIn />} />
 
-        <Route path="/home" element={<Home />} />
-        <Route path="/new-store" element={<NewStore />} />
+        <Route
+          path="/home"
+          element={
+            <RequireRole allowedRoles={[]}>
+              <Home />
+            </RequireRole>
+          }
+        />
+        <Route path="/new-outlet" element={<NewStore />} />
         <Route path="/work" element={<Work />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/profile" element={<Profile />} />

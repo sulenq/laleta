@@ -93,6 +93,8 @@ export default function SignIn() {
     <>
       <NavHeader
         title={"Signing In"}
+        left={"backButton"}
+        backPath={"/"}
         right={
           <ColorModeSwitcher
             className="btn sm-clicky"
@@ -108,13 +110,11 @@ export default function SignIn() {
           minH={"calc(100vh - 70px)"}
           py={8}
           justify={"center"}
+          animation={"fade-in 1s"}
+          transition={"200ms"}
         >
           <SimpleGrid w={"100%"} columns={[1, null, 2]} gap={12}>
-            <Image
-              src="/img/signin.png"
-              animation={"fade-in 1s"}
-              transition={"300ms"}
-            />
+            <Image src="/img/signin.png" animation={"fade-in 200ms"} />
 
             <VStack justify={"center"} w={"100%"} gap={0}>
               <form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>
@@ -165,7 +165,7 @@ export default function SignIn() {
                   borderRadius={"full"}
                   mb={4}
                 >
-                  SIGN IN
+                  Sign in
                 </PrimaryButton>
 
                 <Text

@@ -31,7 +31,7 @@ export default function NavHeader(props: any) {
         align={props.align || "center"}
       >
         {props.left === "backButton" ? (
-          <BackButton />
+          <BackButton backPath={props.backPath || null} />
         ) : (
           props.left || <Box w={"40px"} h={"40px"} />
         )}

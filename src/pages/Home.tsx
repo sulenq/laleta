@@ -27,7 +27,7 @@ export default function Home() {
         align={"flex-start"}
         left={<ProfileSummary user={authState} />}
         right={
-          <HStack gap={4}>
+          <HStack gap={4} flexShrink={0}>
             <ColorModeSwitcher size={"sm"} borderRadius={"full"} />
 
             <SignOutModal />

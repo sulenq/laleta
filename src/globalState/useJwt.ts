@@ -5,9 +5,9 @@ const useJwt = () => {
   const [authState, setAuthState] = useState<string | null>(null);
 
   useEffect(() => {
-    const authStateCookie = getCookie("_auth");
-    if (authStateCookie) {
-      setAuthState(authStateCookie);
+    const authCookie = getCookie("_auth");
+    if (authCookie) {
+      setAuthState(authCookie);
     }
   }, []);
 

@@ -20,7 +20,7 @@
   --wt: #eeeeee;
   --divider: #aeaeae30;
   --divider2: #a3a3a340;
-  --divider3: #a3a3a3aa;
+  --divider3: #a3a3a350;
   --trans: #ff000000;
   --cyan: #00ccff;
   --yellow: #ffcc00;
@@ -73,11 +73,11 @@ button {
 .btn:hover:not(:disabled),
 .btn-outline:hover:not(:disabled),
 .btn-solid:hover:not(:disabled) {
-  background: var(--divider) !important;
+  background: var(--divider2) !important;
 }
 .btn:active:not(:disabled),
 .btn-solid:active:not(:disabled) {
-  background: var(--divider2) !important;
+  background: var(--divider3) !important;
 }
 
 .clicky:active:not(:disabled) {

@@ -10,8 +10,8 @@ import {
 
 const homeNav: HomeNavItem[] = [
   {
-    name: "New Store",
-    link: "/new-store",
+    name: "New Outlet",
+    link: "/new-outlet",
     icon: Storefront,
     bg: "var(--p500)",
   },

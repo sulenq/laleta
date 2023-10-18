@@ -1,5 +1,7 @@
 export type Gender = "Male" | "Female";
 
+export type Role = "Admin" | "Cashier";
+
 export type Status = "Owner" | "Permanent" | "Contract" | "Intern";
 
 export type AuthState = {

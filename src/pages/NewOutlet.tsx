@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import HomeContainer from "../components/HomeContainer";
 import {
   Button,
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Icon,
   Image,
   Input,
   Select,
@@ -19,15 +20,20 @@ import * as yup from "yup";
 import axios from "axios";
 import createStoreCategory from "../const/createStoreCategory";
 import useJwt from "../globalState/useJwt";
+import Alert from "../components/Alert";
+import { ArrowRight } from "@phosphor-icons/react";
+import { Link } from "react-router-dom";
 
-export default function NewStore() {
+export default function NewOutlet() {
   const jwt = useJwt();
+  const [alertModal, setAlertModal] = useState<any>(null);
+  const [alertIsOpen, setAlertIsOpen] = useState<boolean>(false);
 
   const formik = useFormik({
     validateOnChange: false,
 
     validationSchema: yup.object().shape({
-      storeName: yup.string().required("Store Name required"),
+      outletName: yup.string().required("Outlet Name required"),
       address: yup.string().required("Address required"),
       phone: yup.string().required("Phone required"),
       email: yup.string().required("Email required"),
@@ -35,7 +41,7 @@ export default function NewStore() {
     }),
 
     initialValues: {
-      storeName: "",
+      outletName: "",
       address: "",
       phone: "",
       email: "",
@@ -44,7 +50,7 @@ export default function NewStore() {
 
     onSubmit: (values, { resetForm }) => {
       const data = {
-        storeName: values.storeName,
+        outletName: values.outletName,
         address: values.address,
         phone: values.phone,
         email: values.email,
@@ -54,64 +60,137 @@ export default function NewStore() {
       const options = {
         method: "POST",
         baseURL: process.env.REACT_APP_BASE_URL,
-        url: "api/store-create",
+        url: "api/outlet-create",
         headers: { Authorization: "Bearer " + jwt },
         data: data,
       };
 
-      async function createStore() {
+      async function createOutlet() {
         try {
           const response = await axios.request(options);
-          // console.log(response.data);
+          console.log(response.data);
 
           if (response.data.status === 201) {
-            console.log(response.data.status);
+            resetForm();
 
-            // navigate("/home");
+            setAlertModal({
+              img: "/img/newOutletOpened.png",
+              title: "New Outlet has Opened",
+              desc: "Your outlet is ready to set, go to Work at Home page then select your outlet and setup your outlet",
+              action: (
+                <Button
+                  as={Link}
+                  to={"/home"}
+                  w={"100%"}
+                  fontSize={[13, null, 15]}
+                  className="clicky"
+                  colorScheme="bnw"
+                  rightIcon={<Icon as={ArrowRight} fontSize={16} />}
+                >
+                  Home
+                </Button>
+              ),
+            });
+
+            setAlertIsOpen(true);
           } else if (response.data.status === 400) {
             const keys = Object.keys(response.data.invalid);
-            keys.forEach((i) => {
-              alert(response.data.invalid[i]);
+
+            setAlertModal({
+              img: "/img/400.png",
+              title: "Open New Outlet Failed",
+              desc: keys.map((i) => response.data.invalid[i]).join(", "),
+              action: (
+                <Button
+                  onClick={() => {
+                    setAlertIsOpen(false);
+                  }}
+                  w={"100%"}
+                  className="btn-solid clicky"
+                >
+                  Close
+                </Button>
+              ),
             });
+
+            setAlertIsOpen(true);
           } else {
-            alert(response.data.message);
+            setAlertModal({
+              img: "/img/bad.png",
+              title: "Something Wrong",
+              desc: "Try to refreshing the page or comeback later",
+              action: (
+                <Button
+                  onClick={() => {
+                    setAlertIsOpen(false);
+                  }}
+                  w={"100%"}
+                  className="clicky"
+                  colorScheme="bnw"
+                >
+                  Close
+                </Button>
+              ),
+            });
+
+            setAlertIsOpen(true);
           }
         } catch (error) {
-          console.error(error);
-          alert("Something wrong, try refreshing the page or comeback later");
-        }
+          setAlertModal({
+            img: "/img/bad.png",
+            title: "Something Wrong",
+            desc: "Try to refreshing the page or comeback later",
+            action: (
+              <Button
+                as={Link}
+                to={"/home"}
+                w={"100%"}
+                fontSize={[13, null, 15]}
+                className="clicky"
+                colorScheme="bnw"
+                rightIcon={<Icon as={ArrowRight} fontSize={16} />}
+              >
+                Home
+              </Button>
+            ),
+          });
 
-        // resetForm();
+          setAlertIsOpen(true);
+        }
       }
 
-      createStore();
+      createOutlet();
     },
   });
 
   return (
     <HomeContainer>
-      <NavHeader title={"Opening New Store"} left={"backButton"} />
+      <NavHeader
+        title={"Opening New Outlet"}
+        left={"backButton"}
+        backPath={"/home"}
+      />
 
       <Container flex={1}>
         <VStack flex={1} w={"100%"} justify={"center"} py={4}>
           <SimpleGrid w={"100%"} columns={[1, null, 2]} gap={8}>
-            <Image src="/img/newStore.png" title="New Store Vector" />
+            <Image src="/img/newOutlet.png" title="New Outlet Vector" />
 
             <form onSubmit={formik.handleSubmit}>
               <FormControl
                 mb={4}
-                isInvalid={formik.errors.storeName ? true : false}
+                isInvalid={formik.errors.outletName ? true : false}
               >
                 <FormLabel>Store Name</FormLabel>
                 <Input
-                  name="storeName"
+                  name="outletName"
                   placeholder="Jasmine Kiosk"
-                  value={formik.values.storeName}
+                  value={formik.values.outletName}
                   onChange={(e) => {
-                    formik.setFieldValue("storeName", e.target.value);
+                    formik.setFieldValue("outletName", e.target.value);
                   }}
                 />
-                <FormErrorMessage>{formik.errors.storeName}</FormErrorMessage>
+                <FormErrorMessage>{formik.errors.outletName}</FormErrorMessage>
               </FormControl>
 
               <FormControl
@@ -187,8 +266,9 @@ export default function NewStore() {
                 borderRadius={"full"}
                 mb={4}
                 className="clicky"
+                isLoading={alertIsOpen}
               >
-                Open New Store
+                Open New Outlet
               </Button>
 
               <Text
@@ -202,6 +282,14 @@ export default function NewStore() {
           </SimpleGrid>
         </VStack>
       </Container>
+
+      <Alert
+        alert={alertModal}
+        isOpen={alertIsOpen}
+        onClose={() => {
+          setAlertIsOpen(false);
+        }}
+      />
     </HomeContainer>
   );
 }
