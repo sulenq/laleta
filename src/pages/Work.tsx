@@ -27,16 +27,18 @@ import axios from "axios";
 import useJwt from "../globalState/useJwt";
 import useScreenWidth from "../utils/useGetScreenWidth";
 import { Link } from "react-router-dom";
+import useWorkOutletsSearch from "../globalState/useWorkOutletsSearch";
+import { WorkOutlets } from "../types";
 
 export default function Work() {
   const cfg = useComponentsBg();
   const jwt = useJwt();
-  const [data, setData] = useState<any>("loading");
+  const [data, setData] = useState<"loading" | WorkOutlets[] | 404>("loading");
   const stats = [
     {
       icon: Storefront,
-      value: data?.length || "~",
-      name: "total outlet",
+      value: typeof data === "object" ? data?.length : "~",
+      name: "total",
       bg: "var(--p500)",
     },
     {
@@ -53,6 +55,7 @@ export default function Work() {
     },
   ];
   const sw = useScreenWidth();
+  const { workOutletsSearch, setWorkOutletsSearch } = useWorkOutletsSearch();
 
   useEffect(() => {
     const options = {
@@ -97,16 +100,22 @@ export default function Work() {
 
         <SimpleGrid
           position={"sticky"}
+          zIndex={99}
           top={"60px"}
           columns={[1, null, 2]}
           gap={4}
           alignItems={"center"}
           {...cfg}
+          mb={[null, null, 4]}
         >
           <Input
             placeholder="Search outlet, e.g Jasmine Kiosk"
             className="filled"
             variant={"filled"}
+            onChange={(e) => {
+              setWorkOutletsSearch(e.target.value);
+            }}
+            value={workOutletsSearch}
           />
 
           <SimpleGrid columns={3} mb={4}>
@@ -158,78 +167,89 @@ export default function Work() {
 
         {typeof data === "object" && (
           <SimpleGrid columns={sw < 300 ? 1 : [2, 2, 3, 4]} gap={4}>
-            {data?.map((s: any, i: number) => (
-              <VStack
-                as={Link}
-                to={"/work/" + s.employee.role}
-                key={i}
-                // align={"flex-start"}
-                cursor={"pointer"}
-                transition={"200ms"}
-                _hover={{
-                  bg: "linear-gradient(to top, var(--divider), transparent, transparent)",
-                }}
-                borderRadius={8}
-                border={"1px solid var(--divider)"}
-                className="lg-clicky"
-              >
-                <VStack p={4} pb={0}>
-                  {s.outlet.image ? (
-                    <Box
-                      bgImage={s.outlet.image}
-                      bgSize={"cover"}
-                      bgPos={"center"}
-                      w={"85px"}
-                      h={"85px"}
-                      borderRadius={"full"}
-                      mb={4}
-                    />
-                  ) : (
-                    <Image maxW={"80px"} src={"/logoOutline.svg"} mb={4} />
-                  )}
+            {data
+              ?.filter((d: WorkOutlets) =>
+                d.outlet.outletName
+                  .toLocaleLowerCase()
+                  .includes(workOutletsSearch.toLocaleLowerCase())
+              )
+              ?.map((s: any, i: number) => (
+                <VStack
+                  as={Link}
+                  to={"/work/" + s.employee.role}
+                  key={i}
+                  // align={"flex-start"}
+                  cursor={"pointer"}
+                  transition={"200ms"}
+                  _hover={{
+                    bg: "linear-gradient(to top, var(--divider), transparent)",
+                  }}
+                  borderRadius={8}
+                  border={"1px solid var(--divider)"}
+                  className="lg-clicky"
+                >
+                  <VStack p={4} pb={0}>
+                    {s.outlet.image ? (
+                      <Box
+                        bgImage={s.outlet.image}
+                        bgSize={"cover"}
+                        bgPos={"center"}
+                        w={"85px"}
+                        h={"85px"}
+                        borderRadius={"full"}
+                        mb={4}
+                      />
+                    ) : (
+                      <Image maxW={"80px"} src={"/logo.svg"} mb={4} />
+                    )}
 
-                  <Text fontSize={[11, null, 13]} opacity={0.5}>
-                    {"ID : " + s.outlet.id}
-                  </Text>
-
-                  <Text
-                    fontWeight={600}
-                    fontSize={[17, null, 19]}
-                    color={"p.500"}
-                  >
-                    {s.outlet.outletName}
-                  </Text>
-
-                  <Badge
-                    fontSize={[11, null, 13]}
-                    colorScheme={
-                      s.employee.role === "Admin" ? "purple" : "yellow"
-                    }
-                  >
-                    {s.employee.role}
-                  </Badge>
-                </VStack>
-
-                <VStack w={"100%"} align={"flex-start"} p={3} borderRadius={6}>
-                  <HStack align={"flex-start"}>
-                    <Icon as={Pulse} fontSize={15} mt={"2px"} />
-                    <Text noOfLines={2}>{s.employee.status}</Text>
-                  </HStack>
-
-                  <HStack align={"flex-start"}>
-                    <Icon as={Storefront} fontSize={15} mt={"2px"} />
-                    <Text noOfLines={2}>{s.outlet.category}</Text>
-                  </HStack>
-
-                  <HStack align={"flex-start"}>
-                    <Icon as={MapPin} fontSize={15} mt={"1px"} />
-                    <Text noOfLines={3} fontSize={[11, null, 13]}>
-                      {s.outlet.address}
+                    <Text fontSize={[11, null, 13]} opacity={0.5}>
+                      {"ID : " + s.outlet.id}
                     </Text>
-                  </HStack>
+
+                    <Text
+                      fontWeight={600}
+                      fontSize={[17, null, 19]}
+                      color={"p.500"}
+                    >
+                      {s.outlet.outletName}
+                    </Text>
+
+                    <Badge
+                      fontSize={[11, null, 13]}
+                      colorScheme={
+                        s.employee.role === "Admin" ? "purple" : "yellow"
+                      }
+                    >
+                      {s.employee.role}
+                    </Badge>
+                  </VStack>
+
+                  <VStack
+                    w={"100%"}
+                    align={"flex-start"}
+                    p={3}
+                    borderRadius={6}
+                  >
+                    <HStack align={"flex-start"}>
+                      <Icon as={Pulse} fontSize={15} mt={"2px"} />
+                      <Text noOfLines={2}>{s.employee.status}</Text>
+                    </HStack>
+
+                    <HStack align={"flex-start"}>
+                      <Icon as={Storefront} fontSize={15} mt={"2px"} />
+                      <Text noOfLines={2}>{s.outlet.category}</Text>
+                    </HStack>
+
+                    <HStack align={"flex-start"}>
+                      <Icon as={MapPin} fontSize={15} mt={"1px"} />
+                      <Text noOfLines={3} fontSize={[11, null, 13]}>
+                        {s.outlet.address}
+                      </Text>
+                    </HStack>
+                  </VStack>
                 </VStack>
-              </VStack>
-            ))}
+              ))}
           </SimpleGrid>
         )}
       </Container>

@@ -22,3 +22,29 @@ export type HomeNavItem = {
   icon: any;
   bg: string;
 };
+
+export type WorkOutlets = {
+  outlet: {
+    address: string;
+    category: string;
+    createdAt: string;
+    createdBy: string;
+    deletedAt: string;
+    email: string;
+    id: string;
+    image: string;
+    outletName: string;
+    phone: string;
+    updatedAt: string;
+  };
+  employee: {
+    createdAt: string;
+    deletedAt: string;
+    id: string;
+    outletId: string;
+    role: string;
+    salary: string;
+    status: string;
+    updatedAt: string;
+  };
+};

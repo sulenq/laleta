@@ -39,7 +39,7 @@ export default function Home() {
         <VStack flex={1} justify={"center"}>
           <Image src="/logo.svg" mb={4} title="Laleta Logo" />
           <Text fontSize={28} fontWeight={800} mb={6}>
-            LALETA POS
+            LALETA
           </Text>
 
           <SimpleGrid columns={[2, null, 3]} gap={4} mb={4}>

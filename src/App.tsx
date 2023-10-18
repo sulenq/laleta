@@ -32,12 +32,47 @@ export const App = () => (
           }
         />
         <Route path="/new-outlet" element={<NewStore />} />
-        <Route path="/work" element={<Work />} />
+        <Route
+          path="/work"
+          element={
+            <RequireRole allowedRoles={[]}>
+              <Work />
+            </RequireRole>
+          }
+        />
         <Route path="/work/Admin" element={<AdminDashboard />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/manual" element={<Manual />} />
-        <Route path="/settings" element={<Settings />} />
+        <Route
+          path="/explore"
+          element={
+            <RequireRole allowedRoles={[]}>
+              <Explore />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <RequireRole allowedRoles={[]}>
+              <Profile />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/manual"
+          element={
+            <RequireRole allowedRoles={[]}>
+              <Manual />
+            </RequireRole>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <RequireRole allowedRoles={[]}>
+              <Settings />
+            </RequireRole>
+          }
+        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -62,7 +62,7 @@ export default function Landing() {
                 Welcome to the
               </Text>
               <Text fontSize={28} fontWeight={800} lineHeight={1.4}>
-                LALETA POS
+                LALETA
               </Text>
             </Box>
           </HStack>
@@ -102,9 +102,9 @@ export default function Landing() {
           )}
 
           <HStack gap={1}>
-            <Text>Don't have an account?</Text>
+            <Text fontSize={[11, null, 13]}>Don't have an account?</Text>
             <Text
-              fontSize={14}
+              fontSize={[11, null, 13]}
               as={Link}
               to={"/signup"}
               fontWeight={600}
