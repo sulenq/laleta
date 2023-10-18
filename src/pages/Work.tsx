@@ -90,7 +90,7 @@ export default function Work() {
         backPath={"/home"}
       />
 
-      <Container flex={1} pb={4}>
+      <Container flex={1} pb={4} py={1}>
         {/* <Text fontWeight={500} mb={2}>
           Select Outlet
         </Text> */}
@@ -103,7 +103,11 @@ export default function Work() {
           alignItems={"center"}
           {...cfg}
         >
-          <Input placeholder="Search outlet, e.g Jasmine Kiosk" />
+          <Input
+            placeholder="Search outlet, e.g Jasmine Kiosk"
+            className="filled"
+            variant={"filled"}
+          />
 
           <SimpleGrid columns={3} mb={4}>
             {stats.map((s, i) => (
