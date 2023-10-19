@@ -4,7 +4,7 @@ import React from "react";
 export default function ContentSpinner() {
   return (
     <VStack flex={1} justify={"center"}>
-      <Spinner />
+      <Spinner size={"lg"} />
     </VStack>
   );
 }

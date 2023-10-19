@@ -28,16 +28,18 @@ import useJwt from "../globalState/useJwt";
 import useScreenWidth from "../utils/useGetScreenWidth";
 import { Link } from "react-router-dom";
 import useWorkOutletsSearch from "../globalState/useWorkOutletsSearch";
-import { WorkOutlets } from "../types";
+import { Work } from "../types";
 
-export default function Work() {
+export default function WorkOutlets() {
   const cfg = useComponentsBg();
   const jwt = useJwt();
-  const [data, setData] = useState<"loading" | WorkOutlets[] | 404>("loading");
+  const [workOutlets, setWorkOutlets] = useState<"loading" | Work[] | 404>(
+    "loading"
+  );
   const stats = [
     {
       icon: Storefront,
-      value: typeof data === "object" ? data?.length : "~",
+      value: typeof workOutlets === "object" ? workOutlets?.length : "~",
       name: "total",
       bg: "var(--p500)",
     },
@@ -71,9 +73,9 @@ export default function Work() {
         console.log(response.data);
 
         if (response.data.status === 200) {
-          setData(response.data.data);
+          setWorkOutlets(response.data.data);
         } else if (response.data.status === 404) {
-          setData(404);
+          setWorkOutlets(404);
         }
       } catch (error) {
         console.error(error);
@@ -157,26 +159,26 @@ export default function Work() {
           </SimpleGrid>
         </SimpleGrid>
 
-        {data === "loading" && <ContentSpinner />}
+        {workOutlets === "loading" && <ContentSpinner />}
 
-        {data === 404 && (
+        {workOutlets === 404 && (
           <VStack flex={1} py={4}>
             <Text>You're curently not employed to any outlets</Text>
           </VStack>
         )}
 
-        {typeof data === "object" && (
+        {typeof workOutlets === "object" && (
           <SimpleGrid columns={sw < 300 ? 1 : [2, 2, 3, 4]} gap={4}>
-            {data
-              ?.filter((d: WorkOutlets) =>
+            {workOutlets
+              ?.filter((d: Work) =>
                 d.outlet.outletName
                   .toLocaleLowerCase()
                   .includes(workOutletsSearch.toLocaleLowerCase())
               )
-              ?.map((s: any, i: number) => (
+              ?.map((s, i) => (
                 <VStack
                   as={Link}
-                  to={"/work/" + s.employee.role}
+                  to={`/work/${s.outlet.id}/${s.employee.id}/${s.employee.role}/dashboard`}
                   key={i}
                   // align={"flex-start"}
                   cursor={"pointer"}

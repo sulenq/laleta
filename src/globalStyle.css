@@ -110,7 +110,7 @@ input.filled:focus-visible {
   /* border: 1px solid var(--p500) !important; */
 }
 input.filled {
-  border: 1px solid var(--divider) !important;
+  border: none !important;
   background: var(--divider) !important;
 }
 input.filled:focus,

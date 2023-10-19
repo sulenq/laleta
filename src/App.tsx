@@ -8,13 +8,14 @@ import NotFound from "./pages/NotFound";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import NewOutlet from "./pages/NewOutlet";
-import Work from "./pages/Work";
+import WorkOutlets from "./pages/WorkOutlets";
 import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import Manual from "./pages/Manual";
 import Settings from "./pages/Settings";
 import RequireRole from "./middleware/RequireAuth";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminProduct from "./pages/AdminProduct";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>
@@ -31,16 +32,26 @@ export const App = () => (
             </RequireRole>
           }
         />
+
         <Route path="/new-outlet" element={<NewOutlet />} />
+
         <Route
           path="/work"
           element={
             <RequireRole allowedRoles={[]}>
-              <Work />
+              <WorkOutlets />
             </RequireRole>
           }
         />
-        <Route path="/work/Admin" element={<AdminDashboard />} />
+        <Route
+          path="/work/:outletId/:employeeId/Admin/dashboard"
+          element={<AdminDashboard />}
+        />
+        <Route
+          path="/work/:outletId/:employeeId/Admin/product"
+          element={<AdminProduct />}
+        />
+
         <Route
           path="/explore"
           element={
@@ -49,6 +60,7 @@ export const App = () => (
             </RequireRole>
           }
         />
+
         <Route
           path="/profile"
           element={
@@ -57,6 +69,7 @@ export const App = () => (
             </RequireRole>
           }
         />
+
         <Route
           path="/manual"
           element={
@@ -65,6 +78,7 @@ export const App = () => (
             </RequireRole>
           }
         />
+
         <Route
           path="/settings"
           element={
