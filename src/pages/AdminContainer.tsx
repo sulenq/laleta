@@ -106,7 +106,7 @@ export default function AdminContainer({ children }: any) {
 
               <Text
                 fontWeight={500}
-                fontSize={11}
+                fontSize={[11, null, 13]}
                 color={"p.500"}
                 noOfLines={1}
               >
@@ -125,14 +125,14 @@ export default function AdminContainer({ children }: any) {
               <Link to={"/home"}>
                 <IconButton
                   aria-label="home button"
-                  icon={<Icon as={House} />}
+                  icon={<Icon as={House} fontSize={[15, null, 17]} />}
                   size={"xs"}
                   variant={"ghost"}
                   className="btn"
                 />
               </Link>
 
-              <ColorModeSwitcher size={"xs"} fontSize={13} />
+              <ColorModeSwitcher size={"xs"} fontSize={[15, null, 17]} />
             </HStack>
           </HStack>
         </Container>
@@ -178,14 +178,18 @@ export default function AdminContainer({ children }: any) {
                     borderRadius={"full"}
                   >
                     {n.name === "Profile" ? (
-                      <Box
-                        w={"25px"}
-                        h={"25px"}
-                        bgImage={user?.image}
-                        bgSize={"cover"}
-                        bgPos={"top center"}
-                        borderRadius={"full"}
-                      />
+                      user?.image ? (
+                        <Box
+                          w={"25px"}
+                          h={"25px"}
+                          bgImage={user?.image}
+                          bgSize={"cover"}
+                          bgPos={"top center"}
+                          borderRadius={"full"}
+                        />
+                      ) : (
+                        <Icon as={n.icon} fontSize={23} color={"white"} />
+                      )
                     ) : (
                       <Icon as={n.icon} fontSize={23} color={"white"} />
                     )}

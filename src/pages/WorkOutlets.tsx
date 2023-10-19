@@ -171,8 +171,9 @@ export default function WorkOutlets() {
                     bg: "var(--divider)",
                   }}
                   borderRadius={8}
-                  border={"1px solid var(--divider)"}
+                  border={"1px solid var(--divider3)"}
                   className="lg-clicky"
+                  p={[1, null, 2]}
                 >
                   <VStack p={4} pb={0}>
                     {s.outlet.image ? (

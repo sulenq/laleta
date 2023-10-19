@@ -79,10 +79,10 @@ export const globalTheme = extendTheme({
           backdropFilter: "blur(5px)",
         },
         header: {
-          px: "16px",
+          px: "22px",
         },
         body: {
-          px: "16px",
+          px: "22px",
         },
         footer: {
           px: "16px",

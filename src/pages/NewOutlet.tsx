@@ -181,7 +181,7 @@ export default function NewOutlet() {
                 mb={4}
                 isInvalid={formik.errors.outletName ? true : false}
               >
-                <FormLabel>Store Name</FormLabel>
+                <FormLabel>Outlet Name</FormLabel>
                 <Input
                   name="outletName"
                   placeholder="Jasmine Kiosk"

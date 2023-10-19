@@ -8,6 +8,7 @@ const useGetRetailProduct = () => {
   const jwt = useJwt();
   const { outletId } = useParams();
   const [products, setProducts] = useState<RetailProduct[] | null>(null);
+  const [notFound, setNotFound] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
@@ -21,8 +22,14 @@ const useGetRetailProduct = () => {
     const getRetailProduct = async () => {
       try {
         const response = await axios.request(options);
-        console.log(response.data);
-        setProducts(response.data.products);
+        const res = response.data;
+        console.log(res);
+
+        if (res.status === 200) {
+          setProducts(response.data.products);
+        } else if (res.status === 404) {
+          setNotFound(true);
+        }
       } catch (error) {
         console.log(error);
         setError(error);
@@ -34,17 +41,26 @@ const useGetRetailProduct = () => {
     }
   }, [jwt, outletId]);
 
-  if (products) {
+  if (error) {
     return {
-      status: true,
-      data: products,
+      status: "error",
+      data: error,
     };
   }
 
-  if (error) {
+  if (notFound) {
     return {
-      status: false,
-      data: error,
+      status: "notFound",
+      data: {
+        message: "Products not found",
+      },
+    };
+  }
+
+  if (products) {
+    return {
+      status: "found",
+      data: products,
     };
   }
 };
