@@ -21,12 +21,14 @@ import { Link, Navigate, useLocation, useParams } from "react-router-dom";
 import { adminNav } from "../const/adminNav";
 import ContentSpinner from "../components/ContentSpinner";
 import usePayload from "../globalState/usePayload";
+import ProfileSummary from "../components/ProfileSummary";
 
 export default function AdminContainer({ children }: any) {
-  const [outlet, setOutlet] = useState<"loading" | 404 | Outlet>("loading");
-  const [employee, setEmployee] = useState<"loading" | 404 | Employee>(
-    "loading"
-  );
+  const [outlet, setOutlet] = useState<Outlet | null>(null);
+  const [employee, setEmployee] = useState<Employee | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<any>(null);
+
   const jwt = useJwt();
   const user = usePayload();
   const { outletId, employeeId } = useParams();
@@ -53,10 +55,11 @@ export default function AdminContainer({ children }: any) {
         if (response.data.status === 200) {
           setOutlet(response.data.outlet);
         } else if (response.data.status === 404) {
-          setOutlet(404);
+          return <Navigate to="/signin" />;
         }
       } catch (error) {
         console.error(error);
+        setError(error);
       }
     };
 
@@ -75,10 +78,13 @@ export default function AdminContainer({ children }: any) {
         if (response.data.status === 200) {
           setEmployee(response.data.employee);
         } else if (response.data.status === 404) {
-          setEmployee(404);
+          <Navigate to="/signin" />;
         }
+
+        setLoading(false);
       } catch (error) {
         console.error(error);
+        setError(error);
       }
     };
 
@@ -88,58 +94,64 @@ export default function AdminContainer({ children }: any) {
     }
   }, [jwt, employeeId, outletId]);
 
-  if (outlet === 404 || employee === 404) return <Navigate to="/signin" />;
+  const Content = () => {
+    return loading ? (
+      <ContentSpinner />
+    ) : (
+      <>
+        <Container borderBottom={"1px solid var(--divider)"}>
+          <HStack py={1} justify={"space-between"}>
+            <HStack>
+              {sw < 770 ? <Image src="/logo.svg" w={"15px"} /> : ""}
 
-  if (sw < 770)
+              <Text
+                fontWeight={500}
+                fontSize={11}
+                color={"p.500"}
+                noOfLines={1}
+              >
+                {outlet?.outletName}
+              </Text>
+            </HStack>
+
+            <HStack mr={-1}>
+              <HStack opacity={0.5} mr={"6px"}>
+                <Icon as={CalendarBlank} fontSize={11} />
+                <Text fontSize={11} noOfLines={1}>
+                  {formattedToday}
+                </Text>
+              </HStack>
+
+              <Link to={"/home"}>
+                <IconButton
+                  aria-label="home button"
+                  icon={<Icon as={House} />}
+                  size={"xs"}
+                  variant={"ghost"}
+                  className="btn"
+                />
+              </Link>
+
+              <ColorModeSwitcher size={"xs"} fontSize={13} />
+            </HStack>
+          </HStack>
+        </Container>
+
+        <VStack flex={1} align={"strech"} gap={0}>
+          {children}
+        </VStack>
+      </>
+    );
+  };
+
+  if (error) {
+    return <Text>Error : {error.message}</Text>;
+  }
+
+  if (sw < 900) {
     return (
       <VStack align={"stretch"} minH={"100vh"} gap={0}>
-        {outlet === "loading" || employee === "loading" ? (
-          <ContentSpinner />
-        ) : (
-          <>
-            <Container borderBottom={"1px solid var(--divider)"}>
-              <HStack py={1} justify={"space-between"}>
-                <HStack>
-                  <Image src="/logo.svg" w={"15px"} />
-
-                  <Text
-                    fontWeight={500}
-                    fontSize={11}
-                    color={"p.500"}
-                    noOfLines={1}
-                  >
-                    {outlet.outletName}
-                  </Text>
-                </HStack>
-
-                <HStack mr={-1}>
-                  <HStack opacity={0.5} mr={"6px"}>
-                    <Icon as={CalendarBlank} fontSize={11} />
-                    <Text fontSize={11} noOfLines={1}>
-                      {formattedToday}
-                    </Text>
-                  </HStack>
-
-                  <Link to={"/home"}>
-                    <IconButton
-                      aria-label="home button"
-                      icon={<Icon as={House} />}
-                      size={"xs"}
-                      variant={"ghost"}
-                      className="btn"
-                    />
-                  </Link>
-
-                  <ColorModeSwitcher size={"xs"} fontSize={13} />
-                </HStack>
-              </HStack>
-            </Container>
-
-            <VStack flex={1} align={"strech"}>
-              {children}
-            </VStack>
-          </>
-        )}
+        <Content />
 
         <HStack
           justify={"space-evenly"}
@@ -185,14 +197,87 @@ export default function AdminContainer({ children }: any) {
         </HStack>
       </VStack>
     );
+  }
 
   return (
-    <VStack align={"stretch"} minH={"100vh"}>
-      <Container borderBottom={"1px solid var(--divider)"}>
-        <HStack py={2}>
-          <Image src="/logo.svg" w={"20px"} />
-        </HStack>
-      </Container>
-    </VStack>
+    <HStack
+      align={"flex-start"}
+      minH={"100vh"}
+      w={"100%"}
+      maxW={"1280px"}
+      mx={"auto"}
+    >
+      <VStack
+        w={"100%"}
+        minH={"100vh"}
+        maxW={"200px"}
+        pt={8}
+        pb={4}
+        px={4}
+        justify={"space-between"}
+        align={"stretch"}
+      >
+        <VStack gap={0}>
+          <Image w={"40px"} src="/logo.svg" mb={2} />
+          <Text fontWeight={800} mb={4}>
+            LALETA
+          </Text>
+
+          {adminNav.map((n, i) => {
+            const pathSegments = location.pathname.split("/");
+            const linkSegment = pathSegments[pathSegments.length - 1];
+            const isActive = n.linkAlias === linkSegment;
+
+            return n.name === "Profile" ? (
+              ""
+            ) : (
+              <HStack
+                as={Link}
+                to={`/work/${outletId}/${employeeId}/Admin/${n.linkAlias}`}
+                w={"100%"}
+                p={"6px"}
+                borderRadius={"full"}
+                bg={isActive ? "var(--divider)" : ""}
+                _hover={{ bg: "var(--divider)" }}
+                transition={"200ms"}
+                mb={3}
+              >
+                <Center
+                  p={1}
+                  bg={n.bg}
+                  cursor={"pointer"}
+                  transition={"200ms"}
+                  borderRadius={"full"}
+                >
+                  <Icon as={n.icon} fontSize={17} color={"white"} />
+                </Center>
+
+                <Text fontWeight={500}>{n.name}</Text>
+              </HStack>
+            );
+          })}
+        </VStack>
+
+        <VStack>
+          <ProfileSummary
+            user={user}
+            role={employee?.role}
+            roleColor={employee?.roleColor}
+          />
+        </VStack>
+      </VStack>
+
+      <VStack
+        w={"100%"}
+        minH={"100vh"}
+        flex={1}
+        gap={0}
+        align={"stretch"}
+        borderLeft={"1px solid var(--divider)"}
+        borderRight={"1px solid var(--divider)"}
+      >
+        <Content />
+      </VStack>
+    </HStack>
   );
 }

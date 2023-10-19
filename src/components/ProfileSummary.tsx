@@ -1,4 +1,4 @@
-import { Box, Center, HStack, Icon, Text } from "@chakra-ui/react";
+import { Badge, Box, Center, HStack, Icon, Text } from "@chakra-ui/react";
 import { User } from "@phosphor-icons/react";
 
 export default function ProfileSummary(props: any) {
@@ -12,8 +12,8 @@ export default function ProfileSummary(props: any) {
           bgImage={user.image}
           bgSize={"cover"}
           bgPos={"top center"}
-          w={"40px"}
-          h={"40px"}
+          w={"35px"}
+          h={"35px"}
           borderRadius={"full"}
         />
       ) : (
@@ -37,14 +37,24 @@ export default function ProfileSummary(props: any) {
         >
           {user?.name}
         </Text>
-        <Text
-          textAlign={"left"}
-          fontSize={[11, null, 13]}
-          lineHeight={1}
-          opacity={0.5}
-        >
-          {user?.username}
-        </Text>
+        <HStack>
+          <Text
+            textAlign={"left"}
+            fontSize={[11, null, 13]}
+            lineHeight={1}
+            opacity={0.5}
+          >
+            {user?.username}
+          </Text>
+
+          {props.role ? (
+            <Badge fontSize={[7, null, 9]} colorScheme={props.roleColor}>
+              {props.role}
+            </Badge>
+          ) : (
+            ""
+          )}
+        </HStack>
       </Box>
     </HStack>
   );

@@ -29,6 +29,7 @@ export type Employee = {
   id: string;
   outletId: string;
   role: string;
+  roleColor: string;
   salary: string;
   status: string;
   updatedAt: string;
@@ -51,4 +52,18 @@ export type Outlet = {
 export type Work = {
   outlet: Outlet;
   employee: Employee;
+};
+
+export type RetailProduct = {
+  id: string;
+  outletId: string;
+  createdBy: string;
+  code: string;
+  name: string;
+  price: string;
+  stock: string;
+  category: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
 };

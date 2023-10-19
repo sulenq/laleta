@@ -23,7 +23,7 @@
   --divider3: #bfbfbf60;
   --trans: #ff000000;
   --cyan: #00ccff;
-  --yellow: #ffcc00;
+  --yellow: #f7cb1e;
   --green: #33cc66;
   --purple: #6699ff;
   --gray: #808080;
@@ -51,6 +51,14 @@ p {
 label {
   font-size: 13px !important;
 }
+td {
+  font-size: 13px;
+  border-bottom: none !important;
+}
+th {
+  font-size: 9px !important;
+  border-bottom: none !important;
+}
 
 button {
   font-size: 13px !important;
@@ -70,10 +78,12 @@ button {
 .btn-outline {
   border: 1px solid var(--divider2);
 }
-.btn:hover:not(:disabled),
 .btn-outline:hover:not(:disabled),
 .btn-solid:hover:not(:disabled) {
   background: var(--divider2) !important;
+}
+.btn:hover:not(:disabled) {
+  background: var(--divider) !important;
 }
 .btn:active:not(:disabled),
 .btn-solid:active:not(:disabled) {
@@ -148,6 +158,13 @@ select {
   label {
     font-size: 15px !important;
   }
+  td {
+    font-size: 15px;
+  }
+  th {
+    font-size: 11px !important;
+  }
+
   button {
     font-size: 14px !important;
   }

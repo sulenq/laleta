@@ -105,7 +105,7 @@ export default function WorkOutlets() {
           gap={4}
           alignItems={"center"}
           {...cfg}
-          mb={[null, null, 4]}
+          mb={3}
         >
           <Input
             placeholder="Search outlet, e.g Jasmine Kiosk"
@@ -117,28 +117,15 @@ export default function WorkOutlets() {
             value={workOutletsSearch}
           />
 
-          <SimpleGrid columns={3} mb={4}>
+          <SimpleGrid columns={3} gap={6}>
             {stats.map((s, i) => (
-              <HStack
-                key={i}
-                pl={i === 0 ? 2 : 4}
-                pr={i === 2 ? 3 : 4}
-                py={1}
-                justify={"space-between"}
-                borderRight={i === 0 ? "1px solid var(--divider)" : 4}
-                borderLeft={i === 2 ? "1px solid var(--divider)" : 4}
-              >
+              <HStack key={i} py={1} justify={"space-between"}>
                 <Center p={1} borderRadius={"full"} bg={s.bg}>
                   <Icon as={s.icon} fontSize={21} color={"white"} />
                 </Center>
 
                 <VStack align={"flex-end"} gap={0}>
-                  <Text
-                    fontSize={[17, null, 19]}
-                    fontWeight={600}
-                    lineHeight={1}
-                    mb={"2px"}
-                  >
+                  <Text fontWeight={600} lineHeight={1} mb={"2px"}>
                     {s.value}
                   </Text>
                   <Text
