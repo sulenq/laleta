@@ -4,7 +4,7 @@ const useScreenWidth = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    let resizeTimeout;
+    let resizeTimeout: any;
     const handleResize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {

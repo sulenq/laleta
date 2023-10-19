@@ -102,15 +102,22 @@ export default function AdminContainer({ children }: any) {
                 <HStack>
                   <Image src="/logo.svg" w={"15px"} />
 
-                  <Text fontWeight={500} fontSize={11} color={"p.500"}>
+                  <Text
+                    fontWeight={500}
+                    fontSize={11}
+                    color={"p.500"}
+                    noOfLines={1}
+                  >
                     {outlet.outletName}
                   </Text>
                 </HStack>
 
                 <HStack mr={-1}>
-                  <HStack opacity={0.5} mr={'6px'}>
+                  <HStack opacity={0.5} mr={"6px"}>
                     <Icon as={CalendarBlank} fontSize={11} />
-                    <Text fontSize={11}>{formattedToday}</Text>
+                    <Text fontSize={11} noOfLines={1}>
+                      {formattedToday}
+                    </Text>
                   </HStack>
 
                   <Link to={"/home"}>

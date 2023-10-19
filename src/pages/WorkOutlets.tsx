@@ -95,15 +95,12 @@ export default function WorkOutlets() {
         backPath={"/home"}
       />
 
-      <Container flex={1} pb={4} py={1}>
-        {/* <Text fontWeight={500} mb={2}>
-          Select Outlet
-        </Text> */}
-
+      <Container flex={1} pb={4}>
         <SimpleGrid
-          position={"sticky"}
-          zIndex={99}
-          top={"60px"}
+          // position={"sticky"}
+          // zIndex={99}
+          // top={"60px"}
+          py={1}
           columns={[1, null, 2]}
           gap={4}
           alignItems={"center"}
