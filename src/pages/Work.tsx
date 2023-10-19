@@ -182,7 +182,7 @@ export default function Work() {
                   cursor={"pointer"}
                   transition={"200ms"}
                   _hover={{
-                    bg: "linear-gradient(to top, var(--divider), transparent)",
+                    bg: "var(--divider)",
                   }}
                   borderRadius={8}
                   border={"1px solid var(--divider)"}

@@ -7,7 +7,7 @@ import { globalTheme } from "./chakraTheme/globalTheme";
 import NotFound from "./pages/NotFound";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
-import NewStore from "./pages/NewOutlet";
+import NewOutlet from "./pages/NewOutlet";
 import Work from "./pages/Work";
 import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
@@ -31,7 +31,7 @@ export const App = () => (
             </RequireRole>
           }
         />
-        <Route path="/new-outlet" element={<NewStore />} />
+        <Route path="/new-outlet" element={<NewOutlet />} />
         <Route
           path="/work"
           element={
