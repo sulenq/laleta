@@ -15,7 +15,7 @@ import Manual from "./pages/Manual";
 import Settings from "./pages/Settings";
 import RequireRole from "./middleware/RequireAuth";
 import AdminDashboard from "./pages/AdminDashboard";
-import AdminProduct from "./pages/AdminProduct";
+import AdminProduct from "./pages/AdminRetailProduct";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>

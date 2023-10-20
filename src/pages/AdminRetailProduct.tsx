@@ -23,7 +23,7 @@ import useScreenWidth from "../utils/useGetScreenWidth";
 import useGetRetailProduct from "../utils/useGetRetailProduct";
 import AddRetailProduct from "../components/AddRetailProduct";
 
-export default function AdminProduct() {
+export default function AdminRetailProduct() {
   const sw = useScreenWidth();
 
   const retailProducts = useGetRetailProduct();
