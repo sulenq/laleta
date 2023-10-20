@@ -67,3 +67,11 @@ export type RetailProduct = {
   updatedAt: string;
   deletedAt: string;
 };
+
+export type FetchedData =
+  | {
+      status: "error" | "notFound" | "found";
+      data: any;
+    }
+  | "loading"
+  | undefined;

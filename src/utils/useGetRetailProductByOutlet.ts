@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RetailProduct } from "../types";
 
-const useGetRetailProduct = () => {
+const useGetRetailProductByOutlet = () => {
   const jwt = useJwt();
   const { outletId } = useParams();
   const [products, setProducts] = useState<RetailProduct[] | null>(null);
@@ -65,4 +65,4 @@ const useGetRetailProduct = () => {
   }
 };
 
-export default useGetRetailProduct;
+export default useGetRetailProductByOutlet;

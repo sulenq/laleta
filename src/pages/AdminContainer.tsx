@@ -17,13 +17,14 @@ import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
 import { Employee, Outlet } from "../types";
 import useJwt from "../globalState/useJwt";
 import axios from "axios";
-import { Link, Navigate, useLocation, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { adminNav } from "../const/adminNav";
 import ContentSpinner from "../components/ContentSpinner";
 import usePayload from "../globalState/usePayload";
 import ProfileSummary from "../components/ProfileSummary";
+import { useComponentsBg } from "../const/colorModeValues";
 
-export default function AdminContainer({ children }: any) {
+export default function AdminContainer({ activeNav, children }: any) {
   const [outlet, setOutlet] = useState<Outlet | null>(null);
   const [employee, setEmployee] = useState<Employee | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -37,7 +38,7 @@ export default function AdminContainer({ children }: any) {
   const formattedToday = `${today.getDate()} ${today.toLocaleString("default", {
     month: "short",
   })}`;
-  const location = useLocation();
+  const cfg = useComponentsBg();
 
   useEffect(() => {
     const getOutletOptions = {
@@ -99,7 +100,13 @@ export default function AdminContainer({ children }: any) {
       <ContentSpinner />
     ) : (
       <>
-        <Container borderBottom={"1px solid var(--divider)"}>
+        <Container
+          position={"sticky"}
+          zIndex={99}
+          top={0}
+          borderBottom={"1px solid var(--divider)"}
+          {...cfg}
+        >
           <HStack py={1} justify={"space-between"}>
             <HStack>
               {sw < 770 ? <Image src="/logo.svg" w={"15px"} /> : ""}
@@ -148,7 +155,7 @@ export default function AdminContainer({ children }: any) {
           </HStack>
         </Container>
 
-        <VStack flex={1} align={"strech"} gap={0}>
+        <VStack flex={1} align={"strech"} gap={0} animation={"fade-in 200ms"}>
           {children}
         </VStack>
       </>
@@ -169,11 +176,11 @@ export default function AdminContainer({ children }: any) {
           p={2}
           borderTop={"1px solid var(--divider)"}
           bg={"black"}
+          position={"sticky"}
+          bottom={0}
         >
           {adminNav.map((n, i) => {
-            const pathSegments = location.pathname.split("/");
-            const linkSegment = pathSegments[pathSegments.length - 1];
-            const isActive = n.linkAlias === linkSegment;
+            const isActive = n.linkAlias === activeNav;
 
             return (
               <Tooltip key={i} label={n.name}>
@@ -224,13 +231,16 @@ export default function AdminContainer({ children }: any) {
     >
       <VStack
         w={"100%"}
-        minH={"100vh"}
+        h={"100vh"}
         maxW={"200px"}
         pt={8}
         pb={4}
         px={4}
         justify={"space-between"}
         align={"stretch"}
+        position={"sticky"}
+        top={0}
+        overflow={"auto"}
       >
         <VStack gap={0}>
           <Image w={"40px"} src="/logo.svg" mb={2} />
@@ -239,14 +249,13 @@ export default function AdminContainer({ children }: any) {
           </Text>
 
           {adminNav.map((n, i) => {
-            const pathSegments = location.pathname.split("/");
-            const linkSegment = pathSegments[pathSegments.length - 1];
-            const isActive = n.linkAlias === linkSegment;
+            const isActive = n.linkAlias === activeNav;
 
             return n.name === "Profile" ? (
               ""
             ) : (
               <HStack
+                key={i}
                 as={Link}
                 to={`/work/${outletId}/${employeeId}/Admin/${n.linkAlias}`}
                 w={"100%"}
@@ -290,6 +299,7 @@ export default function AdminContainer({ children }: any) {
         align={"stretch"}
         borderLeft={"1px solid var(--divider)"}
         borderRight={"1px solid var(--divider)"}
+        animation={"fade-in 200ms"}
       >
         <Content />
       </VStack>

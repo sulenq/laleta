@@ -16,8 +16,8 @@ export default function NavHeader(props: any) {
   return (
     <VStack
       w={"100%"}
-      zIndex={99}
-      position={"sticky"}
+      zIndex={98}
+      position={props.position || "sticky"}
       top={0}
       left={0}
       p={"10px"}

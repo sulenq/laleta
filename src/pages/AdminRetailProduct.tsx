@@ -16,20 +16,20 @@ import {
   Thead,
   Tr,
   VStack,
-  useDisclosure,
 } from "@chakra-ui/react";
 import Container from "../components/Container";
 import { Bookmark, GridFour, Package } from "@phosphor-icons/react";
 import useScreenWidth from "../utils/useGetScreenWidth";
-import useGetRetailProduct from "../utils/useGetRetailProduct";
+import useGetRetailProduct from "../utils/useGetRetailProductByOutlet";
 import AddRetailProduct from "../components/AddRetailProduct";
-import RetailProductItem from "../components/RetailProductItem";
 import { RetailProduct } from "../types";
-import RetailProductUpdate from "../components/RetailProductUpdate";
-import useRetailProductUpdate from "../globalState/useRetailProductUpdate";
+import useFormatNumber from "../utils/useFormatNumber";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminRetailProduct() {
   const sw = useScreenWidth();
+  const fn = useFormatNumber;
+  const navigate = useNavigate();
 
   const retailProducts = useGetRetailProduct();
   const stats = [
@@ -53,11 +53,8 @@ export default function AdminRetailProduct() {
     },
   ];
 
-  const { isOpen, onClose, onOpen } = useDisclosure();
-  const { updateData } = useRetailProductUpdate();
-
   return (
-    <AdminContainer>
+    <AdminContainer activeNav="product">
       <Container mt={2}>
         <HStack justify={"space-between"} mb={3}>
           <Text fontWeight={600} fontSize={[23, null, 25]} noOfLines={1}>
@@ -170,7 +167,41 @@ export default function AdminRetailProduct() {
 
                   <Tbody>
                     {retailProducts.data.map((p: RetailProduct, i: number) => (
-                      <RetailProductItem key={i} p={p} onOpen={onOpen} />
+                      <Tr
+                        key={i}
+                        className="listItem"
+                        _hover={{ bg: "var(--divider)" }}
+                        cursor={"pointer"}
+                        onClick={() => [navigate(`update/${p.id}`)]}
+                      >
+                        <Td className="before" py={2} px={"18px"}>
+                          <Box>
+                            <Text>{p.name}</Text>
+                            <Text fontSize={11} opacity={0.5}>
+                              {p.code}
+                            </Text>
+                          </Box>
+                        </Td>
+
+                        <Td textAlign={"center"} py={2} px={"18px"}>
+                          {p.category}
+                        </Td>
+
+                        <Td py={2} px={"18px"}>
+                          <Box>
+                            <Text textAlign={"right"}>
+                              {fn(parseInt(p.price))}
+                            </Text>
+                            <Text
+                              textAlign={"right"}
+                              fontSize={11}
+                              opacity={0.5}
+                            >
+                              {fn(parseInt(p.stock))}
+                            </Text>
+                          </Box>
+                        </Td>
+                      </Tr>
                     ))}
                   </Tbody>
                 </>
@@ -232,6 +263,7 @@ export default function AdminRetailProduct() {
                         className="listItem"
                         _hover={{ bg: "var(--divider)" }}
                         cursor={"pointer"}
+                        onClick={() => [navigate(`update/${p.id}`)]}
                       >
                         <Td className="before" py={2} px={"18px"} pl={6}>
                           {p.code}
@@ -258,12 +290,6 @@ export default function AdminRetailProduct() {
                 </>
               )}
             </Table>
-
-            <RetailProductUpdate
-              p={updateData}
-              isOpen={isOpen}
-              onClose={onClose}
-            />
           </Box>
         </>
       )}
