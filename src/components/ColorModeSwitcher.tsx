@@ -6,7 +6,7 @@ import {
   IconButtonProps,
   Icon,
 } from "@chakra-ui/react";
-import { MoonStars, SunHorizon } from "@phosphor-icons/react";
+import { MoonStars, Sun } from "@phosphor-icons/react";
 
 type ColorModeSwitcherProps = Omit<IconButtonProps, "aria-label">;
 
@@ -15,7 +15,7 @@ export const ColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (
 ) => {
   const { toggleColorMode } = useColorMode();
   const text = useColorModeValue("dark", "light");
-  const SwitchIcon = useColorModeValue(MoonStars, SunHorizon);
+  const SwitchIcon = useColorModeValue(MoonStars, Sun);
 
   return (
     <IconButton

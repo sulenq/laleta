@@ -12,7 +12,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Container from "../components/Container";
-import { CalendarBlank, House } from "@phosphor-icons/react";
+import { ArrowClockwise, CalendarBlank, House } from "@phosphor-icons/react";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
 import { Employee, Outlet } from "../types";
 import useJwt from "../globalState/useJwt";
@@ -131,6 +131,17 @@ export default function AdminContainer({ children }: any) {
                   className="btn"
                 />
               </Link>
+
+              <IconButton
+                aria-label="refresh button"
+                icon={<Icon as={ArrowClockwise} fontSize={[15, null, 17]} />}
+                size={"xs"}
+                onClick={() => {
+                  window.location.reload();
+                }}
+                className="btn"
+                variant={"ghost"}
+              />
 
               <ColorModeSwitcher size={"xs"} fontSize={[15, null, 17]} />
             </HStack>
