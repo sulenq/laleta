@@ -90,6 +90,12 @@ export const globalTheme = extendTheme({
       }),
     },
 
+    Toast: {
+      baseStyle: {
+        fontSize: [13, null, 15],
+      },
+    },
+
     Menu: {
       baseStyle: (props) => ({
         list: {

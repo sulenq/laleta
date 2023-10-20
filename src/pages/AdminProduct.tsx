@@ -2,11 +2,9 @@ import React from "react";
 import AdminContainer from "./AdminContainer";
 import {
   Box,
-  Button,
   Center,
   HStack,
   Icon,
-  IconButton,
   Image,
   Input,
   SimpleGrid,
@@ -20,9 +18,10 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Container from "../components/Container";
-import { Bookmark, GridFour, Package, PlusCircle } from "@phosphor-icons/react";
+import { Bookmark, GridFour, Package } from "@phosphor-icons/react";
 import useScreenWidth from "../utils/useGetScreenWidth";
 import useGetRetailProduct from "../utils/useGetRetailProduct";
+import AddRetailProduct from "../components/AddRetailProduct";
 
 export default function AdminProduct() {
   const sw = useScreenWidth();
@@ -57,44 +56,7 @@ export default function AdminProduct() {
             Product
           </Text>
 
-          {sw > 300 ? (
-            <Button
-              colorScheme="ap"
-              borderRadius={"full"}
-              pl={"2px"}
-              pr={5}
-              h={"30px"}
-              className="clicky"
-            >
-              <HStack justify={"space-between"}>
-                <Icon
-                  as={PlusCircle}
-                  weight="fill"
-                  color={"white"}
-                  fontSize={[25, null, 27]}
-                />
-
-                <Text color={"white"}>Add Product</Text>
-              </HStack>
-            </Button>
-          ) : (
-            <IconButton
-              aria-label="Add Product"
-              icon={
-                <Icon
-                  as={PlusCircle}
-                  weight="fill"
-                  color={"white"}
-                  fontSize={[25, null, 27]}
-                />
-              }
-              colorScheme="ap"
-              borderRadius={"full"}
-              h={"30px"}
-              minW={"30px"}
-              className="clicky"
-            />
-          )}
+          <AddRetailProduct />
         </HStack>
       </Container>
 

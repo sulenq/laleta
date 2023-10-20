@@ -42,7 +42,7 @@ export default function Alert({ alert, isOpen, onClose }: any) {
               {alert?.title || "Wooops"}
             </Text>
 
-            <Text textAlign={"center"} opacity={0.5} w={'80%'}>
+            <Text textAlign={"center"} opacity={0.5} w={"80%"}>
               {alert?.desc || "Something wrong"}
             </Text>
           </Center>

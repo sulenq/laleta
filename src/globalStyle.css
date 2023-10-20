@@ -133,6 +133,16 @@ select {
   font-size: 13px !important;
 }
 
+.chakra-alert__title {
+  font-size: 13px;
+  line-height: normal !important;
+}
+.chakra-alert__desc {
+  font-size: 13px;
+  line-height: normal !important;
+  margin-top: 4px;
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -181,6 +191,12 @@ select {
   }
   th {
     font-size: 11px !important;
+  }
+  .chakra-alert__title {
+    font-size: 15px;
+  }
+  .chakra-alert__desc {
+    font-size: 15px;
   }
 
   button {

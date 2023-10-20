@@ -26,6 +26,7 @@ import { Link } from "react-router-dom";
 
 export default function NewOutlet() {
   const jwt = useJwt();
+
   const [alertModal, setAlertModal] = useState<any>(null);
   const [alertIsOpen, setAlertIsOpen] = useState<boolean>(false);
 
@@ -49,20 +50,12 @@ export default function NewOutlet() {
     },
 
     onSubmit: (values, { resetForm }) => {
-      const data = {
-        outletName: values.outletName,
-        address: values.address,
-        phone: values.phone,
-        email: values.email,
-        category: values.category,
-      };
-
       const options = {
         method: "POST",
         baseURL: process.env.REACT_APP_BASE_URL,
         url: "api/outlet-create",
         headers: { Authorization: "Bearer " + jwt },
-        data: data,
+        data: values,
       };
 
       async function createOutlet() {
@@ -298,6 +291,7 @@ export default function NewOutlet() {
         onClose={() => {
           setAlertIsOpen(false);
         }}
+        backOnClose={true}
       />
     </HomeContainer>
   );
