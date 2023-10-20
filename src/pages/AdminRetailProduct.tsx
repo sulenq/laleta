@@ -16,12 +16,17 @@ import {
   Thead,
   Tr,
   VStack,
+  useDisclosure,
 } from "@chakra-ui/react";
 import Container from "../components/Container";
 import { Bookmark, GridFour, Package } from "@phosphor-icons/react";
 import useScreenWidth from "../utils/useGetScreenWidth";
 import useGetRetailProduct from "../utils/useGetRetailProduct";
 import AddRetailProduct from "../components/AddRetailProduct";
+import RetailProductItem from "../components/RetailProductItem";
+import { RetailProduct } from "../types";
+import RetailProductUpdate from "../components/RetailProductUpdate";
+import useRetailProductUpdate from "../globalState/useRetailProductUpdate";
 
 export default function AdminRetailProduct() {
   const sw = useScreenWidth();
@@ -47,6 +52,9 @@ export default function AdminRetailProduct() {
       bg: "var(--green)",
     },
   ];
+
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { updateData } = useRetailProductUpdate();
 
   return (
     <AdminContainer>
@@ -161,39 +169,8 @@ export default function AdminRetailProduct() {
                   </Thead>
 
                   <Tbody>
-                    {retailProducts.data.map((p: any, i: number) => (
-                      <Tr
-                        key={i}
-                        className="listItem"
-                        _hover={{ bg: "var(--divider)" }}
-                        cursor={"pointer"}
-                      >
-                        <Td className="before" py={2} px={"18px"}>
-                          <Box>
-                            <Text>{p.name}</Text>
-                            <Text fontSize={11} opacity={0.5}>
-                              {p.code}
-                            </Text>
-                          </Box>
-                        </Td>
-
-                        <Td textAlign={"center"} py={2} px={"18px"}>
-                          {p.category}
-                        </Td>
-
-                        <Td py={2} px={"18px"}>
-                          <Box>
-                            <Text textAlign={"right"}>{p.price}</Text>
-                            <Text
-                              textAlign={"right"}
-                              fontSize={11}
-                              opacity={0.5}
-                            >
-                              {p.stock}
-                            </Text>
-                          </Box>
-                        </Td>
-                      </Tr>
+                    {retailProducts.data.map((p: RetailProduct, i: number) => (
+                      <RetailProductItem key={i} p={p} onOpen={onOpen} />
                     ))}
                   </Tbody>
                 </>
@@ -281,6 +258,12 @@ export default function AdminRetailProduct() {
                 </>
               )}
             </Table>
+
+            <RetailProductUpdate
+              p={updateData}
+              isOpen={isOpen}
+              onClose={onClose}
+            />
           </Box>
         </>
       )}

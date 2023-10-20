@@ -115,7 +115,8 @@ input::placeholder {
 input:focus,
 input:focus-visible,
 input.filled:focus,
-input.filled:focus-visible {
+input.filled:focus-visible,
+select:focus {
   box-shadow: 0 0 0 2px var(--p500) !important;
   /* border: 1px solid var(--p500) !important; */
 }
