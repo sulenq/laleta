@@ -29,9 +29,14 @@ import retailProductCategory from "../const/retailProductCategory";
 import useJwt from "../globalState/useJwt";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import useFormatNumber from "../utils/useFormatNumber";
+import useReverseFormatNumber from "../utils/useReverseFormatNumber";
 
 export default function AddRetailProduct() {
   const sw = useScreenWidth();
+  const fn = useFormatNumber;
+  const rfn = useReverseFormatNumber;
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useModalBackOnClose(isOpen, onClose);
@@ -48,16 +53,22 @@ export default function AddRetailProduct() {
       code: yup.string().required("Code required"),
       name: yup.string().required("Name required"),
       category: yup.string().required("Category required"),
-      price: yup.string().required("Price required"),
-      stock: yup.string().required("Stock required"),
+      price: yup
+        .number()
+        .required("Price required")
+        .test("isNotZero", "Price required", (value) => value !== 0),
+      stock: yup
+        .number()
+        .required("Stock required")
+        .test("isNotZero", "Stock required", (value) => value !== 0),
     }),
 
     initialValues: {
       code: "",
       name: "",
       category: "",
-      price: "",
-      stock: "",
+      price: 0,
+      stock: 0,
     },
 
     onSubmit: (values, { resetForm }) => {
@@ -75,7 +86,7 @@ export default function AddRetailProduct() {
           console.log(response.data);
 
           if (response.data.status === 201) {
-            resetForm();
+            // resetForm();
             toast({
               title: response.data.message,
               description: "Product name : " + response.data.productName,
@@ -230,9 +241,9 @@ export default function AddRetailProduct() {
                 <Input
                   placeholder="3.500"
                   onChange={(e) => {
-                    formik.setFieldValue("price", e.target.value);
+                    formik.setFieldValue("price", rfn(e.target.value));
                   }}
-                  value={formik.values.price}
+                  value={fn(formik.values.price)}
                 />
                 <FormErrorMessage>{formik.errors.price}</FormErrorMessage>
               </FormControl>
@@ -242,9 +253,9 @@ export default function AddRetailProduct() {
                 <Input
                   placeholder="47"
                   onChange={(e) => {
-                    formik.setFieldValue("stock", e.target.value);
+                    formik.setFieldValue("stock", rfn(e.target.value));
                   }}
-                  value={formik.values.stock}
+                  value={fn(formik.values.stock)}
                 />
                 <FormErrorMessage>{formik.errors.stock}</FormErrorMessage>
               </FormControl>
