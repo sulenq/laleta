@@ -202,10 +202,11 @@ export default function AdminProduct() {
                     {retailProducts.data.map((p: any, i: number) => (
                       <Tr
                         key={i}
+                        className="listItem"
                         _hover={{ bg: "var(--divider)" }}
                         cursor={"pointer"}
                       >
-                        <Td py={2} px={"18px"}>
+                        <Td className="before" py={2} px={"18px"}>
                           <Box>
                             <Text>{p.name}</Text>
                             <Text fontSize={11} opacity={0.5}>
@@ -289,10 +290,11 @@ export default function AdminProduct() {
                     {retailProducts.data.map((p: any, i: number) => (
                       <Tr
                         key={i}
+                        className="listItem"
                         _hover={{ bg: "var(--divider)" }}
                         cursor={"pointer"}
                       >
-                        <Td py={2} px={"18px"} pl={6}>
+                        <Td className="before" py={2} px={"18px"} pl={6}>
                           {p.code}
                         </Td>
 

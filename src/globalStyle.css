@@ -151,6 +151,24 @@ select {
   }
 }
 
+/* custom styles */
+.listItem {
+  position: relative;
+}
+.before::before {
+  content: "";
+  width: 0px;
+  height: 100%;
+  background: var(--p500);
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: 200ms;
+}
+.listItem:hover .before::before {
+  width: 4px;
+}
+
 @media screen and (min-width: 770px) {
   p {
     font-size: 15px;

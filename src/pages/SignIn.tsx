@@ -22,9 +22,11 @@ import { PrimaryButton } from "../components/Buttons";
 import { useNavigate } from "react-router-dom";
 import { AuthState } from "../types";
 import { setCookie } from "typescript-cookie";
+import { useState } from "react";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const formik = useFormik({
     validateOnChange: false,
@@ -54,6 +56,7 @@ export default function SignIn() {
       };
 
       async function signin() {
+        setLoading(true);
         try {
           const response = await axios.request(options);
           if (response.data.status === 200) {
@@ -71,6 +74,8 @@ export default function SignIn() {
         } catch (error) {
           console.error(error);
           alert("Something wrong, try refreshing the page  or comeback later");
+        } finally {
+          setLoading(false);
         }
 
         resetForm();
@@ -116,7 +121,7 @@ export default function SignIn() {
           <SimpleGrid w={"100%"} columns={[1, null, 2]} gap={12}>
             <Image src="/img/signin.png" animation={"fade-in 200ms"} />
 
-            <VStack justify={"center"} w={"100%"} gap={0}>
+            <VStack justify={"center"} w={"100%"} gap={0} pr={[null, null, 10]}>
               <form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>
                 <FormControl
                   mb={4}
@@ -164,6 +169,7 @@ export default function SignIn() {
                   w={"100%"}
                   borderRadius={"full"}
                   mb={4}
+                  isLoading={loading}
                 >
                   Sign in
                 </PrimaryButton>

@@ -176,114 +176,118 @@ export default function NewOutlet() {
           <SimpleGrid w={"100%"} columns={[1, null, 2]} gap={8}>
             <Image src="/img/newOutlet.png" title="New Outlet Vector" />
 
-            <form onSubmit={formik.handleSubmit}>
-              <FormControl
-                mb={4}
-                isInvalid={formik.errors.outletName ? true : false}
-              >
-                <FormLabel>Outlet Name</FormLabel>
-                <Input
-                  name="outletName"
-                  placeholder="Jasmine Kiosk"
-                  value={formik.values.outletName}
-                  onChange={(e) => {
-                    formik.setFieldValue("outletName", e.target.value);
-                  }}
-                />
-                <FormErrorMessage>{formik.errors.outletName}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl
-                mb={4}
-                isInvalid={formik.errors.address ? true : false}
-              >
-                <FormLabel>Address</FormLabel>
-                <Input
-                  name="address"
-                  placeholder="Banjarsari street no.12"
-                  value={formik.values.address}
-                  onChange={(e) => {
-                    formik.setFieldValue("address", e.target.value);
-                  }}
-                />
-                <FormErrorMessage>{formik.errors.address}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl
-                mb={4}
-                isInvalid={formik.errors.phone ? true : false}
-              >
-                <FormLabel>Phone</FormLabel>
-                <Input
-                  name="phone"
-                  placeholder="085877756502"
-                  value={formik.values.phone}
-                  onChange={(e) => {
-                    formik.setFieldValue("phone", e.target.value);
-                  }}
-                />
-                <FormErrorMessage>{formik.errors.phone}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl
-                mb={4}
-                isInvalid={formik.errors.email ? true : false}
-              >
-                <FormLabel>Email</FormLabel>
-                <Input
-                  name="email"
-                  placeholder="example@email.com"
-                  value={formik.values.email}
-                  onChange={(e) => {
-                    formik.setFieldValue("email", e.target.value);
-                  }}
-                />
-                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl
-                mb={4}
-                isInvalid={formik.errors.category ? true : false}
-              >
-                <FormLabel>Category</FormLabel>
-                {/* <Input name="email" placeholder="Jasmine Kiosk" /> */}
-                <Select
-                  value={formik.values.category}
-                  onChange={(e) => {
-                    formik.setFieldValue("category", e.target.value);
-                  }}
-                  placeholder="Select outlet category"
+            <VStack justify={"center"} w={"100%"} gap={0} pr={[null, null, 10]}>
+              <form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>
+                <FormControl
+                  mb={4}
+                  isInvalid={formik.errors.outletName ? true : false}
                 >
-                  {createStoreCategory.map((c, i) => (
-                    <option key={i} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </Select>
-                <FormErrorMessage>{formik.errors.category}</FormErrorMessage>
-              </FormControl>
+                  <FormLabel>Outlet Name</FormLabel>
+                  <Input
+                    name="outletName"
+                    placeholder="Jasmine Kiosk"
+                    value={formik.values.outletName}
+                    onChange={(e) => {
+                      formik.setFieldValue("outletName", e.target.value);
+                    }}
+                  />
+                  <FormErrorMessage>
+                    {formik.errors.outletName}
+                  </FormErrorMessage>
+                </FormControl>
 
-              <Button
-                type="submit"
-                w={"100%"}
-                colorScheme="ap"
-                color={"wt"}
-                borderRadius={"full"}
-                mb={4}
-                className="clicky"
-                isLoading={alertIsOpen}
-              >
-                Open New Outlet
-              </Button>
+                <FormControl
+                  mb={4}
+                  isInvalid={formik.errors.address ? true : false}
+                >
+                  <FormLabel>Address</FormLabel>
+                  <Input
+                    name="address"
+                    placeholder="Banjarsari street no.12"
+                    value={formik.values.address}
+                    onChange={(e) => {
+                      formik.setFieldValue("address", e.target.value);
+                    }}
+                  />
+                  <FormErrorMessage>{formik.errors.address}</FormErrorMessage>
+                </FormControl>
 
-              <Text
-                fontSize={[11, null, 13]}
-                textAlign={"center"}
-                opacity={0.5}
-              >
-                Your status will be the owner of this outlet
-              </Text>
-            </form>
+                <FormControl
+                  mb={4}
+                  isInvalid={formik.errors.phone ? true : false}
+                >
+                  <FormLabel>Phone</FormLabel>
+                  <Input
+                    name="phone"
+                    placeholder="085877756502"
+                    value={formik.values.phone}
+                    onChange={(e) => {
+                      formik.setFieldValue("phone", e.target.value);
+                    }}
+                  />
+                  <FormErrorMessage>{formik.errors.phone}</FormErrorMessage>
+                </FormControl>
+
+                <FormControl
+                  mb={4}
+                  isInvalid={formik.errors.email ? true : false}
+                >
+                  <FormLabel>Email</FormLabel>
+                  <Input
+                    name="email"
+                    placeholder="example@email.com"
+                    value={formik.values.email}
+                    onChange={(e) => {
+                      formik.setFieldValue("email", e.target.value);
+                    }}
+                  />
+                  <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+                </FormControl>
+
+                <FormControl
+                  mb={4}
+                  isInvalid={formik.errors.category ? true : false}
+                >
+                  <FormLabel>Category</FormLabel>
+                  {/* <Input name="email" placeholder="Jasmine Kiosk" /> */}
+                  <Select
+                    value={formik.values.category}
+                    onChange={(e) => {
+                      formik.setFieldValue("category", e.target.value);
+                    }}
+                    placeholder="Select outlet category"
+                  >
+                    {createStoreCategory.map((c, i) => (
+                      <option key={i} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </Select>
+                  <FormErrorMessage>{formik.errors.category}</FormErrorMessage>
+                </FormControl>
+
+                <Button
+                  type="submit"
+                  w={"100%"}
+                  colorScheme="ap"
+                  color={"wt"}
+                  borderRadius={"full"}
+                  mb={4}
+                  className="clicky"
+                  isLoading={alertIsOpen}
+                >
+                  Open New Outlet
+                </Button>
+
+                <Text
+                  fontSize={[11, null, 13]}
+                  textAlign={"center"}
+                  opacity={0.5}
+                >
+                  Your status will be the owner of this outlet
+                </Text>
+              </form>
+            </VStack>
           </SimpleGrid>
         </VStack>
       </Container>
