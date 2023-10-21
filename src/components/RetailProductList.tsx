@@ -72,6 +72,7 @@ export default function RetailProductList() {
             maxW={"250px"}
             mx={"auto"}
             src="/img/noResult.png"
+            loading="eager"
           />
 
           <Text
@@ -281,11 +282,11 @@ export default function RetailProductList() {
                         </Td>
 
                         <Td isNumeric py={2} px={"18px"}>
-                          {p.price}
+                          {fn(parseInt(p.price))}
                         </Td>
 
                         <Td isNumeric py={2} px={"18px"} pr={6}>
-                          {p.price}
+                          {fn(parseInt(p.price))}
                         </Td>
                       </Tr>
                     ))}

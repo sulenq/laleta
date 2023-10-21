@@ -37,7 +37,7 @@ export default function Home() {
 
       <Container flex={1} py={4}>
         <VStack flex={1} justify={"center"}>
-          <Image src="/logo.svg" mb={4} title="Laleta Logo" />
+          <Image src="/logo.svg" mb={4} title="Laleta Logo" loading="eager" />
           <Text fontSize={28} fontWeight={800} mb={6}>
             LALETA
           </Text>

@@ -167,7 +167,11 @@ export default function NewOutlet() {
       <Container flex={1}>
         <VStack flex={1} w={"100%"} justify={"center"} py={4}>
           <SimpleGrid w={"100%"} columns={[1, null, 2]} gap={8}>
-            <Image src="/img/newOutlet.png" title="New Outlet Vector" />
+            <Image
+              src="/img/newOutlet.png"
+              title="New Outlet Vector"
+              loading="eager"
+            />
 
             <VStack justify={"center"} w={"100%"} gap={0} pr={[null, null, 10]}>
               <form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>

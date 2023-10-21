@@ -21,17 +21,14 @@ import ContentSpinner from "../components/ContentSpinner";
 import usePayload from "../globalState/usePayload";
 import ProfileSummary from "../components/ProfileSummary";
 import { useComponentsBg } from "../const/colorModeValues";
-import useEmployee from "../globalState/useEmployee";
-import useOutlet from "../globalState/useOutlet";
 import useJwt from "../globalState/useJwt";
 import axios from "axios";
+import useWorkOutlet from "../globalState/useWorkOutlet";
 
 export default function AdminContainer({ activeNav, children }: any) {
-  const { employee, setEmployee } = useEmployee();
-  const { outlet, setOutlet } = useOutlet();
-
+  const { outlet, employee, setOutlet, setEmployee } = useWorkOutlet();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<boolean>(false);
-
   const user = usePayload();
   const { outletId, employeeId } = useParams();
   const sw = useScreenWidth();
@@ -44,69 +41,55 @@ export default function AdminContainer({ activeNav, children }: any) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!outlet) {
+    const getOutlet = async () => {
       const options = {
         method: "GET",
         baseURL: process.env.REACT_APP_BASE_URL,
-        url: "api/outlet/" + outletId,
+        url: `api/work/${outletId}/${employeeId}`,
         headers: { Authorization: "Bearer " + jwt },
       };
 
-      const getOutlet = async () => {
-        try {
-          const response = await axios.request(options);
-          console.log(response.data);
+      try {
+        setLoading(true);
+        const response = await axios.request(options);
+        console.log(response.data);
 
-          if (response.data.status === 200) {
-            setOutlet(response.data.data);
-          } else if (response.data.status === 404) {
-            navigate("/signin");
-          }
-        } catch (error) {
-          console.error(error);
-          setError(true);
+        if (response.data.status === 200) {
+          setOutlet(response.data.data.outlet);
+          setEmployee(response.data.data.employee);
+          setLoading(false);
+        } else if (response.data.status === 404) {
+          navigate("/signin");
         }
-      };
+      } catch (error) {
+        console.error(error);
+        setError(true);
+      }
+    };
 
-      if (!outlet && jwt) {
+    if (jwt) {
+      if (
+        !outlet ||
+        outletId !== outlet?.id ||
+        !employee ||
+        employeeId !== employee?.id
+      ) {
         getOutlet();
       }
     }
-  }, [jwt, navigate, outletId, outlet, setOutlet]);
-
-  useEffect(() => {
-    if (!employee) {
-      const options = {
-        method: "GET",
-        baseURL: process.env.REACT_APP_BASE_URL,
-        url: "api/employee/" + employeeId,
-        headers: { Authorization: "Bearer " + jwt },
-      };
-
-      const getOutlet = async () => {
-        try {
-          const response = await axios.request(options);
-          console.log(response.data);
-
-          if (response.data.status === 200) {
-            setEmployee(response.data.data);
-          } else if (response.data.status === 404) {
-            navigate("/signin");
-          }
-        } catch (error) {
-          console.error(error);
-          setError(true);
-        }
-      };
-
-      if (!employee && jwt) {
-        getOutlet();
-      }
-    }
-  }, [jwt, navigate, employeeId, employee, setEmployee]);
+  }, [
+    jwt,
+    navigate,
+    outletId,
+    outlet,
+    employeeId,
+    employee,
+    setOutlet,
+    setEmployee,
+  ]);
 
   const Content = () => {
-    return !employee && !outlet ? (
+    return loading ? (
       <ContentSpinner />
     ) : (
       <>
@@ -183,7 +166,9 @@ export default function AdminContainer({ activeNav, children }: any) {
   if (error) {
     return (
       <Container>
-        <Text>Error : Something wrong</Text>
+        <Text mt={4} textAlign={"center"}>
+          Error : Something wrong
+        </Text>
       </Container>
     );
   }

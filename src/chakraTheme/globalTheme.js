@@ -72,7 +72,7 @@ export const globalTheme = extendTheme({
           boxShadow: "none",
           borderRadius: "10px",
           mx: "16px",
-          backdropFilter: "blur(10px)",
+          backdropFilter: "blur(20px)",
         },
         overlay: {
           bg: "#5b5b5b50",

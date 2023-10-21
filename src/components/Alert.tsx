@@ -31,7 +31,12 @@ export default function Alert({ alert, isOpen, onClose }: any) {
       <ModalContent>
         <ModalBody pt={8}>
           <Center flexDir={"column"}>
-            <Image src={alert?.img || "/img/404.png"} maxW={"300px"} mb={4} />
+            <Image
+              src={alert?.img || "/img/404.png"}
+              maxW={"300px"}
+              mb={4}
+              loading="eager"
+            />
 
             <Text
               textAlign={"center"}

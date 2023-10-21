@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 export default function NotFound() {
   return (
     <VStack minH={"100vh"} justify={"center"} gap={0} py={12} px={[8]}>
-      <Image src="/img/404.png" w={"100%"} maxW={"400px"} mb={8} />
+      <Image
+        src="/img/404.png"
+        w={"100%"}
+        maxW={"300px"}
+        mb={8}
+        loading="eager"
+      />
       <Text
         textAlign={"center"}
         fontSize={28}
@@ -14,7 +20,7 @@ export default function NotFound() {
       >
         404 Page Not Found
       </Text>
-      <Text textAlign={"center"} maxW={"400px"} mb={4}>
+      <Text opacity={0.5} textAlign={"center"} maxW={"400px"} mb={4}>
         You probably mistype the url or the page you're looking for is missing
       </Text>
 
@@ -40,6 +46,7 @@ export default function NotFound() {
         borderRadius={"full"}
         as={Link}
         to={"/"}
+        opacity={0.5}
       >
         Back to Landing Page
       </Button>
