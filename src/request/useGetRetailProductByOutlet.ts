@@ -6,7 +6,7 @@ import { RetailProduct } from "../types";
 const useGetRetailProductByOutlet = (outletId: string | undefined) => {
   const jwt = useJwt();
   const [products, setProducts] = useState<RetailProduct[] | null>(null);
-  const [notFound, setNotFound] = useState<boolean>(false);
+  const [notFound, setNotFound] = useState<string | null>(null);
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const useGetRetailProductByOutlet = (outletId: string | undefined) => {
         if (res.status === 200) {
           setProducts(response.data.products);
         } else if (res.status === 404) {
-          setNotFound(true);
+          setNotFound(res.message);
         }
       } catch (error) {
         console.log(error);
@@ -50,7 +50,7 @@ const useGetRetailProductByOutlet = (outletId: string | undefined) => {
     return {
       status: "notFound",
       data: {
-        message: "Products not found",
+        message: notFound,
       },
     };
   }

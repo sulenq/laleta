@@ -1,25 +1,20 @@
+import React from "react";
 import { Box, Icon, IconButton, Input } from "@chakra-ui/react";
 import { X } from "@phosphor-icons/react";
-import React from "react";
 
-type Props = {
-  formik: any;
-  name: string;
-  placeholder: string;
-};
-
-export default function TextInput({ formik, name, placeholder }: Props) {
+export default function TextInput(props: any) {
   return (
     <Box position={"relative"}>
       <Input
-        placeholder={placeholder}
+        ref={props?.myRef}
+        placeholder={props?.placeholder}
         onChange={(e) => {
-          formik.setFieldValue(name, e.target.value);
+          props?.formik.setFieldValue(props?.name, e.target.value);
         }}
-        value={formik.values[name]}
+        value={props?.formik.values[props?.name]}
         pr={"30px !important"}
       />
-      {formik.values[name] && (
+      {props?.formik.values[props?.name] && (
         <IconButton
           aria-label="clear input"
           icon={<Icon as={X} fontSize={[15, null, 17]} />}
@@ -30,7 +25,7 @@ export default function TextInput({ formik, name, placeholder }: Props) {
           top={"11px"}
           zIndex={3}
           onClick={() => {
-            formik.setFieldValue(name, "");
+            props?.formik.setFieldValue(props?.name, "");
           }}
         />
       )}

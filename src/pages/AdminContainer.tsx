@@ -15,22 +15,20 @@ import {
 import Container from "../components/Container";
 import { ArrowClockwise, CalendarBlank, House } from "@phosphor-icons/react";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { adminNav } from "../const/adminNav";
 import ContentSpinner from "../components/ContentSpinner";
 import usePayload from "../globalState/usePayload";
 import ProfileSummary from "../components/ProfileSummary";
 import { useComponentsBg } from "../const/colorModeValues";
 import useEmployee from "../globalState/useEmployee";
-import useGetEmployee from "../request/useGetEmployee";
 import useOutlet from "../globalState/useOutlet";
-import useGetOutlet from "../request/useGetOutlet";
+import useJwt from "../globalState/useJwt";
+import axios from "axios";
 
 export default function AdminContainer({ activeNav, children }: any) {
   const { employee, setEmployee } = useEmployee();
-  const employeeData = useGetEmployee();
   const { outlet, setOutlet } = useOutlet();
-  const outletData = useGetOutlet();
 
   const [error, setError] = useState<boolean>(false);
 
@@ -42,19 +40,70 @@ export default function AdminContainer({ activeNav, children }: any) {
     month: "short",
   })}`;
   const cfg = useComponentsBg();
+  const jwt = useJwt();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (employeeData?.status === "error") setError(true);
+    if (!outlet) {
+      const options = {
+        method: "GET",
+        baseURL: process.env.REACT_APP_BASE_URL,
+        url: "api/outlet/" + outletId,
+        headers: { Authorization: "Bearer " + jwt },
+      };
 
-    if (employeeData?.status === "found" && !employee)
-      setEmployee(employeeData.data);
-  }, [employeeId, employeeData, setEmployee, employee]);
+      const getOutlet = async () => {
+        try {
+          const response = await axios.request(options);
+          console.log(response.data);
+
+          if (response.data.status === 200) {
+            setOutlet(response.data.data);
+          } else if (response.data.status === 404) {
+            navigate("/signin");
+          }
+        } catch (error) {
+          console.error(error);
+          setError(true);
+        }
+      };
+
+      if (!outlet && jwt) {
+        getOutlet();
+      }
+    }
+  }, [jwt, navigate, outletId, outlet, setOutlet]);
 
   useEffect(() => {
-    if (outletData?.status === "error") setError(true);
+    if (!employee) {
+      const options = {
+        method: "GET",
+        baseURL: process.env.REACT_APP_BASE_URL,
+        url: "api/employee/" + employeeId,
+        headers: { Authorization: "Bearer " + jwt },
+      };
 
-    if (outletData?.status === "found" && !outlet) setOutlet(outletData.data);
-  }, [outlet, outletData, setOutlet]);
+      const getOutlet = async () => {
+        try {
+          const response = await axios.request(options);
+          console.log(response.data);
+
+          if (response.data.status === 200) {
+            setEmployee(response.data.data);
+          } else if (response.data.status === 404) {
+            navigate("/signin");
+          }
+        } catch (error) {
+          console.error(error);
+          setError(true);
+        }
+      };
+
+      if (!employee && jwt) {
+        getOutlet();
+      }
+    }
+  }, [jwt, navigate, employeeId, employee, setEmployee]);
 
   const Content = () => {
     return !employee && !outlet ? (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Alert,
   AlertIcon,
@@ -35,16 +35,14 @@ import TextInput from "./TextInput";
 import NumberInput from "./NumberInput";
 
 export default function AddRetailProduct() {
-  const sw = useScreenWidth();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   useModalBackOnClose(isOpen, onClose);
 
+  const sw = useScreenWidth();
   const jwt = useJwt();
   const { outletId } = useParams();
-
   const toast = useToast();
+  const firstInput = useRef(null);
 
   const formik = useFormik({
     validateOnChange: false,
@@ -179,6 +177,7 @@ export default function AddRetailProduct() {
           onClose();
           window.history.back();
         }}
+        initialFocusRef={firstInput}
         isCentered
       >
         <ModalOverlay />
@@ -187,11 +186,11 @@ export default function AddRetailProduct() {
           <ModalHeader>
             <HStack justify={"space-between"}>
               <Text fontSize={20}>Adding Product</Text>
-              <Tooltip label={'Clear Form'} openDelay={500}>
+              <Tooltip label={"Clear Form"} openDelay={500}>
                 <IconButton
                   className="btn clicky"
                   variant={"ghost"}
-                  size={"sm"}
+                  // size={"md"}
                   onClick={() => {
                     formik.resetForm();
                   }}
@@ -209,6 +208,7 @@ export default function AddRetailProduct() {
               <FormControl isInvalid={formik.errors.code ? true : false} mb={4}>
                 <FormLabel>Code</FormLabel>
                 <TextInput
+                  myRef={firstInput}
                   formik={formik}
                   name={"code"}
                   placeholder="0897896817623"
