@@ -16,5 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/request/getRetailProduct.ts"]
+  "include": ["src", "src/request/useGetRetailProduct.ts"]
 }

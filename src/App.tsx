@@ -16,7 +16,7 @@ import Settings from "./pages/Settings";
 import RequireRole from "./middleware/RequireAuth";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminProduct from "./pages/AdminRetailProduct";
-import ManageRetailProduct from "./components/ManageRetailProduct";
+import AdminManageRetailProduct from "./pages/AdminManageRetailProduct";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>
@@ -54,7 +54,7 @@ export const App = () => (
         />
         <Route
           path="/work/:outletId/:employeeId/Admin/product/manage/:productId"
-          element={<ManageRetailProduct />}
+          element={<AdminManageRetailProduct />}
         />
 
         <Route

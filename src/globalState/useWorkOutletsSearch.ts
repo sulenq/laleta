@@ -5,9 +5,7 @@ type WorkOutletsSearch = {
 };
 
 type Actions = {
-  setWorkOutletsSearch: (
-    workOutletsSearch: WorkOutletsSearch["workOutletsSearch"]
-  ) => void;
+  setWorkOutletsSearch: (workOutletsSearch: string) => void;
 };
 
 const useWorkOutletsSearch = create<WorkOutletsSearch & Actions>((set) => ({

@@ -15,23 +15,25 @@ import {
 import Container from "../components/Container";
 import { ArrowClockwise, CalendarBlank, House } from "@phosphor-icons/react";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
-import { Employee, Outlet } from "../types";
-import useJwt from "../globalState/useJwt";
-import axios from "axios";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { adminNav } from "../const/adminNav";
 import ContentSpinner from "../components/ContentSpinner";
 import usePayload from "../globalState/usePayload";
 import ProfileSummary from "../components/ProfileSummary";
 import { useComponentsBg } from "../const/colorModeValues";
+import useEmployee from "../globalState/useEmployee";
+import useGetEmployee from "../request/useGetEmployee";
+import useOutlet from "../globalState/useOutlet";
+import useGetOutlet from "../request/useGetOutlet";
 
 export default function AdminContainer({ activeNav, children }: any) {
-  const [outlet, setOutlet] = useState<Outlet | null>(null);
-  const [employee, setEmployee] = useState<Employee | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<any>(null);
+  const { employee, setEmployee } = useEmployee();
+  const employeeData = useGetEmployee();
+  const { outlet, setOutlet } = useOutlet();
+  const outletData = useGetOutlet();
 
-  const jwt = useJwt();
+  const [error, setError] = useState<boolean>(false);
+
   const user = usePayload();
   const { outletId, employeeId } = useParams();
   const sw = useScreenWidth();
@@ -42,62 +44,20 @@ export default function AdminContainer({ activeNav, children }: any) {
   const cfg = useComponentsBg();
 
   useEffect(() => {
-    const getOutletOptions = {
-      method: "GET",
-      baseURL: process.env.REACT_APP_BASE_URL,
-      url: "api/outlet/" + outletId,
-      headers: { Authorization: "Bearer " + jwt },
-    };
+    if (employeeData?.status === "error") setError(true);
 
-    const getOutlet = async () => {
-      try {
-        const response = await axios.request(getOutletOptions);
-        console.log(response.data);
+    if (employeeData?.status === "found" && !employee)
+      setEmployee(employeeData.data);
+  }, [employeeId, employeeData, setEmployee, employee]);
 
-        if (response.data.status === 200) {
-          setOutlet(response.data.outlet);
-        } else if (response.data.status === 404) {
-          return <Navigate to="/signin" />;
-        }
-      } catch (error) {
-        console.error(error);
-        setError(error);
-      }
-    };
+  useEffect(() => {
+    if (outletData?.status === "error") setError(true);
 
-    const getEmployeeOptions = {
-      method: "GET",
-      baseURL: process.env.REACT_APP_BASE_URL,
-      url: "api/employee/" + employeeId,
-      headers: { Authorization: "Bearer " + jwt },
-    };
-
-    const getEmployee = async () => {
-      try {
-        const response = await axios.request(getEmployeeOptions);
-        console.log(response.data);
-
-        if (response.data.status === 200) {
-          setEmployee(response.data.employee);
-        } else if (response.data.status === 404) {
-          <Navigate to="/signin" />;
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setError(error);
-      }
-    };
-
-    if (jwt) {
-      getOutlet();
-      getEmployee();
-    }
-  }, [jwt, employeeId, outletId]);
+    if (outletData?.status === "found" && !outlet) setOutlet(outletData.data);
+  }, [outlet, outletData, setOutlet]);
 
   const Content = () => {
-    return loading ? (
+    return !employee && !outlet ? (
       <ContentSpinner />
     ) : (
       <>
@@ -172,7 +132,11 @@ export default function AdminContainer({ activeNav, children }: any) {
   };
 
   if (error) {
-    return <Text>Error : {error.message}</Text>;
+    return (
+      <Container>
+        <Text>Error : Something wrong</Text>
+      </Container>
+    );
   }
 
   if (sw < 900) {

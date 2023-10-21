@@ -20,18 +20,19 @@ import {
 import Container from "../components/Container";
 import { Bookmark, GridFour, Package } from "@phosphor-icons/react";
 import useScreenWidth from "../utils/useGetScreenWidth";
-import useGetRetailProduct from "../utils/useGetRetailProductByOutlet";
+import useGetRetailProductByOutlet from "../request/useGetRetailProductByOutlet";
 import AddRetailProduct from "../components/AddRetailProduct";
 import { RetailProduct } from "../types";
 import useFormatNumber from "../utils/useFormatNumber";
 import { useNavigate } from "react-router-dom";
+import ContentSpinner from "../components/ContentSpinner";
 
 export default function AdminRetailProduct() {
   const sw = useScreenWidth();
   const fn = useFormatNumber;
   const navigate = useNavigate();
 
-  const retailProducts = useGetRetailProduct();
+  const retailProducts = useGetRetailProductByOutlet();
   const stats = [
     {
       icon: Package,
@@ -55,15 +56,7 @@ export default function AdminRetailProduct() {
 
   return (
     <AdminContainer activeNav="product">
-      <Container mt={2}>
-        <HStack justify={"space-between"} mb={3}>
-          <Text fontWeight={600} fontSize={[23, null, 25]} noOfLines={1}>
-            Product
-          </Text>
-
-          <AddRetailProduct />
-        </HStack>
-      </Container>
+      {!retailProducts && <ContentSpinner />}
 
       {retailProducts?.status === "error" && (
         <Container>
@@ -101,6 +94,16 @@ export default function AdminRetailProduct() {
 
       {retailProducts?.status === "found" && (
         <>
+          <Container mt={2}>
+            <HStack justify={"space-between"} mb={3}>
+              <Text fontWeight={600} fontSize={[23, null, 25]} noOfLines={1}>
+                Product
+              </Text>
+
+              <AddRetailProduct />
+            </HStack>
+          </Container>
+
           <Container>
             <SimpleGrid
               columns={[1, null, 2]}
