@@ -134,26 +134,30 @@ export default function AdminContainer({ activeNav, children }: any) {
                 </Text>
               </HStack>
 
-              <Link to={"/home"}>
-                <IconButton
-                  aria-label="home button"
-                  icon={<Icon as={House} fontSize={[15, null, 17]} />}
-                  size={"xs"}
-                  variant={"ghost"}
-                  className="btn"
-                />
-              </Link>
+              <Tooltip label={"Home"} openDelay={500}>
+                <Link to={"/home"}>
+                  <IconButton
+                    aria-label="home button"
+                    icon={<Icon as={House} fontSize={[15, null, 17]} />}
+                    size={"xs"}
+                    variant={"ghost"}
+                    className="btn"
+                  />
+                </Link>
+              </Tooltip>
 
-              <IconButton
-                aria-label="refresh button"
-                icon={<Icon as={ArrowClockwise} fontSize={[15, null, 17]} />}
-                size={"xs"}
-                onClick={() => {
-                  window.location.reload();
-                }}
-                className="btn"
-                variant={"ghost"}
-              />
+              <Tooltip label={"Refresh"} openDelay={500}>
+                <IconButton
+                  aria-label="refresh button"
+                  icon={<Icon as={ArrowClockwise} fontSize={[15, null, 17]} />}
+                  size={"xs"}
+                  onClick={() => {
+                    window.location.reload();
+                  }}
+                  className="btn"
+                  variant={"ghost"}
+                />
+              </Tooltip>
 
               <ColorModeSwitcher size={"xs"} fontSize={[15, null, 17]} />
             </HStack>

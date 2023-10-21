@@ -17,11 +17,12 @@ import {
   ModalOverlay,
   Select,
   Text,
+  Tooltip,
   VStack,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { PlusCircle } from "@phosphor-icons/react";
+import { Backspace, PlusCircle } from "@phosphor-icons/react";
 import useScreenWidth from "../utils/useGetScreenWidth";
 import useModalBackOnClose from "../utils/useModalBackOnClose";
 import * as yup from "yup";
@@ -186,15 +187,20 @@ export default function AddRetailProduct() {
           <ModalHeader>
             <HStack justify={"space-between"}>
               <Text fontSize={20}>Adding Product</Text>
-              <Button
-                className="btn-solid clicky"
-                size={"sm"}
-                onClick={() => {
-                  formik.resetForm();
-                }}
-              >
-                Clear
-              </Button>
+              <Tooltip label={'Clear Form'} openDelay={500}>
+                <IconButton
+                  className="btn clicky"
+                  variant={"ghost"}
+                  size={"sm"}
+                  onClick={() => {
+                    formik.resetForm();
+                  }}
+                  aria-label="clear form"
+                  icon={<Icon as={Backspace} fontSize={[23, null, 25]} />}
+                >
+                  Clear
+                </IconButton>
+              </Tooltip>
             </HStack>
           </ModalHeader>
 
@@ -257,7 +263,12 @@ export default function AddRetailProduct() {
               </FormControl>
             </form>
 
-            <Alert mt={6} status="info" variant="left-accent">
+            <Alert
+              maxW={"100% !important"}
+              mt={6}
+              status="info"
+              variant="left-accent"
+            >
               <AlertIcon />
               <Text> Refresh Product page to see changes</Text>
             </Alert>
