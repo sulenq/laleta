@@ -102,7 +102,12 @@ export default function DeleteRetailProduct({
           <ModalHeader>Deleting Product</ModalHeader>
 
           <ModalBody>
-            <Text>{`This item will be deleted (${product.name}), you cannot undo this action`}</Text>
+            <Text>
+              {`This item will be deleted (${product.name}), `}
+              <span style={{ fontWeight: 600 }}>
+                you cannot undo this action
+              </span>
+            </Text>
           </ModalBody>
 
           <ModalFooter pb={"10px"}>
@@ -113,7 +118,7 @@ export default function DeleteRetailProduct({
                 colorScheme="red"
                 variant={"outline"}
               >
-                Delete
+                Confirm Delete
               </Button>
 
               <Button onClick={onClose} variant={"unstyled"} className="clicky">

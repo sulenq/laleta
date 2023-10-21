@@ -75,7 +75,7 @@ export const globalTheme = extendTheme({
           backdropFilter: "blur(10px)",
         },
         overlay: {
-          bg: "var(--divider)",
+          bg: "#5b5b5b50",
           backdropFilter: "blur(5px)",
         },
         header: {
