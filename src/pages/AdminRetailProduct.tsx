@@ -176,8 +176,15 @@ export default function AdminRetailProduct() {
                       >
                         <Td className="before" py={2} px={"18px"}>
                           <Box>
-                            <Text>{p.name}</Text>
-                            <Text fontSize={11} opacity={0.5}>
+                            <Text noOfLines={1} maxW={"200px"}>
+                              {p.name}
+                            </Text>
+                            <Text
+                              fontSize={11}
+                              opacity={0.5}
+                              noOfLines={1}
+                              maxW={"100px"}
+                            >
                               {p.code}
                             </Text>
                           </Box>
@@ -266,11 +273,15 @@ export default function AdminRetailProduct() {
                         onClick={() => [navigate(`manage/${p.id}`)]}
                       >
                         <Td className="before" py={2} px={"18px"} pl={6}>
-                          {p.code}
+                          <Text noOfLines={1} maxW={"200px"}>
+                            {p.code}
+                          </Text>
                         </Td>
 
                         <Td py={2} px={"18px"}>
-                          {p.name}
+                          <Text noOfLines={1} maxW={"300px"}>
+                            {p.name}
+                          </Text>
                         </Td>
 
                         <Td textAlign={"center"} py={2} px={"18px"}>

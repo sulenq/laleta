@@ -41,15 +41,16 @@ export default function ManageRetailProduct() {
         <VStack flex={1} w={"100%"}>
           <SimpleGrid
             w={"100%"}
-            columns={[1, null, 2]}
+            maxW={"500px"}
+            columns={[1, null, 1]}
             px={[null, null, 4]}
             gap={8}
           >
-            <Image
+            {/* <Image
               py={4}
               src="/img/noResult.png"
               title="Update Product Vector"
-            />
+            /> */}
 
             <VStack py={4} justify={"center"} w={"100%"} gap={0}>
               {outletId && product && (

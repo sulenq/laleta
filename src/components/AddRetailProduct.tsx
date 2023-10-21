@@ -246,7 +246,7 @@ export default function AddRetailProduct() {
                 mb={4}
               >
                 <FormLabel>Price</FormLabel>
-                <NumberInput formik={formik} name="peice" placeholder="3.400" />
+                <NumberInput formik={formik} name="price" placeholder="3.400" />
                 <FormErrorMessage>{formik.errors.price}</FormErrorMessage>
               </FormControl>
 
