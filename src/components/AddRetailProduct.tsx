@@ -188,9 +188,9 @@ export default function AddRetailProduct() {
               <Text fontSize={20}>Adding Product</Text>
               <Tooltip label={"Clear Form"} openDelay={500}>
                 <IconButton
-                  className="btn clicky"
+                  className="clicky"
                   variant={"ghost"}
-                  // size={"md"}
+                  size={"sm"}
                   onClick={() => {
                     formik.resetForm();
                   }}
