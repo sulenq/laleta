@@ -5,7 +5,7 @@ import Container from "../components/Container";
 
 export default function AdminDashboard() {
   return (
-    <AdminContainer>
+    <AdminContainer activeNav={'dashboard'}>
       <Container mt={2}>
         <Text fontWeight={600} fontSize={[23, null, 25]} noOfLines={1}>
           Dashboard
