@@ -268,7 +268,6 @@ export default function AdminContainer({ activeNav, children }: any) {
         align={"stretch"}
         borderLeft={"1px solid var(--divider)"}
         borderRight={"1px solid var(--divider)"}
-        animation={"fade-in 200ms"}
       >
         <Content />
       </VStack>

@@ -1,12 +1,10 @@
 import axios from "axios";
 import useJwt from "../globalState/useJwt";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RetailProduct } from "../types";
 
-const useGetRetailProductByOutlet = () => {
+const useGetRetailProductByOutlet = (outletId: string | undefined) => {
   const jwt = useJwt();
-  const { outletId } = useParams();
   const [products, setProducts] = useState<RetailProduct[] | null>(null);
   const [notFound, setNotFound] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);

@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useJwt from "../globalState/useJwt";
 import { Outlet } from "../types";
 
-const useGetRetailProduct = () => {
+const useGetRetailProduct = (productId: string | undefined) => {
   const [data, setProduct] = useState<Outlet | null>(null);
   const [notFound, setNotFound] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
 
   const navigate = useNavigate();
-  const { productId } = useParams();
   const jwt = useJwt();
 
   useEffect(() => {

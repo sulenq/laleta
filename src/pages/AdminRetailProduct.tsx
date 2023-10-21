@@ -24,7 +24,7 @@ import useGetRetailProductByOutlet from "../request/useGetRetailProductByOutlet"
 import AddRetailProduct from "../components/AddRetailProduct";
 import { RetailProduct } from "../types";
 import useFormatNumber from "../utils/useFormatNumber";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ContentSpinner from "../components/ContentSpinner";
 
 export default function AdminRetailProduct() {
@@ -32,7 +32,8 @@ export default function AdminRetailProduct() {
   const fn = useFormatNumber;
   const navigate = useNavigate();
 
-  const retailProducts = useGetRetailProductByOutlet();
+  const { outletId } = useParams();
+  const retailProducts = useGetRetailProductByOutlet(outletId);
   const stats = [
     {
       icon: Package,

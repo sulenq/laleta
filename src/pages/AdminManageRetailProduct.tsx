@@ -9,7 +9,8 @@ import { useParams } from "react-router-dom";
 import ContentSpinner from "../components/ContentSpinner";
 
 export default function AdminManageRetailProduct() {
-  const retailProduct = useGetRetailProduct();
+  const { productId } = useParams();
+  const retailProduct = useGetRetailProduct(productId);
   const { outletId } = useParams();
 
   return (
