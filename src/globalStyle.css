@@ -134,6 +134,10 @@ select {
   font-size: 13px !important;
 }
 
+.chakra-alert {
+  width: 100% !important;
+  max-width: 300px !important;
+}
 .chakra-alert__title {
   font-size: 13px;
   line-height: normal !important;
@@ -142,6 +146,7 @@ select {
   font-size: 13px;
   line-height: normal !important;
   margin-top: 4px;
+  max-width: 200px !important;
 }
 
 @keyframes fade-in {
@@ -160,24 +165,6 @@ select {
   100% {
     opacity: 0.2;
   }
-}
-
-/* custom styles */
-.listItem {
-  position: relative;
-}
-.before::before {
-  content: "";
-  width: 0px;
-  height: 100%;
-  background: var(--p500);
-  position: absolute;
-  left: 0;
-  top: 0;
-  transition: 200ms;
-}
-.listItem:hover .before::before {
-  width: 4px;
 }
 
 @media screen and (min-width: 770px) {
@@ -209,4 +196,22 @@ select {
   select {
     font-size: 14px !important;
   }
+}
+
+/* custom styles */
+.listItem {
+  position: relative;
+}
+.before::before {
+  content: "";
+  width: 0px;
+  height: 100%;
+  background: var(--p500);
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: 200ms;
+}
+.listItem:hover .before::before {
+  width: 4px;
 }

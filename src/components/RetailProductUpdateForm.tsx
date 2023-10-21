@@ -17,6 +17,7 @@ import axios from "axios";
 import retailProductCategory from "../const/retailProductCategory";
 import useJwt from "../globalState/useJwt";
 import { RetailProduct } from "../types";
+import DeleteRetailProduct from "./DeleteRetailProduct";
 
 type Props = {
   outletId: string;
@@ -197,9 +198,7 @@ export default function RetailProductUpdateForm({ outletId, product }: Props) {
           Update Product
         </Button>
 
-        <Button className="clicky" colorScheme="red" variant={"outline"}>
-          Delete Product
-        </Button>
+        <DeleteRetailProduct product={product} />
       </VStack>
     </>
   );

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Image, SimpleGrid, VStack } from "@chakra-ui/react";
+import {
+  // Image,
+  SimpleGrid,
+  VStack,
+} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import useJwt from "../globalState/useJwt";
 import AdminContainer from "../pages/AdminContainer";
