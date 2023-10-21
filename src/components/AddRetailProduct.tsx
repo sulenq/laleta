@@ -1,5 +1,7 @@
 import React from "react";
 import {
+  Alert,
+  AlertIcon,
   Button,
   FormControl,
   FormErrorMessage,
@@ -7,7 +9,6 @@ import {
   HStack,
   Icon,
   IconButton,
-  Input,
   Modal,
   ModalBody,
   ModalContent,
@@ -29,13 +30,11 @@ import retailProductCategory from "../const/retailProductCategory";
 import useJwt from "../globalState/useJwt";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import useFormatNumber from "../utils/useFormatNumber";
-import useReverseFormatNumber from "../utils/useReverseFormatNumber";
+import TextInput from "./TextInput";
+import NumberInput from "./NumberInput";
 
 export default function AddRetailProduct() {
   const sw = useScreenWidth();
-  const fn = useFormatNumber;
-  const rfn = useReverseFormatNumber;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -67,8 +66,8 @@ export default function AddRetailProduct() {
       code: "",
       name: "",
       category: "",
-      price: 0,
-      stock: 0,
+      price: "",
+      stock: "",
     },
 
     onSubmit: (values, { resetForm }) => {
@@ -184,30 +183,39 @@ export default function AddRetailProduct() {
         <ModalOverlay />
 
         <ModalContent>
-          <ModalHeader>Adding Product</ModalHeader>
+          <ModalHeader>
+            <HStack justify={"space-between"}>
+              <Text fontSize={20}>Adding Product</Text>
+              <Button
+                className="btn-solid clicky"
+                size={"sm"}
+                onClick={() => {
+                  formik.resetForm();
+                }}
+              >
+                Clear
+              </Button>
+            </HStack>
+          </ModalHeader>
 
           <ModalBody>
             <form id="addProductForm" onSubmit={formik.handleSubmit}>
               <FormControl isInvalid={formik.errors.code ? true : false} mb={4}>
                 <FormLabel>Code</FormLabel>
-                <Input
-                  placeholder="098736287123"
-                  onChange={(e) => {
-                    formik.setFieldValue("code", e.target.value);
-                  }}
-                  value={formik.values.code}
+                <TextInput
+                  formik={formik}
+                  name={"code"}
+                  placeholder="0897896817623"
                 />
                 <FormErrorMessage>{formik.errors.code}</FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={formik.errors.name ? true : false} mb={4}>
                 <FormLabel>Name</FormLabel>
-                <Input
-                  placeholder="Indomie Nyemek"
-                  onChange={(e) => {
-                    formik.setFieldValue("name", e.target.value);
-                  }}
-                  value={formik.values.name}
+                <TextInput
+                  formik={formik}
+                  name={"name"}
+                  placeholder="Indomie Bakar"
                 />
                 <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
               </FormControl>
@@ -238,28 +246,21 @@ export default function AddRetailProduct() {
                 mb={4}
               >
                 <FormLabel>Price</FormLabel>
-                <Input
-                  placeholder="3.500"
-                  onChange={(e) => {
-                    formik.setFieldValue("price", rfn(e.target.value));
-                  }}
-                  value={fn(formik.values.price)}
-                />
+                <NumberInput formik={formik} name="peice" placeholder="3.400" />
                 <FormErrorMessage>{formik.errors.price}</FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={formik.errors.stock ? true : false}>
                 <FormLabel>Stock</FormLabel>
-                <Input
-                  placeholder="47"
-                  onChange={(e) => {
-                    formik.setFieldValue("stock", rfn(e.target.value));
-                  }}
-                  value={fn(formik.values.stock)}
-                />
+                <NumberInput formik={formik} name="stock" placeholder="16" />
                 <FormErrorMessage>{formik.errors.stock}</FormErrorMessage>
               </FormControl>
             </form>
+
+            <Alert mt={6} status="info" variant="left-accent">
+              <AlertIcon />
+              <Text> Refresh Product page to see changes</Text>
+            </Alert>
           </ModalBody>
 
           <ModalFooter pb={"10px"} px={6}>

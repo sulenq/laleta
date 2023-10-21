@@ -172,7 +172,7 @@ export default function AdminRetailProduct() {
                         className="listItem"
                         _hover={{ bg: "var(--divider)" }}
                         cursor={"pointer"}
-                        onClick={() => [navigate(`update/${p.id}`)]}
+                        onClick={() => [navigate(`manage/${p.id}`)]}
                       >
                         <Td className="before" py={2} px={"18px"}>
                           <Box>
@@ -263,7 +263,7 @@ export default function AdminRetailProduct() {
                         className="listItem"
                         _hover={{ bg: "var(--divider)" }}
                         cursor={"pointer"}
-                        onClick={() => [navigate(`update/${p.id}`)]}
+                        onClick={() => [navigate(`manage/${p.id}`)]}
                       >
                         <Td className="before" py={2} px={"18px"} pl={6}>
                           {p.code}

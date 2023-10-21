@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useScreenWidth from "../utils/useGetScreenWidth";
 import {
+  Badge,
   Box,
   Center,
   HStack,
@@ -119,6 +120,10 @@ export default function AdminContainer({ activeNav, children }: any) {
               >
                 {outlet?.outletName}
               </Text>
+
+              <Badge fontSize={[9, null, 11]} colorScheme={employee?.roleColor}>
+                {employee?.role}
+              </Badge>
             </HStack>
 
             <HStack mr={-1}>
@@ -244,7 +249,7 @@ export default function AdminContainer({ activeNav, children }: any) {
       >
         <VStack gap={0}>
           <Image w={"40px"} src="/logo.svg" mb={2} />
-          <Text fontWeight={800} mb={4}>
+          <Text fontWeight={800} mb={8}>
             LALETA
           </Text>
 
@@ -283,11 +288,7 @@ export default function AdminContainer({ activeNav, children }: any) {
         </VStack>
 
         <VStack>
-          <ProfileSummary
-            user={user}
-            role={employee?.role}
-            roleColor={employee?.roleColor}
-          />
+          <ProfileSummary user={user} />
         </VStack>
       </VStack>
 
