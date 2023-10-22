@@ -50,17 +50,17 @@ export default function RetailProductItem(props: any) {
     validateOnChange: false,
 
     validationSchema: yup.object().shape({
-      code: yup.string().required("Code required"),
-      name: yup.string().required("Name required"),
-      category: yup.string().required("Category required"),
+      code: yup.string().required("Code is required"),
+      name: yup.string().required("Name is required"),
+      category: yup.string().required("Category is required"),
       price: yup
         .number()
-        .required("Price required")
-        .test("isNotZero", "Price required", (value) => value !== 0),
+        .required("Price is required")
+        .test("isNotZero", "Price is required", (value) => value !== 0),
       stock: yup
         .number()
-        .required("Stock required")
-        .test("isNotZero", "Stock required", (value) => value !== 0),
+        .required("Stock is required")
+        .test("isNotZero", "Stock is required", (value) => value !== 0),
     }),
 
     initialValues: {

@@ -9,6 +9,7 @@ import {
   HStack,
   Icon,
   IconButton,
+  Input,
   Modal,
   ModalBody,
   ModalContent,
@@ -34,7 +35,7 @@ import { useParams } from "react-router-dom";
 import TextInput from "./TextInput";
 import NumberInput from "./NumberInput";
 
-export default function AddRetailProduct() {
+export default function AddExpenditure() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   useModalBackOnClose(isOpen, onClose);
 
@@ -48,28 +49,26 @@ export default function AddRetailProduct() {
     validateOnChange: false,
 
     validationSchema: yup.object().shape({
-      code: yup.string().required("Code is required"),
-      name: yup.string().required("Name is required"),
+      amount: yup
+        .number()
+        .required("Amount is required")
+        .test("isNotZero", "Amount is required", (value) => value !== 0),
+      date: yup.string().required("Date is required"),
       category: yup.string().required("Category is required"),
-      price: yup
-        .number()
-        .required("Price is required")
-        .test("isNotZero", "Price is required", (value) => value !== 0),
-      stock: yup
-        .number()
-        .required("Stock is required")
-        .test("isNotZero", "Stock is required", (value) => value !== 0),
+      desiption: yup.string(),
+      proofOfPayment: yup.string(),
     }),
 
     initialValues: {
-      code: "",
-      name: "",
+      amount: 0,
+      date: "",
       category: "",
-      price: "",
-      stock: "",
+      description: "",
+      proofOfPayment: "",
     },
 
     onSubmit: (values, { resetForm }) => {
+      console.log(values.date);
       const options = {
         method: "POST",
         baseURL: process.env.REACT_APP_BASE_URL,
@@ -78,7 +77,7 @@ export default function AddRetailProduct() {
         data: values,
       };
 
-      async function addProduct() {
+      async function request() {
         try {
           const response = await axios.request(options);
           console.log(response.data);
@@ -123,7 +122,7 @@ export default function AddRetailProduct() {
       }
 
       if (jwt) {
-        addProduct();
+        request();
       }
     },
   });
@@ -148,7 +147,7 @@ export default function AddRetailProduct() {
               fontSize={[25, null, 27]}
             />
 
-            <Text color={"white"}>Add Product</Text>
+            <Text color={"white"}>Add Expenditure</Text>
           </HStack>
         </Button>
       ) : (
@@ -185,7 +184,7 @@ export default function AddRetailProduct() {
         <ModalContent>
           <ModalHeader>
             <HStack justify={"space-between"}>
-              <Text fontSize={20}>Adding Product</Text>
+              <Text fontSize={20}>Adding Expenditure</Text>
               <Tooltip label={"Clear Form"} openDelay={500}>
                 <IconButton
                   className="clicky"
@@ -205,25 +204,34 @@ export default function AddRetailProduct() {
 
           <ModalBody>
             <form id="addProductForm" onSubmit={formik.handleSubmit}>
-              <FormControl isInvalid={formik.errors.code ? true : false} mb={4}>
-                <FormLabel>Code</FormLabel>
-                <TextInput
+              <FormControl
+                isInvalid={formik.errors.amount ? true : false}
+                mb={4}
+              >
+                <FormLabel>Amount</FormLabel>
+                <NumberInput
                   myRef={firstInput}
                   formik={formik}
-                  name={"code"}
-                  placeholder="0897896817623"
+                  name={"amount"}
+                  placeholder="250.000"
                 />
-                <FormErrorMessage>{formik.errors.code}</FormErrorMessage>
+                <FormErrorMessage>{formik.errors.amount}</FormErrorMessage>
               </FormControl>
 
-              <FormControl isInvalid={formik.errors.name ? true : false} mb={4}>
-                <FormLabel>Name</FormLabel>
-                <TextInput
-                  formik={formik}
-                  name={"name"}
-                  placeholder="Indomie Bakar"
+              <FormControl isInvalid={formik.errors.date ? true : false} mb={4}>
+                <FormLabel>Date</FormLabel>
+                <Input
+                  type="datetime-local"
+                  name="date"
+                  onChange={(e) => {
+                    formik.setFieldValue("date", e.target.value);
+                  }}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.date}
                 />
-                <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+                <FormErrorMessage>
+                  {formik.touched.date && formik.errors.date}
+                </FormErrorMessage>
               </FormControl>
 
               <FormControl
@@ -248,18 +256,30 @@ export default function AddRetailProduct() {
               </FormControl>
 
               <FormControl
-                isInvalid={formik.errors.price ? true : false}
+                isInvalid={formik.errors.description ? true : false}
                 mb={4}
               >
-                <FormLabel>Price</FormLabel>
-                <NumberInput formik={formik} name="price" placeholder="3.400" />
-                <FormErrorMessage>{formik.errors.price}</FormErrorMessage>
+                <FormLabel>Description</FormLabel>
+                <TextInput
+                  formik={formik}
+                  name="description"
+                  placeholder="pembelian indomie 2 dus di cik wawa"
+                />
+                <FormErrorMessage>{formik.errors.description}</FormErrorMessage>
               </FormControl>
 
-              <FormControl isInvalid={formik.errors.stock ? true : false}>
-                <FormLabel>Stock</FormLabel>
-                <NumberInput formik={formik} name="stock" placeholder="16" />
-                <FormErrorMessage>{formik.errors.stock}</FormErrorMessage>
+              <FormControl
+                isInvalid={formik.errors.proofOfPayment ? true : false}
+              >
+                <FormLabel>Proof of Payment</FormLabel>
+                <TextInput
+                  formik={formik}
+                  name="proofOfPayment"
+                  placeholder="File Input"
+                />
+                <FormErrorMessage>
+                  {formik.errors.proofOfPayment}
+                </FormErrorMessage>
               </FormControl>
             </form>
 
@@ -270,7 +290,7 @@ export default function AddRetailProduct() {
               variant="left-accent"
             >
               <AlertIcon />
-              <Text> Refresh Product page to see changes</Text>
+              <Text> Refresh Expenditure page to see changes</Text>
             </Alert>
           </ModalBody>
 
@@ -282,7 +302,7 @@ export default function AddRetailProduct() {
                 className="clicky"
                 colorScheme="bnw"
               >
-                Add Product
+                Add Expenditure
               </Button>
 
               <Button className="clicky" variant={"unstyled"} onClick={onClose}>

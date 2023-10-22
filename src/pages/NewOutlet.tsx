@@ -34,11 +34,11 @@ export default function NewOutlet() {
     validateOnChange: false,
 
     validationSchema: yup.object().shape({
-      outletName: yup.string().required("Outlet Name required"),
-      address: yup.string().required("Address required"),
-      phone: yup.string().required("Phone required"),
-      email: yup.string().required("Email required"),
-      category: yup.string().required("Category required"),
+      outletName: yup.string().required("Outlet Name is required"),
+      address: yup.string().required("Address is required"),
+      phone: yup.string().required("Phone is required"),
+      email: yup.string().required("Email is required"),
+      category: yup.string().required("Category is required"),
     }),
 
     initialValues: {
