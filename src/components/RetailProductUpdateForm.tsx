@@ -41,10 +41,7 @@ export default function RetailProductUpdateForm({ outletId, product }: Props) {
         .number()
         .required("Price is required")
         .test("isNotZero", "Price is required", (value) => value !== 0),
-      stock: yup
-        .number()
-        .required("Stock is required")
-        .test("isNotZero", "Stock is required", (value) => value !== 0),
+      stock: yup.number().required("Stock is required"),
     }),
 
     initialValues: {
@@ -56,6 +53,8 @@ export default function RetailProductUpdateForm({ outletId, product }: Props) {
     },
 
     onSubmit: (values) => {
+      window.history.back();
+
       const options = {
         method: "PUT",
         baseURL: process.env.REACT_APP_BASE_URL,
@@ -70,7 +69,6 @@ export default function RetailProductUpdateForm({ outletId, product }: Props) {
           console.log(response.data);
 
           if (response.data.status === 200) {
-            window.history.back();
             toast({
               title: response.data.message,
               description: `${values.code}, ${values.name}`,

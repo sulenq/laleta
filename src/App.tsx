@@ -18,6 +18,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminProduct from "./pages/AdminRetailProduct";
 import AdminManageRetailProduct from "./pages/AdminManageRetailProduct";
 import AdminExpenditure from "./pages/AdminExpenditure";
+import AdminEmployee from "./pages/AdminEmployee";
+import AdminReport from "./pages/AdminReport";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>
@@ -55,11 +57,23 @@ export const App = () => (
         />
         <Route
           path="/work/:outletId/:employeeId/Admin/product/manage/:productId"
-          element={<AdminManageRetailProduct />}
+          element={
+            <RequireRole allowedRoles={["Admin"]}>
+              <AdminManageRetailProduct />
+            </RequireRole>
+          }
         />
         <Route
           path="/work/:outletId/:employeeId/Admin/expenditure"
           element={<AdminExpenditure />}
+        />
+        <Route
+          path="/work/:outletId/:employeeId/Admin/employee"
+          element={<AdminEmployee />}
+        />
+        <Route
+          path="/work/:outletId/:employeeId/Admin/report"
+          element={<AdminReport />}
         />
 
         <Route

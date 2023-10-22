@@ -284,7 +284,7 @@ export default function AddExpenditure() {
             </form>
 
             <Alert
-              minW={"100% !important"}
+              w={"100% !important"}
               mt={6}
               status="info"
               variant="left-accent"

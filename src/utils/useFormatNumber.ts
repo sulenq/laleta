@@ -4,7 +4,7 @@ const useFormatNumber = (num: number) => {
   if (num !== 0) {
     formattedNum = num?.toLocaleString("id-ID");
   } else {
-    formattedNum = "";
+    formattedNum = "0";
   }
 
   return formattedNum;

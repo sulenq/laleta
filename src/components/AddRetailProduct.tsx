@@ -54,19 +54,16 @@ export default function AddRetailProduct() {
       price: yup
         .number()
         .required("Price is required")
-        .test("isNotZero", "Price is required", (value) => value !== 0),
-      stock: yup
-        .number()
-        .required("Stock is required")
-        .test("isNotZero", "Stock is required", (value) => value !== 0),
+        .test("isNotZero", "Price cannot be 0", (value) => value !== 0),
+      stock: yup.number().required("Stock is required"),
     }),
 
     initialValues: {
       code: "",
       name: "",
       category: "",
-      price: "",
-      stock: "",
+      price: 0,
+      stock: 0,
     },
 
     onSubmit: (values, { resetForm }) => {
@@ -264,7 +261,7 @@ export default function AddRetailProduct() {
             </form>
 
             <Alert
-              minW={"100% !important"}
+              w={"100% !important"}
               mt={6}
               status="info"
               variant="left-accent"

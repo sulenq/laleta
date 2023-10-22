@@ -28,6 +28,8 @@ export default function DeleteRetailProduct({
   const toast = useToast();
 
   const onDelete = () => {
+    window.history.back();
+
     const options = {
       method: "DELETE",
       baseURL: process.env.REACT_APP_BASE_URL,
@@ -41,7 +43,6 @@ export default function DeleteRetailProduct({
         console.log(response.data);
 
         if (response.data.status === 200) {
-          window.history.back();
           toast({
             title: response.data.message,
             description: `${product.code}, ${product.name}`,

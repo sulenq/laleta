@@ -30,7 +30,7 @@ export default function NumberInput(props: any) {
           top={"11px"}
           zIndex={3}
           onClick={() => {
-            props.formik.setFieldValue(props.name, "");
+            props.formik.setFieldValue(props.name, 0);
           }}
         />
       )}

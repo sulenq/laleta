@@ -282,7 +282,7 @@ export default function RetailProductList() {
                         </Td>
 
                         <Td isNumeric py={2} px={"18px"}>
-                          {fn(parseInt(p.price))}
+                          {fn(parseInt(p.stock))}
                         </Td>
 
                         <Td isNumeric py={2} px={"18px"} pr={6}>
