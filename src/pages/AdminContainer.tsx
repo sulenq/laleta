@@ -4,13 +4,13 @@ import {
   Badge,
   Button,
   Center,
-  Divider,
   HStack,
   Icon,
   IconButton,
   Image,
   Menu,
   MenuButton,
+  MenuDivider,
   MenuItem,
   MenuList,
   Text,
@@ -206,7 +206,7 @@ export default function AdminContainer({ activeNav, children }: any) {
             return (
               <Tooltip key={i} label={n.name}>
                 <Link
-                  to={`/work/${outletId}/${employeeId}/${employee?.role}/${n.linkAlias}`}
+                  to={`/work/${outletId}/${employeeId}/Admin/${n.linkAlias}`}
                 >
                   <Center
                     p={"6px"}
@@ -257,20 +257,20 @@ export default function AdminContainer({ activeNav, children }: any) {
               mr={-4}
             >
               {adminNavMore.map((n, i) => (
-                <MenuItem>
-                  <HStack key={i} cursor={"pointer"}>
-                    <Icon as={n.icon} />
+                <MenuItem key={i}>
+                  <HStack cursor={"pointer"}>
+                    <Icon as={n.icon} fontSize={[17, null, 19]} />
 
                     <Text>{n.name}</Text>
                   </HStack>
                 </MenuItem>
               ))}
 
-              <Divider />
+              <MenuDivider />
 
               <MenuItem>
                 <HStack as={Link} to={"/home"} cursor={"pointer"}>
-                  <Icon as={HouseSimple} />
+                  <Icon as={HouseSimple} fontSize={[17, null, 19]} />
 
                   <Text>Home</Text>
                 </HStack>
@@ -278,23 +278,23 @@ export default function AdminContainer({ activeNav, children }: any) {
 
               <MenuItem>
                 <HStack as={Link} to={"/work"} cursor={"pointer"}>
-                  <Icon as={IdentificationBadge} />
+                  <Icon as={IdentificationBadge} fontSize={[17, null, 19]} />
 
                   <Text>Work</Text>
                 </HStack>
               </MenuItem>
 
-              <Divider />
+              <MenuDivider />
 
               <MenuItem>
                 <HStack as={Link} to={"#"} cursor={"pointer"}>
-                  <Icon as={Storefront} />
+                  <Icon as={Storefront} fontSize={[17, null, 19]} />
 
                   <Text>Manage Outlet</Text>
                 </HStack>
               </MenuItem>
 
-              <Divider />
+              <MenuDivider />
 
               <VStack py={3} px={4}>
                 <ProfileSummary user={user} />
@@ -403,20 +403,20 @@ export default function AdminContainer({ activeNav, children }: any) {
               border={"1px solid var(--divider2)"}
             >
               {adminNavMore.map((n, i) => (
-                <MenuItem>
-                  <HStack key={i} cursor={"pointer"}>
-                    <Icon as={n.icon} />
+                <MenuItem key={i}>
+                  <HStack cursor={"pointer"}>
+                    <Icon as={n.icon} fontSize={[17, null, 19]} />
 
                     <Text>{n.name}</Text>
                   </HStack>
                 </MenuItem>
               ))}
 
-              <Divider />
+              <MenuDivider />
 
               <MenuItem>
                 <HStack as={Link} to={"/home"} cursor={"pointer"}>
-                  <Icon as={HouseSimple} />
+                  <Icon as={HouseSimple} fontSize={[19, null, 21]} />
 
                   <Text>Home</Text>
                 </HStack>
@@ -424,23 +424,23 @@ export default function AdminContainer({ activeNav, children }: any) {
 
               <MenuItem>
                 <HStack as={Link} to={"/work"} cursor={"pointer"}>
-                  <Icon as={IdentificationBadge} />
+                  <Icon as={IdentificationBadge} fontSize={[17, null, 19]} />
 
                   <Text>Work</Text>
                 </HStack>
               </MenuItem>
 
-              <Divider />
+              <MenuDivider />
 
               <MenuItem>
                 <HStack as={Link} to={"#"} cursor={"pointer"}>
-                  <Icon as={Storefront} />
+                  <Icon as={Storefront} fontSize={[17, null, 19]} />
 
                   <Text>Manage Outlet</Text>
                 </HStack>
               </MenuItem>
 
-              <Divider />
+              <MenuDivider />
 
               <VStack py={3} px={4}>
                 <ProfileSummary user={user} />

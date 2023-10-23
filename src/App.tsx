@@ -56,24 +56,7 @@ export const App = () => (
           }
         />
         <Route
-          path="/work/:outletId/:employeeId/CEO/dashboard"
-          element={
-            <RequireAuth>
-              <AdminDashboard />
-            </RequireAuth>
-          }
-        />
-
-        <Route
           path={"/work/:outletId/:employeeId/Admin/product"}
-          element={
-            <RequireAuth>
-              <AdminProduct />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path={"/work/:outletId/:employeeId/CEO/product"}
           element={
             <RequireAuth>
               <AdminProduct />

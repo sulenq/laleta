@@ -98,10 +98,8 @@ export const globalTheme = extendTheme({
 
     Menu: {
       baseStyle: (props) => ({
-        button: {
-          _focus: { bg: "var(--divider) !important" },
-          _focusVisible: { bg: "var(--divider) !important" },
-          _active: { bg: "var(--divider) !important" },
+        divider: {
+          my: 1,
         },
         list: {
           bg: props.colorMode === "dark" ? "#000000cc" : "#ffffffcc",
