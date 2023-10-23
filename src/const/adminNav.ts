@@ -5,7 +5,6 @@ import {
   Package,
   Receipt,
   ReceiptX,
-  User,
   UsersThree,
 } from "@phosphor-icons/react";
 
@@ -45,13 +44,6 @@ const adminNav = [
     bg: "var(--purple)",
     linkAlias: "report",
   },
-  // {
-  //   name: "Profile",
-  //   link: "/work/:outletId/:employeeId/Admin/profile",
-  //   icon: User,
-  //   bg: "var(--divider)",
-  //   linkAlias: "profile",
-  // },
 ];
 
 const adminNavMore = [

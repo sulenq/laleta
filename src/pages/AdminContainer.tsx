@@ -268,16 +268,16 @@ export default function AdminContainer({ activeNav, children }: any) {
 
               <MenuDivider />
 
-              <MenuItem>
-                <HStack as={Link} to={"/home"} cursor={"pointer"}>
+              <MenuItem as={Link} to={"/home"}>
+                <HStack cursor={"pointer"}>
                   <Icon as={HouseSimple} fontSize={[17, null, 19]} />
 
                   <Text>Home</Text>
                 </HStack>
               </MenuItem>
 
-              <MenuItem>
-                <HStack as={Link} to={"/work"} cursor={"pointer"}>
+              <MenuItem as={Link} to={"/work"}>
+                <HStack cursor={"pointer"}>
                   <Icon as={IdentificationBadge} fontSize={[17, null, 19]} />
 
                   <Text>Work</Text>
@@ -287,7 +287,7 @@ export default function AdminContainer({ activeNav, children }: any) {
               <MenuDivider />
 
               <MenuItem>
-                <HStack as={Link} to={"#"} cursor={"pointer"}>
+                <HStack cursor={"pointer"}>
                   <Icon as={Storefront} fontSize={[17, null, 19]} />
 
                   <Text>Manage Outlet</Text>
@@ -414,16 +414,16 @@ export default function AdminContainer({ activeNav, children }: any) {
 
               <MenuDivider />
 
-              <MenuItem>
-                <HStack as={Link} to={"/home"} cursor={"pointer"}>
+              <MenuItem as={Link} to={"/home"}>
+                <HStack cursor={"pointer"}>
                   <Icon as={HouseSimple} fontSize={[19, null, 21]} />
 
                   <Text>Home</Text>
                 </HStack>
               </MenuItem>
 
-              <MenuItem>
-                <HStack as={Link} to={"/work"} cursor={"pointer"}>
+              <MenuItem as={Link} to={"/work"}>
+                <HStack cursor={"pointer"}>
                   <Icon as={IdentificationBadge} fontSize={[17, null, 19]} />
 
                   <Text>Work</Text>
@@ -433,7 +433,7 @@ export default function AdminContainer({ activeNav, children }: any) {
               <MenuDivider />
 
               <MenuItem>
-                <HStack as={Link} to={"#"} cursor={"pointer"}>
+                <HStack cursor={"pointer"}>
                   <Icon as={Storefront} fontSize={[17, null, 19]} />
 
                   <Text>Manage Outlet</Text>

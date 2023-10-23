@@ -177,7 +177,8 @@ export default function SignIn() {
                   textAlign={"center"}
                   opacity={0.5}
                 >
-                  By default you will stay signed in for 24 hours
+                  By default you will stay signed in for 24 hours if not sign
+                  out
                 </Text>
               </form>
             </VStack>
