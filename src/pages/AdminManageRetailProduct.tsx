@@ -9,9 +9,8 @@ import { useParams } from "react-router-dom";
 import ContentSpinner from "../components/ContentSpinner";
 
 export default function AdminManageRetailProduct() {
-  const { productId } = useParams();
+  const { outletId, productId } = useParams();
   const retailProduct = useGetRetailProduct(productId);
-  const { outletId } = useParams();
 
   return (
     <AdminContainer activeNav={"product"}>
@@ -52,11 +51,7 @@ export default function AdminManageRetailProduct() {
 
       {retailProduct?.status === "found" && outletId && (
         <>
-          <NavHeader
-            title={"Manage Product"}
-            left={"backButton"}
-            position={"static"}
-          />
+          <NavHeader title={"Manage Product"} left={"backButton"} />
 
           <Container>
             <VStack

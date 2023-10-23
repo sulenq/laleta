@@ -52,8 +52,13 @@ export default function AddExpenditure() {
       amount: yup
         .number()
         .required("Amount is required")
-        .test("isNotZero", "Amount is required", (value) => value !== 0),
-      date: yup.string().required("Date is required"),
+        .test("isNotZero", "Amount cannot be 0", (value) => value !== 0),
+      date: yup
+        .string()
+        .required("Date is required")
+        .test("date-future", "Date cannot be in the future", function (value) {
+          return new Date(value) <= new Date();
+        }),
       category: yup.string().required("Category is required"),
       desiption: yup.string(),
       proofOfPayment: yup.string(),

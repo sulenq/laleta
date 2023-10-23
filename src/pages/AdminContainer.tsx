@@ -41,7 +41,7 @@ export default function AdminContainer({ activeNav, children }: any) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getOutlet = async () => {
+    const fetch = async () => {
       const options = {
         method: "GET",
         baseURL: process.env.REACT_APP_BASE_URL,
@@ -74,7 +74,7 @@ export default function AdminContainer({ activeNav, children }: any) {
         !employee ||
         employeeId !== employee?.id
       ) {
-        getOutlet();
+        fetch();
       }
     }
   }, [

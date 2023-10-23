@@ -4,13 +4,10 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input,
   Select,
   VStack,
   useToast,
 } from "@chakra-ui/react";
-import useFormatNumber from "../utils/useFormatNumber";
-import useReverseFormatNumber from "../utils/useReverseFormatNumber";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
@@ -18,6 +15,8 @@ import retailProductCategory from "../const/retailProductCategory";
 import useJwt from "../globalState/useJwt";
 import { RetailProduct } from "../types";
 import DeleteRetailProduct from "./DeleteRetailProduct";
+import TextInput from "./TextInput";
+import NumberInput from "./NumberInput";
 
 type Props = {
   outletId: string;
@@ -25,8 +24,6 @@ type Props = {
 };
 
 export default function RetailProductUpdateForm({ outletId, product }: Props) {
-  const fn = useFormatNumber;
-  const rfn = useReverseFormatNumber;
   const toast = useToast();
   const jwt = useJwt();
 
@@ -40,7 +37,7 @@ export default function RetailProductUpdateForm({ outletId, product }: Props) {
       price: yup
         .number()
         .required("Price is required")
-        .test("isNotZero", "Price is required", (value) => value !== 0),
+        .test("isNotZero", "Price cannot be 0", (value) => value !== 0),
       stock: yup.number().required("Stock is required"),
     }),
 
@@ -121,24 +118,20 @@ export default function RetailProductUpdateForm({ outletId, product }: Props) {
       >
         <FormControl isInvalid={formik.errors.code ? true : false} mb={4}>
           <FormLabel>Code</FormLabel>
-          <Input
-            placeholder="098736287123"
-            onChange={(e) => {
-              formik.setFieldValue("code", e.target.value);
-            }}
-            value={formik.values.code}
+          <TextInput
+            formik={formik}
+            placeholder={"098736287123"}
+            name={"code"}
           />
           <FormErrorMessage>{formik.errors.code}</FormErrorMessage>
         </FormControl>
 
         <FormControl isInvalid={formik.errors.name ? true : false} mb={4}>
           <FormLabel>Name</FormLabel>
-          <Input
-            placeholder="Indomie Nyemek"
-            onChange={(e) => {
-              formik.setFieldValue("name", e.target.value);
-            }}
-            value={formik.values.name}
+          <TextInput
+            formik={formik}
+            placeholder={"Indomie Nyemek"}
+            name={"name"}
           />
           <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
         </FormControl>
@@ -163,25 +156,13 @@ export default function RetailProductUpdateForm({ outletId, product }: Props) {
 
         <FormControl isInvalid={formik.errors.price ? true : false} mb={4}>
           <FormLabel>Price</FormLabel>
-          <Input
-            placeholder="3.500"
-            onChange={(e) => {
-              formik.setFieldValue("price", rfn(e.target.value));
-            }}
-            value={fn(parseInt(formik.values.price))}
-          />
+          <NumberInput formik={formik} placeholder={"3.500"} name={"price"} />
           <FormErrorMessage>{formik.errors.price}</FormErrorMessage>
         </FormControl>
 
         <FormControl isInvalid={formik.errors.stock ? true : false}>
           <FormLabel>Stock</FormLabel>
-          <Input
-            placeholder="47"
-            onChange={(e) => {
-              formik.setFieldValue("stock", rfn(e.target.value));
-            }}
-            value={fn(parseInt(formik.values.stock))}
-          />
+          <NumberInput formik={formik} placeholder={"105"} name={"stock"} />
           <FormErrorMessage>{formik.errors.stock}</FormErrorMessage>
         </FormControl>
       </form>
