@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, Text, VStack } from "@chakra-ui/react";
-import AdminContainer from "./AdminContainer";
+import AdminContainer from "../components/AdminContainer";
 import Container from "../components/Container";
 import RetailProductUpdateForm from "../components/RetailProductUpdateForm";
 import NavHeader from "../components/NavHeader";

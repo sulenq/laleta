@@ -1,5 +1,5 @@
 import React from "react";
-import AdminContainer from "./AdminContainer";
+import AdminContainer from "../components/AdminContainer";
 import { Text } from "@chakra-ui/react";
 import Container from "../components/Container";
 

@@ -17,28 +17,27 @@ import {
   Tooltip,
   VStack,
 } from "@chakra-ui/react";
-import Container from "../components/Container";
+import Container from "./Container";
 import {
   ArrowClockwise,
   CalendarBlank,
   DotsThreeOutline,
   HouseSimple,
   IdentificationBadge,
-  Storefront,
 } from "@phosphor-icons/react";
-import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
+import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import { Link, useParams } from "react-router-dom";
-import { adminNav, adminNavMore } from "../const/adminNav";
-import ContentSpinner from "../components/ContentSpinner";
+import ContentSpinner from "./ContentSpinner";
 import usePayload from "../globalState/usePayload";
-import ProfileSummary from "../components/ProfileSummary";
+import ProfileSummary from "./ProfileSummary";
 import { useComponentsBg } from "../const/colorModeValues";
 import useJwt from "../globalState/useJwt";
 import axios from "axios";
 import useWorkOutlet from "../globalState/useWorkOutlet";
-import SignOutModal from "../components/SignOutModal";
+import SignOutModal from "./SignOutModal";
+import { cashierNav } from "../const/cashierNav";
 
-export default function AdminContainer({ activeNav, children }: any) {
+export default function CashierContainer({ activeNav, children }: any) {
   const { outlet, employee, setOutlet, setEmployee } = useWorkOutlet();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<boolean>(false);
@@ -80,15 +79,13 @@ export default function AdminContainer({ activeNav, children }: any) {
     };
 
     if (jwt) {
-      if (adminNav.some((n) => activeNav === n.linkAlias)) {
-        if (
-          !outlet ||
-          outletId !== outlet?.id ||
-          !employee ||
-          employeeId !== employee?.id
-        ) {
-          fetch();
-        }
+      if (
+        !outlet ||
+        outletId !== outlet?.id ||
+        !employee ||
+        employeeId !== employee?.id
+      ) {
+        fetch();
       }
     }
   }, [
@@ -200,7 +197,7 @@ export default function AdminContainer({ activeNav, children }: any) {
           position={"sticky"}
           bottom={0}
         >
-          {adminNav.map((n, i) => {
+          {cashierNav.map((n, i) => {
             const isActive = n.linkAlias === activeNav;
 
             return (
@@ -256,18 +253,6 @@ export default function AdminContainer({ activeNav, children }: any) {
               mb={4}
               mr={-4}
             >
-              {adminNavMore.map((n, i) => (
-                <MenuItem key={i}>
-                  <HStack cursor={"pointer"}>
-                    <Icon as={n.icon} fontSize={[17, null, 19]} />
-
-                    <Text>{n.name}</Text>
-                  </HStack>
-                </MenuItem>
-              ))}
-
-              <MenuDivider />
-
               <MenuItem as={Link} to={"/home"}>
                 <HStack cursor={"pointer"}>
                   <Icon as={HouseSimple} fontSize={[17, null, 19]} />
@@ -281,16 +266,6 @@ export default function AdminContainer({ activeNav, children }: any) {
                   <Icon as={IdentificationBadge} fontSize={[17, null, 19]} />
 
                   <Text>Work</Text>
-                </HStack>
-              </MenuItem>
-
-              <MenuDivider />
-
-              <MenuItem>
-                <HStack cursor={"pointer"}>
-                  <Icon as={Storefront} fontSize={[17, null, 19]} />
-
-                  <Text>Manage Outlet</Text>
                 </HStack>
               </MenuItem>
 
@@ -335,7 +310,7 @@ export default function AdminContainer({ activeNav, children }: any) {
             LALETA
           </Text>
 
-          {adminNav.map((n, i) => {
+          {cashierNav.map((n, i) => {
             const isActive = n.linkAlias === activeNav;
 
             return n.name === "Profile" ? (
@@ -402,18 +377,6 @@ export default function AdminContainer({ activeNav, children }: any) {
               {...cfg}
               border={"1px solid var(--divider2)"}
             >
-              {adminNavMore.map((n, i) => (
-                <MenuItem key={i}>
-                  <HStack cursor={"pointer"}>
-                    <Icon as={n.icon} fontSize={[17, null, 19]} />
-
-                    <Text>{n.name}</Text>
-                  </HStack>
-                </MenuItem>
-              ))}
-
-              <MenuDivider />
-
               <MenuItem as={Link} to={"/home"}>
                 <HStack cursor={"pointer"}>
                   <Icon as={HouseSimple} fontSize={[19, null, 21]} />
@@ -427,16 +390,6 @@ export default function AdminContainer({ activeNav, children }: any) {
                   <Icon as={IdentificationBadge} fontSize={[17, null, 19]} />
 
                   <Text>Work</Text>
-                </HStack>
-              </MenuItem>
-
-              <MenuDivider />
-
-              <MenuItem>
-                <HStack cursor={"pointer"}>
-                  <Icon as={Storefront} fontSize={[17, null, 19]} />
-
-                  <Text>Manage Outlet</Text>
                 </HStack>
               </MenuItem>
 
