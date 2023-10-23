@@ -98,6 +98,11 @@ export const globalTheme = extendTheme({
 
     Menu: {
       baseStyle: (props) => ({
+        button: {
+          _focus: { bg: "var(--divider) !important" },
+          _focusVisible: { bg: "var(--divider) !important" },
+          _active: { bg: "var(--divider) !important" },
+        },
         list: {
           bg: props.colorMode === "dark" ? "#000000cc" : "#ffffffcc",
           backdropFilter: "blur(10px)",
@@ -108,6 +113,8 @@ export const globalTheme = extendTheme({
         item: {
           bg: "transparent",
           _hover: { bg: "var(--divider)" },
+          py: 3,
+          px: 4,
         },
       }),
     },

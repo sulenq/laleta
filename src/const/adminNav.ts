@@ -45,13 +45,13 @@ const adminNav = [
     bg: "var(--purple)",
     linkAlias: "report",
   },
-  {
-    name: "Profile",
-    link: "/work/:outletId/:employeeId/Admin/profile",
-    icon: User,
-    bg: "var(--divider)",
-    linkAlias: "profile",
-  },
+  // {
+  //   name: "Profile",
+  //   link: "/work/:outletId/:employeeId/Admin/profile",
+  //   icon: User,
+  //   bg: "var(--divider)",
+  //   linkAlias: "profile",
+  // },
 ];
 
 const adminNavMore = [

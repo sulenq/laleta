@@ -149,6 +149,11 @@ select {
   max-width: 450px !important;
 }
 
+.css-o807cm[data-active],
+.css-1veby0y[data-active] {
+  background: var(--divider3) !important;
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;

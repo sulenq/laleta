@@ -2,21 +2,33 @@ import React, { useEffect, useState } from "react";
 import useScreenWidth from "../utils/useGetScreenWidth";
 import {
   Badge,
-  Box,
+  Button,
   Center,
+  Divider,
   HStack,
   Icon,
   IconButton,
   Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Text,
   Tooltip,
   VStack,
 } from "@chakra-ui/react";
 import Container from "../components/Container";
-import { ArrowClockwise, CalendarBlank, House } from "@phosphor-icons/react";
+import {
+  ArrowClockwise,
+  CalendarBlank,
+  DotsThreeOutline,
+  HouseSimple,
+  IdentificationBadge,
+  Storefront,
+} from "@phosphor-icons/react";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
 import { Link, useParams } from "react-router-dom";
-import { adminNav } from "../const/adminNav";
+import { adminNav, adminNavMore } from "../const/adminNav";
 import ContentSpinner from "../components/ContentSpinner";
 import usePayload from "../globalState/usePayload";
 import ProfileSummary from "../components/ProfileSummary";
@@ -24,6 +36,7 @@ import { useComponentsBg } from "../const/colorModeValues";
 import useJwt from "../globalState/useJwt";
 import axios from "axios";
 import useWorkOutlet from "../globalState/useWorkOutlet";
+import SignOutModal from "../components/SignOutModal";
 
 export default function AdminContainer({ activeNav, children }: any) {
   const { outlet, employee, setOutlet, setEmployee } = useWorkOutlet();
@@ -131,7 +144,7 @@ export default function AdminContainer({ activeNav, children }: any) {
                 <Link to={"/home"}>
                   <IconButton
                     aria-label="home button"
-                    icon={<Icon as={House} fontSize={[15, null, 17]} />}
+                    icon={<Icon as={HouseSimple} fontSize={[15, null, 17]} />}
                     size={"xs"}
                     variant={"ghost"}
                     className="btn"
@@ -203,27 +216,93 @@ export default function AdminContainer({ activeNav, children }: any) {
                     transition={"200ms"}
                     borderRadius={"full"}
                   >
-                    {n.name === "Profile" ? (
-                      user?.image ? (
-                        <Box
-                          w={"25px"}
-                          h={"25px"}
-                          bgImage={user?.image}
-                          bgSize={"cover"}
-                          bgPos={"top center"}
-                          borderRadius={"full"}
-                        />
-                      ) : (
-                        <Icon as={n.icon} fontSize={23} color={"white"} />
-                      )
-                    ) : (
-                      <Icon as={n.icon} fontSize={23} color={"white"} />
-                    )}
+                    <Icon as={n.icon} fontSize={23} color={"white"} />
                   </Center>
                 </Link>
               </Tooltip>
             );
           })}
+
+          <Menu isLazy>
+            <MenuButton
+              as={IconButton}
+              aria-label="more nav"
+              className="btn"
+              variant={"ghost"}
+              icon={
+                <Icon as={DotsThreeOutline} color={"white"} fontSize={21} />
+              }
+              borderRadius={"full"}
+              size={"sm"}
+            >
+              <HStack>
+                <Center
+                  p={1}
+                  cursor={"pointer"}
+                  transition={"200ms"}
+                  borderRadius={"full"}
+                >
+                  <Icon as={DotsThreeOutline} fontSize={17} />
+                </Center>
+
+                <Text fontWeight={500}>More</Text>
+              </HStack>
+            </MenuButton>
+
+            <MenuList
+              id="moreNav"
+              borderRadius={8}
+              border={"1px solid var(--divider2)"}
+              mb={4}
+              mr={-4}
+            >
+              {adminNavMore.map((n, i) => (
+                <MenuItem>
+                  <HStack key={i} cursor={"pointer"}>
+                    <Icon as={n.icon} />
+
+                    <Text>{n.name}</Text>
+                  </HStack>
+                </MenuItem>
+              ))}
+
+              <Divider />
+
+              <MenuItem>
+                <HStack as={Link} to={"/home"} cursor={"pointer"}>
+                  <Icon as={HouseSimple} />
+
+                  <Text>Home</Text>
+                </HStack>
+              </MenuItem>
+
+              <MenuItem>
+                <HStack as={Link} to={"/work"} cursor={"pointer"}>
+                  <Icon as={IdentificationBadge} />
+
+                  <Text>Work</Text>
+                </HStack>
+              </MenuItem>
+
+              <Divider />
+
+              <MenuItem>
+                <HStack as={Link} to={"#"} cursor={"pointer"}>
+                  <Icon as={Storefront} />
+
+                  <Text>Manage Outlet</Text>
+                </HStack>
+              </MenuItem>
+
+              <Divider />
+
+              <VStack py={3} px={4}>
+                <ProfileSummary user={user} />
+
+                <SignOutModal w={"100%"} size={"sm"} mt={2} />
+              </VStack>
+            </MenuList>
+          </Menu>
         </HStack>
       </VStack>
     );
@@ -240,7 +319,7 @@ export default function AdminContainer({ activeNav, children }: any) {
       <VStack
         w={"100%"}
         h={"100vh"}
-        maxW={"200px"}
+        maxW={"240px"}
         pt={8}
         pb={4}
         px={4}
@@ -291,7 +370,85 @@ export default function AdminContainer({ activeNav, children }: any) {
         </VStack>
 
         <VStack>
-          <ProfileSummary user={user} />
+          <Menu>
+            <MenuButton
+              as={Button}
+              className="btn"
+              variant={"ghost"}
+              w={"100%"}
+              p={"6px"}
+              borderRadius={"full"}
+              _hover={{ bg: "var(--divider)" }}
+              transition={"200ms"}
+              cursor={"pointer"}
+            >
+              <HStack>
+                <Center
+                  p={1}
+                  cursor={"pointer"}
+                  transition={"200ms"}
+                  borderRadius={"full"}
+                >
+                  <Icon as={DotsThreeOutline} fontSize={17} />
+                </Center>
+
+                <Text fontWeight={500}>More</Text>
+              </HStack>
+            </MenuButton>
+
+            <MenuList
+              id="moreNav"
+              borderRadius={8}
+              {...cfg}
+              border={"1px solid var(--divider2)"}
+            >
+              {adminNavMore.map((n, i) => (
+                <MenuItem>
+                  <HStack key={i} cursor={"pointer"}>
+                    <Icon as={n.icon} />
+
+                    <Text>{n.name}</Text>
+                  </HStack>
+                </MenuItem>
+              ))}
+
+              <Divider />
+
+              <MenuItem>
+                <HStack as={Link} to={"/home"} cursor={"pointer"}>
+                  <Icon as={HouseSimple} />
+
+                  <Text>Home</Text>
+                </HStack>
+              </MenuItem>
+
+              <MenuItem>
+                <HStack as={Link} to={"/work"} cursor={"pointer"}>
+                  <Icon as={IdentificationBadge} />
+
+                  <Text>Work</Text>
+                </HStack>
+              </MenuItem>
+
+              <Divider />
+
+              <MenuItem>
+                <HStack as={Link} to={"#"} cursor={"pointer"}>
+                  <Icon as={Storefront} />
+
+                  <Text>Manage Outlet</Text>
+                </HStack>
+              </MenuItem>
+
+              <Divider />
+
+              <VStack py={3} px={4}>
+                <ProfileSummary user={user} />
+
+                <SignOutModal w={"100%"} size={"sm"} mt={2} />
+              </VStack>
+            </MenuList>
+          </Menu>
         </VStack>
       </VStack>
 

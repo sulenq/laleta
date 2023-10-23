@@ -30,7 +30,7 @@ export default function Home() {
           <HStack gap={4} flexShrink={0}>
             <ColorModeSwitcher size={"sm"} borderRadius={"full"} />
 
-            <SignOutModal />
+            <SignOutModal size={"sm"} />
           </HStack>
         }
       />

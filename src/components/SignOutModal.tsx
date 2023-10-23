@@ -2,7 +2,6 @@ import React from "react";
 import {
   Button,
   ButtonGroup,
-  HStack,
   Icon,
   Modal,
   ModalBody,
@@ -18,7 +17,7 @@ import { removeCookie } from "typescript-cookie";
 import { useNavigate } from "react-router-dom";
 import useModalBackOnClose from "../utils/useModalBackOnClose";
 
-export default function SignOutModal() {
+export default function SignOutModal(props: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
@@ -26,16 +25,19 @@ export default function SignOutModal() {
 
   return (
     <>
-      <HStack
+      <Button
+        {...props}
         className="clicky"
+        colorScheme="red"
+        variant={"outline"}
         transition={"200ms"}
         // cursor={"pointer"}
         flexShrink={0}
         onClick={onOpen}
+        rightIcon={<Icon as={SignOut} fontSize={16} />}
       >
         <Text fontWeight={500}>Sign Out</Text>
-        <Icon as={SignOut} fontSize={16} />
-      </HStack>
+      </Button>
 
       <Modal
         isOpen={isOpen}
