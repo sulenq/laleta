@@ -16,7 +16,7 @@ export default function NumberInput(props: any) {
         onChange={(e) => {
           props.formik.setFieldValue(props.name, rfn(e.target.value));
         }}
-        value={fn(props.formik.values[props.name])}
+        value={fn(parseInt(props.formik.values[props.name]))}
         pr={"30px !important"}
       />
       {props.formik.values[props.name] !== 0 && (

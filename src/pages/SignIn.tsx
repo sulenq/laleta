@@ -77,8 +77,6 @@ export default function SignIn() {
         } finally {
           setLoading(false);
         }
-
-        resetForm();
       }
 
       signin();
