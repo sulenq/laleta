@@ -7,7 +7,7 @@ export default function AdminDashboard() {
   return (
     <AdminContainer activeNav={"dashboard"}>
       <Container mt={2}>
-        <Text fontWeight={600} fontSize={[23, null, 25]} noOfLines={1} mb={3}>
+        <Text fontWeight={600} fontSize={[19, null, 21]} noOfLines={1} mb={3}>
           Dashboard
         </Text>
 

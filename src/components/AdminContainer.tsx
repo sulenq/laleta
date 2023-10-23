@@ -37,6 +37,7 @@ import useJwt from "../globalState/useJwt";
 import axios from "axios";
 import useWorkOutlet from "../globalState/useWorkOutlet";
 import SignOutModal from "./SignOutModal";
+import { iconSize } from "../const/sizes";
 
 export default function AdminContainer({ activeNav, children }: any) {
   const { outlet, employee, setOutlet, setEmployee } = useWorkOutlet();
@@ -257,7 +258,7 @@ export default function AdminContainer({ activeNav, children }: any) {
               {adminNavMore.map((n, i) => (
                 <MenuItem key={i}>
                   <HStack cursor={"pointer"}>
-                    <Icon as={n.icon} fontSize={[17, null, 19]} />
+                    <Icon as={n.icon} fontSize={iconSize} />
 
                     <Text>{n.name}</Text>
                   </HStack>
@@ -268,7 +269,7 @@ export default function AdminContainer({ activeNav, children }: any) {
 
               <MenuItem as={Link} to={"/home"}>
                 <HStack cursor={"pointer"}>
-                  <Icon as={HouseSimple} fontSize={[17, null, 19]} />
+                  <Icon as={HouseSimple} fontSize={iconSize} />
 
                   <Text>Home</Text>
                 </HStack>
@@ -276,7 +277,7 @@ export default function AdminContainer({ activeNav, children }: any) {
 
               <MenuItem as={Link} to={"/work"}>
                 <HStack cursor={"pointer"}>
-                  <Icon as={IdentificationBadge} fontSize={[17, null, 19]} />
+                  <Icon as={IdentificationBadge} fontSize={iconSize} />
 
                   <Text>Work</Text>
                 </HStack>
@@ -286,7 +287,7 @@ export default function AdminContainer({ activeNav, children }: any) {
 
               <MenuItem>
                 <HStack cursor={"pointer"}>
-                  <Icon as={Storefront} fontSize={[17, null, 19]} />
+                  <Icon as={Storefront} fontSize={iconSize} />
 
                   <Text>Manage Outlet</Text>
                 </HStack>
@@ -403,7 +404,7 @@ export default function AdminContainer({ activeNav, children }: any) {
               {adminNavMore.map((n, i) => (
                 <MenuItem key={i}>
                   <HStack cursor={"pointer"}>
-                    <Icon as={n.icon} fontSize={[17, null, 19]} />
+                    <Icon as={n.icon} fontSize={iconSize} />
 
                     <Text>{n.name}</Text>
                   </HStack>
@@ -422,7 +423,7 @@ export default function AdminContainer({ activeNav, children }: any) {
 
               <MenuItem as={Link} to={"/work"}>
                 <HStack cursor={"pointer"}>
-                  <Icon as={IdentificationBadge} fontSize={[17, null, 19]} />
+                  <Icon as={IdentificationBadge} fontSize={iconSize} />
 
                   <Text>Work</Text>
                 </HStack>
@@ -432,7 +433,7 @@ export default function AdminContainer({ activeNav, children }: any) {
 
               <MenuItem>
                 <HStack cursor={"pointer"}>
-                  <Icon as={Storefront} fontSize={[17, null, 19]} />
+                  <Icon as={Storefront} fontSize={iconSize} />
 
                   <Text>Manage Outlet</Text>
                 </HStack>

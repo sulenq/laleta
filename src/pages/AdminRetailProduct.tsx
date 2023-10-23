@@ -10,7 +10,7 @@ export default function AdminRetailProduct() {
     <AdminContainer activeNav="product">
       <Container mt={2}>
         <HStack justify={"space-between"} mb={3}>
-          <Text fontWeight={600} fontSize={[23, null, 25]} noOfLines={1}>
+          <Text fontWeight={600} fontSize={[19, null, 21]} noOfLines={1}>
             Product
           </Text>
 

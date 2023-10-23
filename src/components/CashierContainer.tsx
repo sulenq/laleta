@@ -36,6 +36,7 @@ import axios from "axios";
 import useWorkOutlet from "../globalState/useWorkOutlet";
 import SignOutModal from "./SignOutModal";
 import { cashierNav } from "../const/cashierNav";
+import { iconSize } from "../const/sizes";
 
 export default function CashierContainer({ activeNav, children }: any) {
   const { outlet, employee, setOutlet, setEmployee } = useWorkOutlet();
@@ -203,7 +204,7 @@ export default function CashierContainer({ activeNav, children }: any) {
             return (
               <Tooltip key={i} label={n.name}>
                 <Link
-                  to={`/work/${outletId}/${employeeId}/Admin/${n.linkAlias}`}
+                  to={`/work/${outletId}/${employeeId}/Cashier/${n.linkAlias}`}
                 >
                   <Center
                     p={"6px"}
@@ -226,6 +227,8 @@ export default function CashierContainer({ activeNav, children }: any) {
               aria-label="more nav"
               className="btn"
               variant={"ghost"}
+              w={"35px"}
+              h={"35px"}
               icon={
                 <Icon as={DotsThreeOutline} color={"white"} fontSize={21} />
               }
@@ -255,7 +258,7 @@ export default function CashierContainer({ activeNav, children }: any) {
             >
               <MenuItem as={Link} to={"/home"}>
                 <HStack cursor={"pointer"}>
-                  <Icon as={HouseSimple} fontSize={[17, null, 19]} />
+                  <Icon as={HouseSimple} fontSize={iconSize} />
 
                   <Text>Home</Text>
                 </HStack>
@@ -263,7 +266,7 @@ export default function CashierContainer({ activeNav, children }: any) {
 
               <MenuItem as={Link} to={"/work"}>
                 <HStack cursor={"pointer"}>
-                  <Icon as={IdentificationBadge} fontSize={[17, null, 19]} />
+                  <Icon as={IdentificationBadge} fontSize={iconSize} />
 
                   <Text>Work</Text>
                 </HStack>
@@ -271,8 +274,8 @@ export default function CashierContainer({ activeNav, children }: any) {
 
               <MenuDivider />
 
-              <VStack py={3} px={4}>
-                <ProfileSummary user={user} />
+              <VStack py={3} px={3}>
+                <ProfileSummary user={user} maxW={"none"} />
 
                 <SignOutModal w={"100%"} size={"sm"} mt={2} />
               </VStack>
@@ -319,7 +322,7 @@ export default function CashierContainer({ activeNav, children }: any) {
               <HStack
                 key={i}
                 as={Link}
-                to={`/work/${outletId}/${employeeId}/Admin/${n.linkAlias}`}
+                to={`/work/${outletId}/${employeeId}/Cashier/${n.linkAlias}`}
                 w={"100%"}
                 p={"6px"}
                 borderRadius={"full"}
@@ -371,12 +374,7 @@ export default function CashierContainer({ activeNav, children }: any) {
               </HStack>
             </MenuButton>
 
-            <MenuList
-              id="moreNav"
-              borderRadius={8}
-              {...cfg}
-              border={"1px solid var(--divider2)"}
-            >
+            <MenuList id="moreNav" borderRadius={8} {...cfg} minW={"208px"}>
               <MenuItem as={Link} to={"/home"}>
                 <HStack cursor={"pointer"}>
                   <Icon as={HouseSimple} fontSize={[19, null, 21]} />
@@ -387,7 +385,7 @@ export default function CashierContainer({ activeNav, children }: any) {
 
               <MenuItem as={Link} to={"/work"}>
                 <HStack cursor={"pointer"}>
-                  <Icon as={IdentificationBadge} fontSize={[17, null, 19]} />
+                  <Icon as={IdentificationBadge} fontSize={iconSize} />
 
                   <Text>Work</Text>
                 </HStack>

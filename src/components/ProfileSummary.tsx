@@ -5,7 +5,7 @@ export default function ProfileSummary(props: any) {
   const user = props?.user;
 
   return (
-    <HStack w={"100%"} maxW={"180px"} flexShrink={1}>
+    <HStack w={"100%"} maxW={props?.maxW || "180px"} flexShrink={1}>
       {user?.image ? (
         <Center
           bg={"var(--divider)"}
