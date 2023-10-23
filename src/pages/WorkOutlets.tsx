@@ -204,9 +204,7 @@ export default function WorkOutlets() {
 
                     <Badge
                       fontSize={[11, null, 13]}
-                      colorScheme={
-                        s.employee.role === "Admin" ? "purple" : "yellow"
-                      }
+                      colorScheme={s.employee.roleColor}
                     >
                       {s.employee.role}
                     </Badge>

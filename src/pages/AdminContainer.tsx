@@ -15,7 +15,7 @@ import {
 import Container from "../components/Container";
 import { ArrowClockwise, CalendarBlank, House } from "@phosphor-icons/react";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { adminNav } from "../const/adminNav";
 import ContentSpinner from "../components/ContentSpinner";
 import usePayload from "../globalState/usePayload";
@@ -38,7 +38,6 @@ export default function AdminContainer({ activeNav, children }: any) {
   })}`;
   const cfg = useComponentsBg();
   const jwt = useJwt();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetch = async () => {
@@ -59,7 +58,7 @@ export default function AdminContainer({ activeNav, children }: any) {
           setEmployee(response.data.data.employee);
           setLoading(false);
         } else if (response.data.status === 404) {
-          navigate("/signin");
+          // navigate("/signin");
         }
       } catch (error) {
         console.error(error);
@@ -68,18 +67,20 @@ export default function AdminContainer({ activeNav, children }: any) {
     };
 
     if (jwt) {
-      if (
-        !outlet ||
-        outletId !== outlet?.id ||
-        !employee ||
-        employeeId !== employee?.id
-      ) {
-        fetch();
+      if (adminNav.some((n) => activeNav === n.linkAlias)) {
+        if (
+          !outlet ||
+          outletId !== outlet?.id ||
+          !employee ||
+          employeeId !== employee?.id
+        ) {
+          fetch();
+        }
       }
     }
   }, [
+    activeNav,
     jwt,
-    navigate,
     outletId,
     outlet,
     employeeId,
@@ -192,7 +193,7 @@ export default function AdminContainer({ activeNav, children }: any) {
             return (
               <Tooltip key={i} label={n.name}>
                 <Link
-                  to={`/work/${outletId}/${employeeId}/Admin/${n.linkAlias}`}
+                  to={`/work/${outletId}/${employeeId}/${employee?.role}/${n.linkAlias}`}
                 >
                   <Center
                     p={"6px"}

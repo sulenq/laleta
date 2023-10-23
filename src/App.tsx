@@ -13,7 +13,7 @@ import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import Manual from "./pages/Manual";
 import Settings from "./pages/Settings";
-import RequireRole from "./middleware/RequireAuth";
+import RequireAuth from "./middleware/RequireAuth";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminProduct from "./pages/AdminRetailProduct";
 import AdminManageRetailProduct from "./pages/AdminManageRetailProduct";
@@ -31,9 +31,9 @@ export const App = () => (
         <Route
           path="/home"
           element={
-            <RequireRole allowedRoles={[]}>
+            <RequireAuth>
               <Home />
-            </RequireRole>
+            </RequireAuth>
           }
         />
 
@@ -42,25 +42,50 @@ export const App = () => (
         <Route
           path="/work"
           element={
-            <RequireRole allowedRoles={[]}>
+            <RequireAuth>
               <WorkOutlets />
-            </RequireRole>
+            </RequireAuth>
           }
         />
         <Route
           path="/work/:outletId/:employeeId/Admin/dashboard"
-          element={<AdminDashboard />}
+          element={
+            <RequireAuth>
+              <AdminDashboard />
+            </RequireAuth>
+          }
         />
         <Route
-          path="/work/:outletId/:employeeId/Admin/product"
-          element={<AdminProduct />}
+          path="/work/:outletId/:employeeId/CEO/dashboard"
+          element={
+            <RequireAuth>
+              <AdminDashboard />
+            </RequireAuth>
+          }
+        />
+
+        <Route
+          path={"/work/:outletId/:employeeId/Admin/product"}
+          element={
+            <RequireAuth>
+              <AdminProduct />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path={"/work/:outletId/:employeeId/CEO/product"}
+          element={
+            <RequireAuth>
+              <AdminProduct />
+            </RequireAuth>
+          }
         />
         <Route
           path="/work/:outletId/:employeeId/Admin/product/manage/:productId"
           element={
-            <RequireRole allowedRoles={["Admin"]}>
+            <RequireAuth>
               <AdminManageRetailProduct />
-            </RequireRole>
+            </RequireAuth>
           }
         />
         <Route
@@ -79,36 +104,36 @@ export const App = () => (
         <Route
           path="/explore"
           element={
-            <RequireRole allowedRoles={[]}>
+            <RequireAuth>
               <Explore />
-            </RequireRole>
+            </RequireAuth>
           }
         />
 
         <Route
           path="/profile"
           element={
-            <RequireRole allowedRoles={[]}>
+            <RequireAuth>
               <Profile />
-            </RequireRole>
+            </RequireAuth>
           }
         />
 
         <Route
           path="/manual"
           element={
-            <RequireRole allowedRoles={[]}>
+            <RequireAuth>
               <Manual />
-            </RequireRole>
+            </RequireAuth>
           }
         />
 
         <Route
           path="/settings"
           element={
-            <RequireRole allowedRoles={[]}>
+            <RequireAuth>
               <Settings />
-            </RequireRole>
+            </RequireAuth>
           }
         />
 

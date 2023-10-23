@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { getCookie } from "typescript-cookie";
 import FullPageSpinner from "../components/FullPageSpinner";
+import { Role } from "../types";
 
 type Props = {
+  allowedRoles: Role[];
   children: any;
 };
 
-export default function RequireAuth({ children }: Props) {
+export default function RequireAuth({ allowedRoles, children }: Props) {
   const [page, setPage] = useState(<FullPageSpinner />);
 
   useEffect(() => {
