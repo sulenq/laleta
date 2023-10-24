@@ -1,19 +1,12 @@
 import React from "react";
 import {
-  Box,
   Center,
   HStack,
   Icon,
   Image,
   Input,
   SimpleGrid,
-  Table,
-  Tbody,
-  Td,
   Text,
-  Th,
-  Thead,
-  Tr,
   VStack,
 } from "@chakra-ui/react";
 import Container from "../components/Container";
@@ -21,14 +14,19 @@ import { Bookmark, GridFour, Package } from "@phosphor-icons/react";
 import useScreenWidth from "../utils/useGetScreenWidth";
 import useGetRetailProductByOutlet from "../request/useGetRetailProductByOutlet";
 import { RetailProduct } from "../types";
-import useFormatNumber from "../utils/useFormatNumber";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ContentSpinner from "../components/ContentSpinner";
+import RetailProductListContainerMobile from "./RetailProductListContainerMobile";
+import RetailProductListContainer from "./RetailProductListContainer";
+import RetailProductListItem from "./RetailProductListItem";
+import RetailProductListItemMobile from "./RetailProductListItemMobile";
+import TableContainer from "./TableContainer";
 
-export default function RetailProductList() {
+type Props = {
+  action: (id: string) => void;
+};
+export default function RetailProductList({ action }: Props) {
   const sw = useScreenWidth();
-  const fn = useFormatNumber;
-  const navigate = useNavigate();
 
   const { outletId } = useParams();
   const retailProducts = useGetRetailProductByOutlet(outletId);
@@ -133,168 +131,21 @@ export default function RetailProductList() {
             </SimpleGrid>
           </Container>
 
-          <Box overflow={"auto"}>
-            <Table>
-              {sw < 900 ? (
-                <>
-                  <Thead opacity={0.5}>
-                    <Tr>
-                      <Th py={2} px={"18px"} color={"curent"}>
-                        Code/Name
-                      </Th>
-
-                      <Th
-                        py={2}
-                        px={"18px"}
-                        color={"curent"}
-                        textAlign={"center"}
-                      >
-                        Category
-                      </Th>
-
-                      <Th isNumeric py={2} px={"18px"} color={"curent"}>
-                        Price/Stock
-                      </Th>
-                    </Tr>
-                  </Thead>
-
-                  <Tbody>
-                    {retailProducts.data.map((p: RetailProduct, i: number) => (
-                      <Tr
-                        key={i}
-                        className="listItem"
-                        _hover={{ bg: "var(--divider)" }}
-                        cursor={"pointer"}
-                        onClick={() => [navigate(`manage/${p.id}`)]}
-                      >
-                        <Td className="before" py={2} px={"18px"}>
-                          <Box>
-                            <Text noOfLines={1} maxW={"200px"}>
-                              {p.name}
-                            </Text>
-                            <Text
-                              fontSize={11}
-                              opacity={0.5}
-                              noOfLines={1}
-                              maxW={"100px"}
-                            >
-                              {p.code}
-                            </Text>
-                          </Box>
-                        </Td>
-
-                        <Td textAlign={"center"} py={2} px={"18px"}>
-                          {p.category}
-                        </Td>
-
-                        <Td py={2} px={"18px"}>
-                          <Box>
-                            <Text textAlign={"right"}>
-                              {fn(parseInt(p.price))}
-                            </Text>
-                            <Text
-                              textAlign={"right"}
-                              fontSize={11}
-                              opacity={0.5}
-                            >
-                              {fn(parseInt(p.stock))}
-                            </Text>
-                          </Box>
-                        </Td>
-                      </Tr>
-                    ))}
-                  </Tbody>
-                </>
-              ) : (
-                <>
-                  <Thead opacity={0.5}>
-                    <Tr>
-                      <Th
-                        fontSize={11}
-                        py={2}
-                        px={"18px"}
-                        pl={6}
-                        color={"curent"}
-                      >
-                        Code
-                      </Th>
-
-                      <Th fontSize={11} py={2} px={"18px"} color={"curent"}>
-                        Name
-                      </Th>
-
-                      <Th
-                        fontSize={11}
-                        py={2}
-                        px={"18px"}
-                        color={"curent"}
-                        textAlign={"center"}
-                      >
-                        Category
-                      </Th>
-
-                      <Th
-                        isNumeric
-                        fontSize={11}
-                        py={2}
-                        px={"18px"}
-                        color={"curent"}
-                      >
-                        Stock
-                      </Th>
-
-                      <Th
-                        isNumeric
-                        fontSize={11}
-                        py={2}
-                        px={"18px"}
-                        pr={6}
-                        color={"curent"}
-                      >
-                        Price
-                      </Th>
-                    </Tr>
-                  </Thead>
-
-                  <Tbody>
-                    {retailProducts.data.map((p: any, i: number) => (
-                      <Tr
-                        key={i}
-                        className="listItem"
-                        _hover={{ bg: "var(--divider)" }}
-                        cursor={"pointer"}
-                        onClick={() => [navigate(`manage/${p.id}`)]}
-                      >
-                        <Td className="before" py={2} px={"18px"} pl={6}>
-                          <Text noOfLines={1} maxW={"200px"}>
-                            {p.code}
-                          </Text>
-                        </Td>
-
-                        <Td py={2} px={"18px"}>
-                          <Text noOfLines={1} maxW={"300px"}>
-                            {p.name}
-                          </Text>
-                        </Td>
-
-                        <Td textAlign={"center"} py={2} px={"18px"}>
-                          {p.category}
-                        </Td>
-
-                        <Td isNumeric py={2} px={"18px"}>
-                          {fn(parseInt(p.stock))}
-                        </Td>
-
-                        <Td isNumeric py={2} px={"18px"} pr={6}>
-                          {fn(parseInt(p.price))}
-                        </Td>
-                      </Tr>
-                    ))}
-                  </Tbody>
-                </>
-              )}
-            </Table>
-          </Box>
+          <TableContainer>
+            {sw < 900 ? (
+              <RetailProductListContainerMobile>
+                {retailProducts.data.map((p: RetailProduct, i: number) => (
+                  <RetailProductListItemMobile key={i} p={p} action={action} />
+                ))}
+              </RetailProductListContainerMobile>
+            ) : (
+              <RetailProductListContainer>
+                {retailProducts.data.map((p: any, i: number) => (
+                  <RetailProductListItem key={i} p={p} action={action} />
+                ))}
+              </RetailProductListContainer>
+            )}
+          </TableContainer>
         </>
       )}
     </>

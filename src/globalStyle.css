@@ -151,7 +151,8 @@ select {
 }
 
 .css-o807cm[data-active],
-.css-1veby0y[data-active] {
+.css-1veby0y[data-active],
+.css-1nz3jkt[data-active] {
   background: var(--divider3) !important;
 }
 

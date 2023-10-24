@@ -75,3 +75,14 @@ export type FetchedData =
     }
   | "loading"
   | undefined;
+
+export type OrderItem = {
+  id: string;
+  code: string;
+  name: string;
+  price: number;
+  qty: number;
+  totalPrice: number;
+  stock: number;
+  category: string;
+};

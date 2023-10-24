@@ -4,8 +4,14 @@ import { HStack, Text } from "@chakra-ui/react";
 import Container from "../components/Container";
 import AddRetailProduct from "../components/AddRetailProduct";
 import RetailProductList from "../components/RetailProductList";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminRetailProduct() {
+  const navigate = useNavigate();
+  const manage = (id: string) => {
+    navigate(`manage/${id}`);
+  };
+
   return (
     <AdminContainer activeNav="product">
       <Container mt={2}>
@@ -18,7 +24,7 @@ export default function AdminRetailProduct() {
         </HStack>
       </Container>
 
-      <RetailProductList />
+      <RetailProductList action={manage} />
     </AdminContainer>
   );
 }

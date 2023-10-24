@@ -2,22 +2,22 @@ import React from "react";
 import CashierContainer from "../components/CashierContainer";
 import Container from "../components/Container";
 import {
+  Box,
   Button,
   HStack,
   Icon,
   IconButton,
-  Input,
-  InputGroup,
   Text,
   Tooltip,
   VStack,
 } from "@chakra-ui/react";
-import { ArrowRight, MagnifyingGlass, Plus } from "@phosphor-icons/react";
-import useScreenWidth from "../utils/useGetScreenWidth";
+import { ArrowRight, Plus } from "@phosphor-icons/react";
+// import useScreenWidth from "../utils/useGetScreenWidth";
 import { iconSize } from "../const/sizes";
+import RetailProductSearch from "../components/RetailProductSearch";
 
 export default function CashierCashiering() {
-  const sw = useScreenWidth();
+  // const sw = useScreenWidth();
 
   return (
     <CashierContainer activeNav={"cashiering"}>
@@ -58,22 +58,7 @@ export default function CashierCashiering() {
 
       <Container>
         <HStack gap={4} justify={"space-between"}>
-          <InputGroup maxW={"400px"} position={"relative"}>
-            <Input
-              className="filled"
-              name={"productSearch"}
-              placeholder="Index product"
-              pr={"40px !important"}
-            />
-            <IconButton
-              aria-label="search product"
-              icon={<Icon as={MagnifyingGlass} fontSize={iconSize} />}
-              position={"absolute"}
-              right={0}
-              zIndex={3}
-              className="btn-solid"
-            />
-          </InputGroup>
+          <RetailProductSearch />
 
           <HStack gap={[4, null, 8]} flexShrink={0}>
             <VStack
@@ -81,10 +66,9 @@ export default function CashierCashiering() {
               justify={"space-between"}
               align={"flex-end"}
               gap={0}
+              opacity={0.5}
             >
-              <Text fontSize={[9, null, 11]} opacity={0.5}>
-                Total Order
-              </Text>
+              <Text fontSize={[9, null, 11]}>Total Order</Text>
 
               <Text lineHeight={1} fontSize={[21, null, 23]} fontWeight={500}>
                 4
@@ -102,7 +86,7 @@ export default function CashierCashiering() {
               </Text>
 
               <Text
-                color={"p.500"}
+                // color={"p.500"}
                 lineHeight={1}
                 fontSize={[21, null, 23]}
                 fontWeight={800}
@@ -113,6 +97,10 @@ export default function CashierCashiering() {
           </HStack>
         </HStack>
       </Container>
+
+      <Box>
+        <Container></Container>
+      </Box>
     </CashierContainer>
   );
 }
