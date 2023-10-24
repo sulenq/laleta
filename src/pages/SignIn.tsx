@@ -117,7 +117,7 @@ export default function SignIn() {
           transition={"200ms"}
         >
           <SimpleGrid w={"100%"} columns={[1, null, 2]} gap={12}>
-            <Image src="/img/signin.png" animation={"fade-in 200ms"} />
+            <Image src="/img/signin.png" />
 
             <VStack justify={"center"} w={"100%"} gap={0} pr={[null, null, 10]}>
               <form onSubmit={formik.handleSubmit} style={{ width: "100%" }}>

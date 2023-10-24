@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CashierContainer from "../components/CashierContainer";
 import Container from "../components/Container";
-import { HStack, Icon, IconButton, Text, Tooltip } from "@chakra-ui/react";
-import { Plus } from "@phosphor-icons/react";
-import { iconSize } from "../const/sizes";
+import { HStack, Text, Tooltip } from "@chakra-ui/react";
 import RetailProductSearchComponent from "../components/RetailProductSearchComponent";
 import useRetailProducts from "../globalState/useRetailProducts";
 import { useParams } from "react-router-dom";
@@ -13,6 +11,7 @@ import ContentSpinner from "../components/ContentSpinner";
 import OrderList from "../components/OrderList";
 import Checkout from "../components/Checkout";
 import OrderInfo from "../components/OrderInfo";
+import ResetOrder from "../components/ResetOrder";
 
 export default function CashierCashiering() {
   const { retailProducts, setRetailProducts } = useRetailProducts();
@@ -80,16 +79,7 @@ export default function CashierCashiering() {
                   openDelay={500}
                   placement="left"
                 >
-                  <IconButton
-                    aria-label="New Transaction"
-                    icon={<Icon as={Plus} fontSize={iconSize} weight="bold" />}
-                    borderRadius={"full"}
-                    size={"sm"}
-                    className="clicky"
-                    colorScheme="ap"
-                    variant={"outline"}
-                    _hover={{ bg: "var(--p200a)" }}
-                  />
+                  <ResetOrder />
                 </Tooltip>
 
                 <Checkout />

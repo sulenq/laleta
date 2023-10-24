@@ -36,13 +36,14 @@ export default function OrderItemComponent({ order }: Props) {
       e.target.value?.includes(validNum)
     );
 
-    if (isNumValid) {
-      if (e.target.value === "" || e.target.value === "0") {
-        qty = 1;
-      } else {
-        qty = rfn(e.target.value);
-      }
+    if (e.target.value === "" || e.target.value === "0") {
+      qty = 1;
       setQty(parseInt(order.id), qty);
+    } else {
+      if (isNumValid) {
+        qty = rfn(e.target.value);
+        setQty(parseInt(order.id), qty);
+      }
     }
   };
 
@@ -130,7 +131,7 @@ export default function OrderItemComponent({ order }: Props) {
               }}
               textAlign={"right"}
               placeholder="qty"
-              px={"38px !important"}
+              px={"40px !important"}
               size={"sm"}
               className="filled"
             />
@@ -232,7 +233,7 @@ export default function OrderItemComponent({ order }: Props) {
               }}
               textAlign={"right"}
               placeholder="qty"
-              px={"38px !important"}
+              px={"40px !important"}
               size={"sm"}
               className="filled"
             />

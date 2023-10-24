@@ -110,7 +110,7 @@ export const globalTheme = extendTheme({
         },
         item: {
           bg: "transparent",
-          _hover: { bg: "var(--divider)" },
+          _hover: { bg: "var(--divider2)" },
           py: 3,
           px: 4,
         },

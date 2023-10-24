@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useScreenWidth from "../utils/useGetScreenWidth";
 import {
   Badge,
+  Box,
   Button,
   Center,
   HStack,
@@ -10,7 +11,6 @@ import {
   Image,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Text,
@@ -182,7 +182,7 @@ export default function CashierContainer({ activeNav, children }: any) {
           </HStack>
         </Container>
 
-        <VStack flex={1} align={"strech"} gap={0} animation={"fade-in 200ms"}>
+        <VStack flex={1} align={"strech"} gap={0} animation={"fade-in 1s"}>
           {children}
         </VStack>
       </>
@@ -287,7 +287,7 @@ export default function CashierContainer({ activeNav, children }: any) {
                   </HStack>
                 </MenuItem>
 
-                <MenuDivider />
+                <Box w={"100%"} h={"3px"} bg={"var(--divider)"} />
 
                 <VStack py={3} px={3}>
                   <ProfileSummary user={user} maxW={"none"} />
@@ -406,7 +406,7 @@ export default function CashierContainer({ activeNav, children }: any) {
                   </HStack>
                 </MenuItem>
 
-                <MenuDivider />
+                <Box w={"100%"} h={"3px"} bg={"var(--divider)"} />
 
                 <VStack py={3} px={4}>
                   <ProfileSummary user={user} />
