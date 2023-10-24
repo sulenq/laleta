@@ -145,26 +145,16 @@ export default function AddExpenditure() {
           onClick={onOpen}
         >
           <HStack justify={"space-between"}>
-            <Icon
-              as={PlusCircle}
-              weight="fill"
-              color={"white"}
-              fontSize={[25, null, 27]}
-            />
+            <Icon as={PlusCircle} weight="fill" fontSize={[25, null, 27]} />
 
-            <Text color={"white"}>Add Expenditure</Text>
+            <Text>Add Expenditure</Text>
           </HStack>
         </Button>
       ) : (
         <IconButton
           aria-label="Add Product"
           icon={
-            <Icon
-              as={PlusCircle}
-              weight="fill"
-              color={"white"}
-              fontSize={[25, null, 27]}
-            />
+            <Icon as={PlusCircle} weight="fill" fontSize={[25, null, 27]} />
           }
           colorScheme="ap"
           borderRadius={"full"}

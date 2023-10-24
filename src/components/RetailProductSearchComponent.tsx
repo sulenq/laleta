@@ -15,7 +15,7 @@ import { RetailProduct } from "../types";
 import useJwt from "../globalState/useJwt";
 import useRetailProducts from "../globalState/useRetailProducts";
 
-export default function RetailProductSearch() {
+export default function RetailProductSearchComponent() {
   const { retailProducts, setRetailProducts } = useRetailProducts();
   const { productSearch, setProductSearch } = useProductSearch();
   const { addOrder } = useOrder();
@@ -75,7 +75,7 @@ export default function RetailProductSearch() {
           className="filled"
           name={"productSearch"}
           placeholder="Index product"
-          pr={"40px !important"}
+          pr={"80px !important"}
           value={productSearch}
           onChange={handleIndexProduct}
           onKeyDown={handleIndexProductKeydown}
@@ -98,7 +98,7 @@ export default function RetailProductSearch() {
             <IconButton
               ref={searchProductButton}
               as={Link}
-              to={"/product-search"}
+              to={"product-search"}
               aria-label="indexProductButton"
               icon={<Icon as={MagnifyingGlass} fontSize={18} />}
               // colorScheme="bnw"

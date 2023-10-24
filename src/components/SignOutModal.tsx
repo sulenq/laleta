@@ -16,6 +16,7 @@ import { SignOut } from "@phosphor-icons/react";
 import { removeCookie } from "typescript-cookie";
 import { useNavigate } from "react-router-dom";
 import useModalBackOnClose from "../utils/useModalBackOnClose";
+import { iconSize } from "../const/sizes";
 
 export default function SignOutModal(props: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,7 +35,7 @@ export default function SignOutModal(props: any) {
         // cursor={"pointer"}
         flexShrink={0}
         onClick={onOpen}
-        rightIcon={<Icon as={SignOut} fontSize={16} />}
+        rightIcon={<Icon as={SignOut} fontSize={iconSize} weight="bold" />}
       >
         <Text fontWeight={500}>Sign Out</Text>
       </Button>

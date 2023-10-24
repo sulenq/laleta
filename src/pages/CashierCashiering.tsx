@@ -14,7 +14,7 @@ import {
 import { ArrowRight, Plus } from "@phosphor-icons/react";
 // import useScreenWidth from "../utils/useGetScreenWidth";
 import { iconSize } from "../const/sizes";
-import RetailProductSearch from "../components/RetailProductSearch";
+import RetailProductSearchComponent from "../components/RetailProductSearchComponent";
 
 export default function CashierCashiering() {
   // const sw = useScreenWidth();
@@ -46,7 +46,7 @@ export default function CashierCashiering() {
               className="clicky"
               flexShrink={0}
               size={"sm"}
-              color={"white"}
+              // color={"white"}
               borderRadius={"full"}
               rightIcon={<Icon as={ArrowRight} fontSize={iconSize} />}
             >
@@ -58,7 +58,7 @@ export default function CashierCashiering() {
 
       <Container>
         <HStack gap={4} justify={"space-between"}>
-          <RetailProductSearch />
+          <RetailProductSearchComponent />
 
           <HStack gap={[4, null, 8]} flexShrink={0}>
             <VStack
