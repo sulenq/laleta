@@ -5,6 +5,7 @@ import Container from "../components/Container";
 import AddRetailProduct from "../components/AddRetailProduct";
 import RetailProductList from "../components/RetailProductList";
 import { useNavigate } from "react-router-dom";
+import { pageTitleSize } from "../const/sizes";
 
 export default function AdminRetailProduct() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function AdminRetailProduct() {
     <AdminContainer activeNav="product">
       <Container mt={2}>
         <HStack justify={"space-between"} mb={3}>
-          <Text fontWeight={600} fontSize={[19, null, 21]} noOfLines={1}>
+          <Text fontWeight={600} fontSize={pageTitleSize} noOfLines={1}>
             Product
           </Text>
 

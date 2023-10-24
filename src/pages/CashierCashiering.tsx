@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CashierContainer from "../components/CashierContainer";
 import Container from "../components/Container";
-import { HStack, Text, Tooltip } from "@chakra-ui/react";
+import { HStack, Text } from "@chakra-ui/react";
 import RetailProductSearchComponent from "../components/RetailProductSearchComponent";
 import useRetailProducts from "../globalState/useRetailProducts";
 import { useParams } from "react-router-dom";
@@ -10,8 +10,8 @@ import axios from "axios";
 import ContentSpinner from "../components/ContentSpinner";
 import OrderList from "../components/OrderList";
 import Checkout from "../components/Checkout";
-import OrderInfo from "../components/OrderInfo";
 import ResetOrder from "../components/ResetOrder";
+import TotalPayment from "../components/TotalPayment";
 
 export default function CashierCashiering() {
   const { retailProducts, setRetailProducts } = useRetailProducts();
@@ -69,18 +69,10 @@ export default function CashierCashiering() {
         <>
           <Container borderRight={"1px solid var(--divider)"}>
             <HStack justify={"space-between"} my={3}>
-              <Text fontWeight={600} fontSize={[19, null, 21]} noOfLines={1}>
-                Cashiering
-              </Text>
+              <TotalPayment />
 
               <HStack>
-                <Tooltip
-                  label={"New Transaction"}
-                  openDelay={500}
-                  placement="left"
-                >
-                  <ResetOrder />
-                </Tooltip>
+                <ResetOrder />
 
                 <Checkout />
               </HStack>
@@ -90,8 +82,6 @@ export default function CashierCashiering() {
           <Container>
             <HStack gap={4} justify={"space-between"}>
               <RetailProductSearchComponent />
-
-              <OrderInfo />
             </HStack>
           </Container>
 

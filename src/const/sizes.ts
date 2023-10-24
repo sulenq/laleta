@@ -1,5 +1,5 @@
 const iconSize = [17, null, 19];
 
-const inputAndButtonSize = ["sm", null, "md"];
+const pageTitleSize = [21, null, 25];
 
-export { iconSize, inputAndButtonSize };
+export { iconSize, pageTitleSize };
