@@ -50,8 +50,6 @@ export default function RetailProductUpdateForm({ outletId, product }: Props) {
     },
 
     onSubmit: (values) => {
-      window.history.back();
-
       const options = {
         method: "PUT",
         baseURL: process.env.REACT_APP_BASE_URL,
@@ -73,6 +71,7 @@ export default function RetailProductUpdateForm({ outletId, product }: Props) {
               duration: 5000,
               isClosable: true,
             });
+            window.history.back();
           } else if (response.data.status === 400) {
             const keys = Object.keys(response.data.invalid);
             toast({

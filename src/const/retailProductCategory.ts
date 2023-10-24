@@ -1,7 +1,7 @@
 const retailProductCategory = [
   "Food",
   "Drink",
-  "Ingridient",
+  "Ingredient",
   "Hygiene",
   "Electronic",
   "Cosmetic",
