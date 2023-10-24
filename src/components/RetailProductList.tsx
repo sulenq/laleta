@@ -61,6 +61,9 @@ export default function RetailProductList({ action }: Props) {
 
   useEffect(() => {
     const fetch = async () => {
+      setLoading(true);
+      
+
       const options = {
         method: "GET",
         baseURL: process.env.REACT_APP_BASE_URL,
@@ -69,7 +72,6 @@ export default function RetailProductList({ action }: Props) {
       };
 
       try {
-        setLoading(true);
         const response = await axios.request(options);
         console.log(response.data);
 
@@ -131,7 +133,7 @@ export default function RetailProductList({ action }: Props) {
     );
   }
 
-  if (!loading && !error && !notFound && retailProducts) {
+  if (retailProducts && !loading) {
     return (
       <>
         <Container>
