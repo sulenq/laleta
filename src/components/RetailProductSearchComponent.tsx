@@ -8,19 +8,16 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { MagnifyingGlass, X } from "@phosphor-icons/react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useProductSearch from "../globalState/useProductSearch";
 import useOrder from "../globalState/useOrder";
 import { RetailProduct } from "../types";
-import useJwt from "../globalState/useJwt";
 import useRetailProducts from "../globalState/useRetailProducts";
 
 export default function RetailProductSearchComponent() {
-  const { retailProducts, setRetailProducts } = useRetailProducts();
+  const { retailProducts } = useRetailProducts();
   const { productSearch, setProductSearch } = useProductSearch();
   const { addOrder } = useOrder();
-  const { outletId } = useParams();
-  const jwt = useJwt();
 
   const searchProductButton = useRef(null);
   const productSearchInputRef = useRef<HTMLInputElement | null>(null);
@@ -64,8 +61,6 @@ export default function RetailProductSearchComponent() {
   useEffect(() => {
     productSearchInputRef.current?.focus();
   }, []);
-
-  useEffect(() => {}, []);
 
   return (
     <form style={{ width: "100%", maxWidth: "400px" }}>

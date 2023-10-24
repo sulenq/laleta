@@ -1,26 +1,71 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CashierContainer from "../components/CashierContainer";
 import Container from "../components/Container";
-import {
-  Box,
-  Button,
-  HStack,
-  Icon,
-  IconButton,
-  Text,
-  Tooltip,
-  VStack,
-} from "@chakra-ui/react";
-import { ArrowRight, Plus } from "@phosphor-icons/react";
-// import useScreenWidth from "../utils/useGetScreenWidth";
+import { HStack, Icon, IconButton, Text, Tooltip } from "@chakra-ui/react";
+import { Plus } from "@phosphor-icons/react";
 import { iconSize } from "../const/sizes";
 import RetailProductSearchComponent from "../components/RetailProductSearchComponent";
+import useRetailProducts from "../globalState/useRetailProducts";
+import { useParams } from "react-router-dom";
+import useJwt from "../globalState/useJwt";
+import axios from "axios";
+import ContentSpinner from "../components/ContentSpinner";
+import OrderList from "../components/OrderList";
+import Checkout from "../components/Checkout";
+import OrderInfo from "../components/OrderInfo";
 
 export default function CashierCashiering() {
-  // const sw = useScreenWidth();
+  const { retailProducts, setRetailProducts } = useRetailProducts();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<boolean>(false);
+  const { outletId } = useParams();
+  const jwt = useJwt();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const options = {
+        method: "GET",
+        baseURL: process.env.REACT_APP_BASE_URL,
+        url: `api/retailproduct-by-outlet/${outletId}`,
+        headers: { Authorization: "Bearer " + jwt },
+      };
+
+      try {
+        setLoading(true);
+        const response = await axios.request(options);
+        console.log(response.data);
+
+        if (response.data.status === 200) {
+          setRetailProducts(response.data.data);
+          setLoading(false);
+        } else if (response.data.status === 404) {
+          // navigate("/signin");
+        }
+      } catch (error) {
+        console.error(error);
+        setError(true);
+      }
+    };
+
+    if (jwt) {
+      if (!retailProducts) {
+        fetch();
+      }
+    }
+  }, [jwt, outletId, retailProducts, setRetailProducts]);
 
   return (
     <CashierContainer activeNav={"cashiering"}>
+      {loading && <ContentSpinner />}
+
+      {error && (
+        <Container>
+          <Text mt={4} textAlign={"center"}>
+            Error : Something wrong
+          </Text>
+        </Container>
+      )}
+
       <Container borderRight={"1px solid var(--divider)"}>
         <HStack justify={"space-between"} my={3}>
           <Text fontWeight={600} fontSize={[19, null, 21]} noOfLines={1}>
@@ -41,17 +86,7 @@ export default function CashierCashiering() {
               />
             </Tooltip>
 
-            <Button
-              colorScheme="ap"
-              className="clicky"
-              flexShrink={0}
-              size={"sm"}
-              // color={"white"}
-              borderRadius={"full"}
-              rightIcon={<Icon as={ArrowRight} fontSize={iconSize} />}
-            >
-              Checkout
-            </Button>
+            <Checkout />
           </HStack>
         </HStack>
       </Container>
@@ -60,47 +95,11 @@ export default function CashierCashiering() {
         <HStack gap={4} justify={"space-between"}>
           <RetailProductSearchComponent />
 
-          <HStack gap={[4, null, 8]} flexShrink={0}>
-            <VStack
-              flexShrink={0}
-              justify={"space-between"}
-              align={"flex-end"}
-              gap={0}
-              opacity={0.5}
-            >
-              <Text fontSize={[9, null, 11]}>Total Order</Text>
-
-              <Text lineHeight={1} fontSize={[21, null, 23]} fontWeight={500}>
-                4
-              </Text>
-            </VStack>
-
-            <VStack
-              flexShrink={0}
-              align={"flex-end"}
-              justify={"space-between"}
-              gap={0}
-            >
-              <Text fontSize={[9, null, 11]} opacity={0.5}>
-                Total Payment
-              </Text>
-
-              <Text
-                // color={"p.500"}
-                lineHeight={1}
-                fontSize={[21, null, 23]}
-                fontWeight={800}
-              >
-                210.000
-              </Text>
-            </VStack>
-          </HStack>
+          <OrderInfo />
         </HStack>
       </Container>
 
-      <Box>
-        <Container></Container>
-      </Box>
+      <OrderList />
     </CashierContainer>
   );
 }

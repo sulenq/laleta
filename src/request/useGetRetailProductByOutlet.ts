@@ -24,7 +24,7 @@ const useGetRetailProductByOutlet = (outletId: string | undefined) => {
         console.log(res);
 
         if (res.status === 200) {
-          setProducts(response.data.products);
+          setProducts(response.data.data);
         } else if (res.status === 404) {
           setNotFound(res.message);
         }
