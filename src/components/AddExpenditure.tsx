@@ -145,9 +145,14 @@ export default function AddExpenditure() {
           onClick={onOpen}
         >
           <HStack justify={"space-between"}>
-            <Icon as={PlusCircle} weight="fill" fontSize={[25, null, 27]} />
+            <Icon
+              as={PlusCircle}
+              weight="fill"
+              fontSize={[25, null, 27]}
+              color={"white"}
+            />
 
-            <Text>Add Expenditure</Text>
+            <Text color={"white"}>Add Expenditure</Text>
           </HStack>
         </Button>
       ) : (
@@ -157,6 +162,7 @@ export default function AddExpenditure() {
             <Icon as={PlusCircle} weight="fill" fontSize={[25, null, 27]} />
           }
           colorScheme="ap"
+          color={"white"}
           borderRadius={"full"}
           h={"30px"}
           minW={"30px"}

@@ -138,16 +138,26 @@ export default function AddRetailProduct() {
           onClick={onOpen}
         >
           <HStack justify={"space-between"}>
-            <Icon as={PlusCircle} weight="fill" fontSize={[25, null, 27]} />
+            <Icon
+              as={PlusCircle}
+              weight="fill"
+              fontSize={[25, null, 27]}
+              color={"white"}
+            />
 
-            <Text>Add Product</Text>
+            <Text color={"white"}>Add Product</Text>
           </HStack>
         </Button>
       ) : (
         <IconButton
           aria-label="Add Product"
           icon={
-            <Icon as={PlusCircle} weight="fill" fontSize={[25, null, 27]} />
+            <Icon
+              as={PlusCircle}
+              weight="fill"
+              fontSize={[25, null, 27]}
+              color={"white"}
+            />
           }
           colorScheme="ap"
           borderRadius={"full"}

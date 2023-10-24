@@ -27,9 +27,8 @@ import {
   Storefront,
 } from "@phosphor-icons/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { adminNav, adminNavMore } from "../const/adminNav";
-import ContentSpinner from "./ContentSpinner";
 import usePayload from "../globalState/usePayload";
 import ProfileSummary from "./ProfileSummary";
 import { useComponentsBg } from "../const/colorModeValues";
@@ -38,6 +37,8 @@ import axios from "axios";
 import useWorkOutlet from "../globalState/useWorkOutlet";
 import SignOutModal from "./SignOutModal";
 import { iconSize } from "../const/sizes";
+import FullPageSpinner from "./FullPageSpinner";
+import { removeCookie } from "typescript-cookie";
 
 export default function AdminContainer({ activeNav, children }: any) {
   const { outlet, employee, setOutlet, setEmployee } = useWorkOutlet();
@@ -52,27 +53,35 @@ export default function AdminContainer({ activeNav, children }: any) {
   })}`;
   const cfg = useComponentsBg();
   const jwt = useJwt();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetch = async () => {
+      setLoading(true);
+
       const options = {
         method: "GET",
         baseURL: process.env.REACT_APP_BASE_URL,
-        url: `api/work/${outletId}/${employeeId}`,
+        url: `api/work/${user?.id}/${outletId}/${employeeId}`,
         headers: { Authorization: "Bearer " + jwt },
       };
 
       try {
-        setLoading(true);
         const response = await axios.request(options);
         console.log(response.data);
 
         if (response.data.status === 200) {
+          if (response.data.data.employee.role !== "Admin") {
+            removeCookie("_auth");
+            removeCookie("_authState");
+            navigate("/signin");
+          }
+
           setOutlet(response.data.data.outlet);
           setEmployee(response.data.data.employee);
           setLoading(false);
         } else if (response.data.status === 404) {
-          // navigate("/signin");
+          navigate("/signin");
         }
       } catch (error) {
         console.error(error);
@@ -80,31 +89,33 @@ export default function AdminContainer({ activeNav, children }: any) {
       }
     };
 
-    if (jwt) {
-      if (
-        !outlet ||
-        outletId !== outlet?.id ||
-        !employee ||
-        employeeId !== employee?.id
-      ) {
-        fetch();
+    if (outletId && employeeId) {
+      if (jwt) {
+        if (
+          !outlet ||
+          outletId !== outlet?.id ||
+          !employee ||
+          employeeId !== employee?.id
+        ) {
+          fetch();
+        }
       }
     }
   }, [
     activeNav,
     jwt,
+    user?.id,
     outletId,
     outlet,
     employeeId,
     employee,
     setOutlet,
     setEmployee,
+    navigate,
   ]);
 
   const Content = () => {
-    return loading ? (
-      <ContentSpinner />
-    ) : (
+    return (
       <>
         <Container
           position={"sticky"}
@@ -186,282 +197,286 @@ export default function AdminContainer({ activeNav, children }: any) {
     );
   }
 
-  if (sw < 900) {
-    return (
-      <VStack align={"stretch"} minH={"100vh"} gap={0}>
-        <Content />
+  if (outlet && employee && !loading) {
+    if (sw < 900) {
+      return (
+        <VStack align={"stretch"} minH={"100vh"} gap={0}>
+          <Content />
 
-        <HStack
-          justify={"space-evenly"}
-          p={2}
-          borderTop={"1px solid var(--divider)"}
-          bg={"black"}
-          position={"sticky"}
-          bottom={0}
-        >
-          {adminNav.map((n, i) => {
-            const isActive = n.linkAlias === activeNav;
+          <HStack
+            justify={"space-evenly"}
+            p={2}
+            borderTop={"1px solid var(--divider)"}
+            bg={"black"}
+            position={"sticky"}
+            bottom={0}
+          >
+            {adminNav.map((n, i) => {
+              const isActive = n.linkAlias === activeNav;
 
-            return (
-              <Tooltip key={i} label={n.name}>
-                <Link
-                  to={`/work/${outletId}/${employeeId}/Admin/${n.linkAlias}`}
-                >
+              return (
+                <Tooltip key={i} label={n.name}>
+                  <Link
+                    to={`/work/${outletId}/${employeeId}/Admin/${n.linkAlias}`}
+                  >
+                    <Center
+                      p={"6px"}
+                      bg={isActive ? n.bg : ""}
+                      _hover={{ bg: n.bg }}
+                      cursor={"pointer"}
+                      transition={"200ms"}
+                      borderRadius={"full"}
+                    >
+                      <Icon as={n.icon} fontSize={23} color={"white"} />
+                    </Center>
+                  </Link>
+                </Tooltip>
+              );
+            })}
+
+            <Menu isLazy>
+              <MenuButton
+                as={IconButton}
+                aria-label="more nav"
+                className="btn"
+                variant={"ghost"}
+                icon={
+                  <Icon as={DotsThreeOutline} color={"white"} fontSize={21} />
+                }
+                borderRadius={"full"}
+                size={"sm"}
+              >
+                <HStack>
                   <Center
-                    p={"6px"}
-                    bg={isActive ? n.bg : ""}
-                    _hover={{ bg: n.bg }}
+                    p={1}
                     cursor={"pointer"}
                     transition={"200ms"}
                     borderRadius={"full"}
                   >
-                    <Icon as={n.icon} fontSize={23} color={"white"} />
+                    <Icon as={DotsThreeOutline} fontSize={17} />
                   </Center>
-                </Link>
-              </Tooltip>
-            );
-          })}
 
-          <Menu isLazy>
-            <MenuButton
-              as={IconButton}
-              aria-label="more nav"
-              className="btn"
-              variant={"ghost"}
-              icon={
-                <Icon as={DotsThreeOutline} color={"white"} fontSize={21} />
-              }
-              borderRadius={"full"}
-              size={"sm"}
-            >
-              <HStack>
-                <Center
-                  p={1}
-                  cursor={"pointer"}
-                  transition={"200ms"}
-                  borderRadius={"full"}
-                >
-                  <Icon as={DotsThreeOutline} fontSize={17} />
-                </Center>
+                  <Text fontWeight={500}>More</Text>
+                </HStack>
+              </MenuButton>
 
-                <Text fontWeight={500}>More</Text>
-              </HStack>
-            </MenuButton>
+              <MenuList
+                id="moreNav"
+                borderRadius={8}
+                border={"1px solid var(--divider2)"}
+                mb={4}
+                mr={-4}
+              >
+                {adminNavMore.map((n, i) => (
+                  <MenuItem key={i}>
+                    <HStack cursor={"pointer"}>
+                      <Icon as={n.icon} fontSize={iconSize} />
 
-            <MenuList
-              id="moreNav"
-              borderRadius={8}
-              border={"1px solid var(--divider2)"}
-              mb={4}
-              mr={-4}
-            >
-              {adminNavMore.map((n, i) => (
-                <MenuItem key={i}>
+                      <Text>{n.name}</Text>
+                    </HStack>
+                  </MenuItem>
+                ))}
+
+                <MenuDivider />
+
+                <MenuItem as={Link} to={"/home"}>
                   <HStack cursor={"pointer"}>
-                    <Icon as={n.icon} fontSize={iconSize} />
+                    <Icon as={HouseSimple} fontSize={iconSize} />
 
-                    <Text>{n.name}</Text>
+                    <Text>Home</Text>
                   </HStack>
                 </MenuItem>
-              ))}
 
-              <MenuDivider />
+                <MenuItem as={Link} to={"/work"}>
+                  <HStack cursor={"pointer"}>
+                    <Icon as={IdentificationBadge} fontSize={[19, null, 21]} />
 
-              <MenuItem as={Link} to={"/home"}>
-                <HStack cursor={"pointer"}>
-                  <Icon as={HouseSimple} fontSize={iconSize} />
+                    <Text>Work</Text>
+                  </HStack>
+                </MenuItem>
 
-                  <Text>Home</Text>
-                </HStack>
-              </MenuItem>
+                <MenuDivider />
 
-              <MenuItem as={Link} to={"/work"}>
-                <HStack cursor={"pointer"}>
-                  <Icon as={IdentificationBadge} fontSize={[19, null, 21]} />
+                <MenuItem>
+                  <HStack cursor={"pointer"}>
+                    <Icon as={Storefront} fontSize={iconSize} />
 
-                  <Text>Work</Text>
-                </HStack>
-              </MenuItem>
+                    <Text>Manage Outlet</Text>
+                  </HStack>
+                </MenuItem>
 
-              <MenuDivider />
+                <MenuDivider />
 
-              <MenuItem>
-                <HStack cursor={"pointer"}>
-                  <Icon as={Storefront} fontSize={iconSize} />
+                <VStack py={3} px={4}>
+                  <ProfileSummary user={user} />
 
-                  <Text>Manage Outlet</Text>
-                </HStack>
-              </MenuItem>
+                  <SignOutModal w={"100%"} size={"sm"} mt={2} />
+                </VStack>
+              </MenuList>
+            </Menu>
+          </HStack>
+        </VStack>
+      );
+    }
 
-              <MenuDivider />
-
-              <VStack py={3} px={4}>
-                <ProfileSummary user={user} />
-
-                <SignOutModal w={"100%"} size={"sm"} mt={2} />
-              </VStack>
-            </MenuList>
-          </Menu>
-        </HStack>
-      </VStack>
-    );
-  }
-
-  return (
-    <HStack
-      align={"flex-start"}
-      minH={"100vh"}
-      w={"100%"}
-      maxW={"1280px"}
-      mx={"auto"}
-    >
-      <VStack
+    return (
+      <HStack
+        align={"flex-start"}
+        minH={"100vh"}
         w={"100%"}
-        h={"100vh"}
-        maxW={"240px"}
-        pt={8}
-        pb={4}
-        px={4}
-        justify={"space-between"}
-        align={"stretch"}
-        position={"sticky"}
-        top={0}
-        overflow={"auto"}
+        maxW={"1280px"}
+        mx={"auto"}
       >
-        <VStack gap={0}>
-          <Image w={"40px"} src="/logo.svg" mb={2} />
-          <Text fontWeight={800} mb={8}>
-            LALETA
-          </Text>
+        <VStack
+          w={"100%"}
+          h={"100vh"}
+          maxW={"240px"}
+          pt={8}
+          pb={4}
+          px={4}
+          justify={"space-between"}
+          align={"stretch"}
+          position={"sticky"}
+          top={0}
+          overflow={"auto"}
+        >
+          <VStack gap={0}>
+            <Image w={"40px"} src="/logo.svg" mb={2} />
+            <Text fontWeight={800} mb={8}>
+              LALETA
+            </Text>
 
-          {adminNav.map((n, i) => {
-            const isActive = n.linkAlias === activeNav;
+            {adminNav.map((n, i) => {
+              const isActive = n.linkAlias === activeNav;
 
-            return n.name === "Profile" ? (
-              ""
-            ) : (
-              <HStack
-                key={i}
-                as={Link}
-                to={`/work/${outletId}/${employeeId}/Admin/${n.linkAlias}`}
+              return n.name === "Profile" ? (
+                ""
+              ) : (
+                <HStack
+                  key={i}
+                  as={Link}
+                  to={`/work/${outletId}/${employeeId}/Admin/${n.linkAlias}`}
+                  w={"100%"}
+                  p={"6px"}
+                  borderRadius={"full"}
+                  bg={isActive ? "var(--divider)" : ""}
+                  _hover={{ bg: "var(--divider)" }}
+                  transition={"200ms"}
+                  mb={3}
+                >
+                  <Center
+                    p={1}
+                    bg={n.bg}
+                    cursor={"pointer"}
+                    transition={"200ms"}
+                    borderRadius={"full"}
+                  >
+                    <Icon as={n.icon} fontSize={17} color={"white"} />
+                  </Center>
+
+                  <Text fontWeight={500}>{n.name}</Text>
+                </HStack>
+              );
+            })}
+          </VStack>
+
+          <VStack>
+            <Menu>
+              <MenuButton
+                as={Button}
+                className="btn"
+                variant={"ghost"}
                 w={"100%"}
                 p={"6px"}
                 borderRadius={"full"}
-                bg={isActive ? "var(--divider)" : ""}
                 _hover={{ bg: "var(--divider)" }}
                 transition={"200ms"}
-                mb={3}
+                cursor={"pointer"}
               >
-                <Center
-                  p={1}
-                  bg={n.bg}
-                  cursor={"pointer"}
-                  transition={"200ms"}
-                  borderRadius={"full"}
-                >
-                  <Icon as={n.icon} fontSize={17} color={"white"} />
-                </Center>
+                <HStack>
+                  <Center
+                    p={1}
+                    cursor={"pointer"}
+                    transition={"200ms"}
+                    borderRadius={"full"}
+                  >
+                    <Icon as={DotsThreeOutline} fontSize={17} />
+                  </Center>
 
-                <Text fontWeight={500}>{n.name}</Text>
-              </HStack>
-            );
-          })}
-        </VStack>
+                  <Text fontWeight={500}>More</Text>
+                </HStack>
+              </MenuButton>
 
-        <VStack>
-          <Menu>
-            <MenuButton
-              as={Button}
-              className="btn"
-              variant={"ghost"}
-              w={"100%"}
-              p={"6px"}
-              borderRadius={"full"}
-              _hover={{ bg: "var(--divider)" }}
-              transition={"200ms"}
-              cursor={"pointer"}
-            >
-              <HStack>
-                <Center
-                  p={1}
-                  cursor={"pointer"}
-                  transition={"200ms"}
-                  borderRadius={"full"}
-                >
-                  <Icon as={DotsThreeOutline} fontSize={17} />
-                </Center>
+              <MenuList
+                id="moreNav"
+                borderRadius={8}
+                {...cfg}
+                border={"1px solid var(--divider2)"}
+              >
+                {adminNavMore.map((n, i) => (
+                  <MenuItem key={i}>
+                    <HStack cursor={"pointer"}>
+                      <Icon as={n.icon} fontSize={iconSize} />
 
-                <Text fontWeight={500}>More</Text>
-              </HStack>
-            </MenuButton>
+                      <Text>{n.name}</Text>
+                    </HStack>
+                  </MenuItem>
+                ))}
 
-            <MenuList
-              id="moreNav"
-              borderRadius={8}
-              {...cfg}
-              border={"1px solid var(--divider2)"}
-            >
-              {adminNavMore.map((n, i) => (
-                <MenuItem key={i}>
+                <MenuDivider />
+
+                <MenuItem as={Link} to={"/home"}>
                   <HStack cursor={"pointer"}>
-                    <Icon as={n.icon} fontSize={iconSize} />
+                    <Icon as={HouseSimple} fontSize={[19, null, 21]} />
 
-                    <Text>{n.name}</Text>
+                    <Text>Home</Text>
                   </HStack>
                 </MenuItem>
-              ))}
 
-              <MenuDivider />
+                <MenuItem as={Link} to={"/work"}>
+                  <HStack cursor={"pointer"}>
+                    <Icon as={IdentificationBadge} fontSize={[19, null, 21]} />
 
-              <MenuItem as={Link} to={"/home"}>
-                <HStack cursor={"pointer"}>
-                  <Icon as={HouseSimple} fontSize={[19, null, 21]} />
+                    <Text>Work</Text>
+                  </HStack>
+                </MenuItem>
 
-                  <Text>Home</Text>
-                </HStack>
-              </MenuItem>
+                <MenuDivider />
 
-              <MenuItem as={Link} to={"/work"}>
-                <HStack cursor={"pointer"}>
-                  <Icon as={IdentificationBadge} fontSize={[19, null, 21]} />
+                <MenuItem>
+                  <HStack cursor={"pointer"}>
+                    <Icon as={Storefront} fontSize={iconSize} />
 
-                  <Text>Work</Text>
-                </HStack>
-              </MenuItem>
+                    <Text>Manage Outlet</Text>
+                  </HStack>
+                </MenuItem>
 
-              <MenuDivider />
+                <MenuDivider />
 
-              <MenuItem>
-                <HStack cursor={"pointer"}>
-                  <Icon as={Storefront} fontSize={iconSize} />
+                <VStack py={3} px={4}>
+                  <ProfileSummary user={user} />
 
-                  <Text>Manage Outlet</Text>
-                </HStack>
-              </MenuItem>
-
-              <MenuDivider />
-
-              <VStack py={3} px={4}>
-                <ProfileSummary user={user} />
-
-                <SignOutModal w={"100%"} size={"sm"} mt={2} />
-              </VStack>
-            </MenuList>
-          </Menu>
+                  <SignOutModal w={"100%"} size={"sm"} mt={2} />
+                </VStack>
+              </MenuList>
+            </Menu>
+          </VStack>
         </VStack>
-      </VStack>
 
-      <VStack
-        w={"100%"}
-        minH={"100vh"}
-        flex={1}
-        gap={0}
-        align={"stretch"}
-        borderLeft={"1px solid var(--divider)"}
-        borderRight={"1px solid var(--divider)"}
-      >
-        <Content />
-      </VStack>
-    </HStack>
-  );
+        <VStack
+          w={"100%"}
+          minH={"100vh"}
+          flex={1}
+          gap={0}
+          align={"stretch"}
+          borderLeft={"1px solid var(--divider)"}
+          borderRight={"1px solid var(--divider)"}
+        >
+          <Content />
+        </VStack>
+      </HStack>
+    );
+  }
+
+  return <FullPageSpinner />;
 }

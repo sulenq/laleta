@@ -108,7 +108,7 @@ export default function RetailProductList({ action }: Props) {
                 {stats.map((s, i) => (
                   <HStack key={i} py={1} justify={"space-between"}>
                     <Center p={1} borderRadius={"full"} bg={s.bg}>
-                      <Icon as={s.icon} fontSize={21} color={"white"} />
+                      <Icon as={s.icon} fontSize={21} />
                     </Center>
 
                     <VStack align={"flex-end"} gap={0}>

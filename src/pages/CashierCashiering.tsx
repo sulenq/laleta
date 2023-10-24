@@ -66,40 +66,48 @@ export default function CashierCashiering() {
         </Container>
       )}
 
-      <Container borderRight={"1px solid var(--divider)"}>
-        <HStack justify={"space-between"} my={3}>
-          <Text fontWeight={600} fontSize={[19, null, 21]} noOfLines={1}>
-            Cashiering
-          </Text>
+      {!loading && (
+        <>
+          <Container borderRight={"1px solid var(--divider)"}>
+            <HStack justify={"space-between"} my={3}>
+              <Text fontWeight={600} fontSize={[19, null, 21]} noOfLines={1}>
+                Cashiering
+              </Text>
 
-          <HStack>
-            <Tooltip label={"New Transaction"} openDelay={500} placement="left">
-              <IconButton
-                aria-label="New Transaction"
-                icon={<Icon as={Plus} fontSize={iconSize} weight="bold" />}
-                borderRadius={"full"}
-                size={"sm"}
-                className="clicky"
-                colorScheme="ap"
-                variant={"outline"}
-                _hover={{ bg: "var(--p200a)" }}
-              />
-            </Tooltip>
+              <HStack>
+                <Tooltip
+                  label={"New Transaction"}
+                  openDelay={500}
+                  placement="left"
+                >
+                  <IconButton
+                    aria-label="New Transaction"
+                    icon={<Icon as={Plus} fontSize={iconSize} weight="bold" />}
+                    borderRadius={"full"}
+                    size={"sm"}
+                    className="clicky"
+                    colorScheme="ap"
+                    variant={"outline"}
+                    _hover={{ bg: "var(--p200a)" }}
+                  />
+                </Tooltip>
 
-            <Checkout />
-          </HStack>
-        </HStack>
-      </Container>
+                <Checkout />
+              </HStack>
+            </HStack>
+          </Container>
 
-      <Container>
-        <HStack gap={4} justify={"space-between"}>
-          <RetailProductSearchComponent />
+          <Container>
+            <HStack gap={4} justify={"space-between"}>
+              <RetailProductSearchComponent />
 
-          <OrderInfo />
-        </HStack>
-      </Container>
+              <OrderInfo />
+            </HStack>
+          </Container>
 
-      <OrderList />
+          <OrderList />
+        </>
+      )}
     </CashierContainer>
   );
 }

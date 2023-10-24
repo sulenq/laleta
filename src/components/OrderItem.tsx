@@ -155,7 +155,7 @@ export default function OrderItemComponent({ order }: Props) {
     </Tr>
   ) : (
     <Tr _hover={{ bg: "var(--divider)" }}>
-      <Td py={2} px={6}>
+      <Td py={2} px={6} maxW={"50px"}>
         <IconButton
           onClick={() => {
             deleteOrder(parseInt(order.id));
@@ -171,7 +171,7 @@ export default function OrderItemComponent({ order }: Props) {
         />
       </Td>
 
-      <Td py={2} px={6}>
+      <Td py={2} px={6} maxW={"50px"}>
         <Tooltip label={order.category}>
           <Icon
             as={productCategoryIcon(order.category)}

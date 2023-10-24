@@ -14,7 +14,7 @@ export default function Checkout() {
         className="clicky"
         flexShrink={0}
         size={"sm"}
-        // color={"white"}
+        color={"white"}
         borderRadius={"full"}
         rightIcon={<Icon as={ArrowRight} fontSize={iconSize} />}
         isDisabled={orderList.length < 1 ? true : false}
