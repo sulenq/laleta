@@ -31,7 +31,7 @@ export default function CashierCashiering() {
             <Tooltip label={"New Transaction"} openDelay={500} placement="left">
               <IconButton
                 aria-label="New Transaction"
-                icon={<Icon as={Plus} fontSize={iconSize} />}
+                icon={<Icon as={Plus} fontSize={iconSize} weight="bold" />}
                 borderRadius={"full"}
                 size={"sm"}
                 className="clicky"
@@ -113,8 +113,6 @@ export default function CashierCashiering() {
           </HStack>
         </HStack>
       </Container>
-
-      
     </CashierContainer>
   );
 }

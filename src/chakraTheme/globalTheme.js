@@ -122,6 +122,11 @@ export const globalTheme = extendTheme({
         fontWeight: 600,
         borderRadius: "8px",
       },
+      variants: {
+        outline: {
+          border: "2px solid",
+        },
+      },
     },
 
     Input: {
