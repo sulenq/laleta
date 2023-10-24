@@ -29,11 +29,28 @@ export default function OrderItemComponent({ order }: Props) {
   const { setQty, deleteOrder } = useOrder();
   const productCategoryIcon = useProductCategoryIcon;
 
+  const handleQty = (e: any) => {
+    let qty;
+    const validNums = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    const isNumValid = validNums?.some((validNum) =>
+      e.target.value?.includes(validNum)
+    );
+
+    if (isNumValid) {
+      if (e.target.value === "" || e.target.value === "0") {
+        qty = 1;
+      } else {
+        qty = rfn(e.target.value);
+      }
+      setQty(parseInt(order.id), qty);
+    }
+  };
+
   return sw < 770 ? (
     <Tr _hover={{ bg: "var(--divider)" }}>
       <Td py={2} px={"18px"}>
         <HStack gap={3}>
-          <VStack h={sw < 770 ? "61px" : "68px"} justify={"space-between"}>
+          <VStack h={"61px"} justify={"space-between"}>
             <Tooltip label={order.category}>
               <Icon
                 mt={1}
@@ -57,7 +74,7 @@ export default function OrderItemComponent({ order }: Props) {
             />
           </VStack>
 
-          <VStack gap={"2px"} justify={"space-between"} align={"flex-start"}>
+          <VStack gap={0} justify={"space-between"} align={"flex-start"}>
             <Tooltip label={order.name}>
               <Text noOfLines={1} fontWeight={500}>
                 {order.name}
@@ -106,13 +123,7 @@ export default function OrderItemComponent({ order }: Props) {
             <Input
               value={order.qty}
               onChange={(e) => {
-                let qty;
-                if (e.target.value === "" || e.target.value === "0") {
-                  qty = 1;
-                } else {
-                  qty = rfn(e.target.value);
-                }
-                setQty(parseInt(order.id), qty);
+                handleQty(e);
               }}
               onFocus={(e) => {
                 e.target.select();
@@ -214,13 +225,7 @@ export default function OrderItemComponent({ order }: Props) {
             <Input
               value={order.qty}
               onChange={(e) => {
-                let qty;
-                if (e.target.value === "" || e.target.value === "0") {
-                  qty = 1;
-                } else {
-                  qty = rfn(e.target.value);
-                }
-                setQty(parseInt(order.id), qty);
+                handleQty(e);
               }}
               onFocus={(e) => {
                 e.target.select();

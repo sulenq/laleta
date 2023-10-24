@@ -8,7 +8,7 @@ export default function OrderInfo() {
   const fn = useFormatNumber;
 
   return (
-    <HStack gap={[4, null, 8]} flexShrink={0}>
+    <HStack gap={[4, null, 8]} flexShrink={0} align={"stretch"}>
       <VStack
         flexShrink={0}
         justify={"space-between"}
@@ -18,7 +18,7 @@ export default function OrderInfo() {
       >
         <Text fontSize={[9, null, 11]}>Total Order</Text>
 
-        <Text lineHeight={1} fontSize={[21, null, 23]} fontWeight={500}>
+        <Text lineHeight={1} fontSize={[20, null, 22]} fontWeight={800}>
           {orderList.length}
         </Text>
       </VStack>

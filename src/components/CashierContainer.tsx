@@ -266,7 +266,7 @@ export default function CashierContainer({ activeNav, children }: any) {
 
               <MenuItem as={Link} to={"/work"}>
                 <HStack cursor={"pointer"}>
-                  <Icon as={IdentificationBadge} fontSize={iconSize} />
+                  <Icon as={IdentificationBadge} fontSize={[19, null, 21]} />
 
                   <Text>Work</Text>
                 </HStack>
@@ -385,7 +385,7 @@ export default function CashierContainer({ activeNav, children }: any) {
 
               <MenuItem as={Link} to={"/work"}>
                 <HStack cursor={"pointer"}>
-                  <Icon as={IdentificationBadge} fontSize={iconSize} />
+                  <Icon as={IdentificationBadge} fontSize={[19, null, 21]} />
 
                   <Text>Work</Text>
                 </HStack>

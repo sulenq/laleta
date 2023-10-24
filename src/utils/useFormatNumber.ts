@@ -3,8 +3,10 @@ const useFormatNumber = (num: number) => {
   // console.log(num)
   if (num !== 0) {
     formattedNum = num?.toLocaleString("id-ID");
-  } else {
+  } else if (num === 0) {
     formattedNum = "0";
+  } else {
+    formattedNum = "";
   }
 
   return formattedNum;
