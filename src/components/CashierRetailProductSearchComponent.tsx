@@ -62,7 +62,7 @@ export default function RetailProductSearchComponent() {
   };
 
   useEffect(() => {
-    productSearchInputRef.current?.focus();
+    productSearchInputRef.current?.select();
   }, []);
 
   return (
@@ -97,7 +97,7 @@ export default function RetailProductSearchComponent() {
               <IconButton
                 ref={searchProductButton}
                 as={Link}
-                to={"product-search"}
+                to={"retail-product-search"}
                 aria-label="indexProductButton"
                 icon={<Icon as={MagnifyingGlass} fontSize={18} />}
                 // colorScheme="bnw"

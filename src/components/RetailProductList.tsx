@@ -3,14 +3,23 @@ import {
   Center,
   HStack,
   Icon,
+  IconButton,
   Image,
   Input,
+  InputGroup,
+  InputLeftElement,
   SimpleGrid,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import Container from "../components/Container";
-import { Bookmark, GridFour, Package } from "@phosphor-icons/react";
+import {
+  Bookmark,
+  GridFour,
+  MagnifyingGlass,
+  Package,
+  X,
+} from "@phosphor-icons/react";
 import useScreenWidth from "../utils/useGetScreenWidth";
 import { RetailProduct } from "../types";
 import { useParams } from "react-router-dom";
@@ -23,10 +32,12 @@ import TableContainer from "./TableContainer";
 import useRetailProducts from "../globalState/useRetailProducts";
 import useJwt from "../globalState/useJwt";
 import axios from "axios";
+import useProductSearch from "../globalState/useProductSearch";
 
 type Props = {
-  action: (id: string) => void;
+  action: (param: any) => void;
 };
+
 export default function RetailProductList({ action }: Props) {
   const sw = useScreenWidth();
 
@@ -34,6 +45,7 @@ export default function RetailProductList({ action }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<boolean>(false);
   const [notFound, setNotFound] = useState<boolean>(false);
+  const { productSearch, setProductSearch } = useProductSearch();
 
   const stats = [
     {
@@ -62,7 +74,6 @@ export default function RetailProductList({ action }: Props) {
   useEffect(() => {
     const fetch = async () => {
       setLoading(true);
-      
 
       const options = {
         method: "GET",
@@ -143,10 +154,36 @@ export default function RetailProductList({ action }: Props) {
             mb={3}
             alignItems={"center"}
           >
-            <Input
-              className="filled"
-              placeholder="Search product by code or name"
-            />
+            <InputGroup>
+              <InputLeftElement>
+                <Icon as={MagnifyingGlass} />
+              </InputLeftElement>
+
+              <Input
+                className="filled"
+                placeholder="Search product by code or name"
+                value={productSearch}
+                pr={"35px !important"}
+                onChange={(e) => {
+                  setProductSearch(e.target.value);
+                }}
+              />
+              {productSearch && (
+                <IconButton
+                  aria-label="clear input"
+                  icon={<Icon as={X} fontSize={[15, null, 17]} />}
+                  size={"xs"}
+                  variant={"unstyled"}
+                  position={"absolute"}
+                  right={1}
+                  top={"11px"}
+                  zIndex={2}
+                  onClick={() => {
+                    setProductSearch("");
+                  }}
+                />
+              )}
+            </InputGroup>
 
             <SimpleGrid columns={3} gap={6}>
               {stats.map((s, i) => (
@@ -178,15 +215,35 @@ export default function RetailProductList({ action }: Props) {
         <TableContainer>
           {sw < 900 ? (
             <RetailProductListContainerMobile>
-              {retailProducts.map((p: RetailProduct, i: number) => (
-                <RetailProductListItemMobile key={i} p={p} action={action} />
-              ))}
+              {retailProducts.map((p: RetailProduct, i: number) => {
+                if (
+                  p.code.includes(productSearch.toLocaleLowerCase()) ||
+                  p.name.toLowerCase().includes(productSearch.toLowerCase())
+                ) {
+                  return (
+                    <RetailProductListItemMobile
+                      key={i}
+                      p={p}
+                      action={action}
+                    />
+                  );
+                }
+                return null;
+              })}
             </RetailProductListContainerMobile>
           ) : (
             <RetailProductListContainer>
-              {retailProducts.map((p: any, i: number) => (
-                <RetailProductListItem key={i} p={p} action={action} />
-              ))}
+              {retailProducts.map((p: any, i: number) => {
+                if (
+                  p.code.includes(productSearch.toLocaleLowerCase()) ||
+                  p.name.toLowerCase().includes(productSearch.toLowerCase())
+                ) {
+                  return (
+                    <RetailProductListItem key={i} p={p} action={action} />
+                  );
+                }
+                return null;
+              })}
             </RetailProductListContainer>
           )}
         </TableContainer>

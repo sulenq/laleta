@@ -3,6 +3,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  HStack,
   Icon,
   Modal,
   ModalBody,
@@ -10,6 +11,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
   Text,
   VStack,
   useDisclosure,
@@ -61,6 +63,7 @@ export default function Checkout() {
           onClose();
           window.history.back();
         }}
+        size={"sm"}
         isCentered
       >
         <ModalOverlay />
@@ -97,18 +100,24 @@ export default function Checkout() {
               </Text>
             </VStack>
 
-            <form id="checkout">
+            <form id="checkout" onSubmit={formik.handleSubmit}>
               <FormControl>
                 <FormLabel opacity={0.5}>Pay</FormLabel>
-                <NumberInput
-                  formik={formik}
-                  placeholder={"Pay"}
-                  name={"pay"}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setPay(rfn(e.target.value));
-                  }}
-                  value={fn(pay)}
-                />
+                <HStack>
+                  <Select maxW={"100px"}>
+                    <option>CASH</option>
+                  </Select>
+
+                  <NumberInput
+                    formik={formik}
+                    placeholder={"Pay"}
+                    name={"pay"}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setPay(rfn(e.target.value));
+                    }}
+                    value={fn(pay)}
+                  />
+                </HStack>
               </FormControl>
             </form>
           </ModalBody>

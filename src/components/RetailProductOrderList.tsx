@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Table, Tbody } from "@chakra-ui/react";
-import OrderItemComponent from "./OrderItem";
+import OrderItemComponent from "./RetailProductOrderItem";
 import useOrder from "../globalState/useOrder";
 import TableContainer from "./TableContainer";
 

@@ -18,7 +18,7 @@ export default function NavHeader(props: any) {
       w={"100%"}
       zIndex={98}
       position={props.position || "sticky"}
-      top={0}
+      top={props.top || 0}
       left={0}
       p={"10px"}
       {...cfg}

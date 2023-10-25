@@ -118,6 +118,7 @@ export default function AdminContainer({ activeNav, children }: any) {
     return (
       <>
         <Container
+          id={"header"}
           position={"sticky"}
           zIndex={99}
           top={0}
@@ -210,6 +211,7 @@ export default function AdminContainer({ activeNav, children }: any) {
             bg={"black"}
             position={"sticky"}
             bottom={0}
+            zIndex={99}
           >
             {adminNav.map((n, i) => {
               const isActive = n.linkAlias === activeNav;

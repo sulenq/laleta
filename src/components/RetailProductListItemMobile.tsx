@@ -1,9 +1,19 @@
-import { Box, Td, Text, Tr } from "@chakra-ui/react";
 import React from "react";
+import { Box, Td, Text, Tr } from "@chakra-ui/react";
 import useFormatNumber from "../utils/useFormatNumber";
+import { RetailProduct } from "../types";
+import { useLocation } from "react-router-dom";
 
-export default function RetailProductListItemMobile({ p, action }: any) {
+type Props = {
+  p: RetailProduct;
+  action: (param: any) => void;
+};
+
+export default function RetailProductListItemMobile({ p, action }: Props) {
   const fn = useFormatNumber;
+  const location = useLocation();
+  const path = location.pathname.split("/");
+  const endpoint = path[path.length - 1];
 
   return (
     <Tr
@@ -11,7 +21,21 @@ export default function RetailProductListItemMobile({ p, action }: any) {
       _hover={{ bg: "var(--divider)" }}
       cursor={"pointer"}
       onClick={() => {
-        action(p.id);
+        if (endpoint === "retail-product-search") {
+          action({
+            id: p.id,
+            code: p.code,
+            name: p.name,
+            price: parseInt(p.price),
+            qty: 1,
+            totalPrice: parseInt(p.price),
+            stock: parseInt(p.stock),
+            category: p.category,
+          });
+          window.history.back();
+        } else {
+          action(p.id);
+        }
       }}
     >
       <Td className="before" py={2} px={"18px"}>

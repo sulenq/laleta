@@ -212,6 +212,7 @@ export default function CashierContainer({ activeNav, children }: any) {
             bg={"black"}
             position={"sticky"}
             bottom={0}
+            zIndex={99}
           >
             {cashierNav.map((n, i) => {
               const isActive = n.linkAlias === activeNav;

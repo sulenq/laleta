@@ -23,7 +23,7 @@ export default function TextInput(props: any) {
           position={"absolute"}
           right={1}
           top={"11px"}
-          zIndex={3}
+          zIndex={2}
           onClick={() => {
             props?.formik.setFieldValue(props?.name, "");
           }}

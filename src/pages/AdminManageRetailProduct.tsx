@@ -7,10 +7,12 @@ import NavHeader from "../components/NavHeader";
 import useGetRetailProduct from "../request/useGetRetailProduct";
 import { useParams } from "react-router-dom";
 import ContentSpinner from "../components/ContentSpinner";
+import useGetHeaderHeight from "../utils/useGetHeaderHeight";
 
 export default function AdminManageRetailProduct() {
   const { outletId, productId } = useParams();
   const retailProduct = useGetRetailProduct(productId);
+  const hh = useGetHeaderHeight();
 
   return (
     <AdminContainer activeNav={"product"}>
@@ -51,7 +53,7 @@ export default function AdminManageRetailProduct() {
 
       {retailProduct?.status === "found" && outletId && (
         <>
-          <NavHeader title={"Manage Product"} left={"backButton"} />
+          <NavHeader title={"Manage Product"} left={"backButton"} top={hh} />
 
           <Container>
             <VStack
