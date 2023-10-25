@@ -106,7 +106,7 @@ export default function Landing() {
             <Text
               fontSize={[11, null, 13]}
               as={Link}
-              to={"/signup"}
+              to={""}
               fontWeight={600}
               color={"p.500"}
             >
