@@ -23,6 +23,7 @@ import AdminReport from "./pages/AdminReport";
 import CashierDashboard from "./pages/CashierDashboard";
 import CashierCashiering from "./pages/CashierCashiering";
 import RetailProductSearch from "./pages/RetailProductSearch";
+import CashierTransaction from "./pages/CashierTransaction";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>
@@ -108,6 +109,14 @@ export const App = () => (
           element={
             <RequireAuth>
               <RetailProductSearch />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/work/:outletId/:employeeId/Cashier/transaction"
+          element={
+            <RequireAuth>
+              <CashierTransaction />
             </RequireAuth>
           }
         />
