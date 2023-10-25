@@ -113,7 +113,6 @@ export default function SignIn() {
           minH={"calc(100vh - 70px)"}
           py={8}
           justify={"center"}
-          animation={"fade-in 1s"}
           transition={"200ms"}
         >
           <SimpleGrid w={"100%"} columns={[1, null, 2]} gap={12}>
