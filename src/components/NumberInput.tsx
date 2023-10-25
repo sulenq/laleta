@@ -7,16 +7,17 @@ import useReverseFormatNumber from "../utils/useReverseFormatNumber";
 export default function NumberInput(props: any) {
   const fn = useFormatNumber;
   const rfn = useReverseFormatNumber;
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    props.formik.setFieldValue(props.name, rfn(e.target.value));
+  };
 
   return (
     <Box position={"relative"}>
       <Input
         ref={props.myRef}
         placeholder={props.placeholder}
-        onChange={(e) => {
-          props.formik.setFieldValue(props.name, rfn(e.target.value));
-        }}
-        value={fn(parseInt(props.formik.values[props.name]))}
+        onChange={props.onChange || handleOnChange}
+        value={props.value || fn(parseInt(props.formik.values[props.name]))}
         pr={"30px !important"}
       />
       {props.formik.values[props.name] !== 0 && (
