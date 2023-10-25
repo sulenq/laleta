@@ -2,24 +2,15 @@ import React from "react";
 import { Text, VStack } from "@chakra-ui/react";
 import useOrder from "../globalState/useOrder";
 import useFormatNumber from "../utils/useFormatNumber";
-import { pageTitleSize } from "../const/sizes";
 
 export default function TotalPayment() {
   const { totalPayment } = useOrder();
   const fn = useFormatNumber;
 
-  if (totalPayment === 0) {
-    return (
-      <Text fontWeight={600} fontSize={pageTitleSize} noOfLines={1}>
-        Cashiering
-      </Text>
-    );
-  }
-
   return (
     <VStack
       flexShrink={0}
-      align={"flex-start"}
+      align={"flex-end"}
       justify={"space-between"}
       gap={0}
     >

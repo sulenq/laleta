@@ -15,6 +15,7 @@ import useProductSearch from "../globalState/useProductSearch";
 import useOrder from "../globalState/useOrder";
 import { RetailProduct } from "../types";
 import useRetailProducts from "../globalState/useRetailProducts";
+import TotalPayment from "./TotalPayment";
 
 export default function RetailProductSearchComponent() {
   const { retailProducts } = useRetailProducts();
@@ -124,6 +125,8 @@ export default function RetailProductSearchComponent() {
             {orderList.length}
           </Text>
         </VStack>
+
+        <TotalPayment />
       </HStack>
     </>
   );

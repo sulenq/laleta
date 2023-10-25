@@ -182,7 +182,7 @@ export default function CashierContainer({ activeNav, children }: any) {
           </HStack>
         </Container>
 
-        <VStack flex={1} align={"strech"} gap={0} animation={"fade-in 1s"}>
+        <VStack flex={1} align={"strech"} gap={0}>
           {children}
         </VStack>
       </>

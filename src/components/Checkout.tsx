@@ -21,12 +21,15 @@ import useFormatNumber from "../utils/useFormatNumber";
 import NumberInput from "./NumberInput";
 import { useFormik } from "formik";
 import useReverseFormatNumber from "../utils/useReverseFormatNumber";
+import useModalBackOnClose from "../utils/useModalBackOnClose";
 
 export default function Checkout() {
   const { orderList, totalPayment, pay, setPay } = useOrder();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const fn = useFormatNumber;
   const rfn = useReverseFormatNumber;
+
+  useModalBackOnClose(isOpen, onClose);
 
   const formik = useFormik({
     initialValues: {
@@ -52,7 +55,14 @@ export default function Checkout() {
         Checkout
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          onClose();
+          window.history.back();
+        }}
+        isCentered
+      >
         <ModalOverlay />
 
         <ModalContent>
@@ -114,7 +124,13 @@ export default function Checkout() {
                 Confirm Checkout
               </Button>
 
-              <Button onClick={onClose} variant={"unstyled"}>
+              <Button
+                onClick={() => {
+                  onClose();
+                  window.history.back();
+                }}
+                variant={"unstyled"}
+              >
                 Cancel
               </Button>
             </VStack>

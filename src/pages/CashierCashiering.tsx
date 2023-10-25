@@ -11,7 +11,7 @@ import ContentSpinner from "../components/ContentSpinner";
 import OrderList from "../components/OrderList";
 import Checkout from "../components/Checkout";
 import ResetOrder from "../components/ResetOrder";
-import TotalPayment from "../components/TotalPayment";
+import { pageTitleSize } from "../const/sizes";
 
 export default function CashierCashiering() {
   const { retailProducts, setRetailProducts } = useRetailProducts();
@@ -68,8 +68,10 @@ export default function CashierCashiering() {
       {!loading && (
         <>
           <Container borderRight={"1px solid var(--divider)"}>
-            <HStack justify={"space-between"} my={3}>
-              <TotalPayment />
+            <HStack justify={"space-between"} my={2}>
+              <Text fontWeight={600} fontSize={pageTitleSize} noOfLines={1}>
+                Cashiering
+              </Text>
 
               <HStack>
                 <ResetOrder />
@@ -78,13 +80,11 @@ export default function CashierCashiering() {
               </HStack>
             </HStack>
           </Container>
-
           <Container>
             <HStack gap={4} justify={"space-between"}>
               <RetailProductSearchComponent />
             </HStack>
           </Container>
-
           <OrderList />
         </>
       )}
