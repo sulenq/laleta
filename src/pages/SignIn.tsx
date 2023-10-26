@@ -22,7 +22,7 @@ import { PrimaryButton } from "../components/Buttons";
 import { useNavigate } from "react-router-dom";
 import { AuthState } from "../types";
 import { setCookie } from "typescript-cookie";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -91,34 +91,6 @@ export default function SignIn() {
       formik.setFieldValue(name, value);
     }
   };
-
-  useEffect(() => {
-    const options = {
-      method: "GET",
-      baseURL: process.env.REACT_APP_API_BASE_URL,
-      url: "api/user",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "*",
-      },
-    };
-
-    async function fetch() {
-      setLoading(true);
-      try {
-        const response = await axios.request(options);
-        console.log(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        // alert("Something wrong, try refreshing the page  or comeback later");
-        setLoading(false);
-      }
-    }
-
-    fetch();
-  }, []);
 
   return (
     <>
