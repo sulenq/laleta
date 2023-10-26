@@ -32,7 +32,7 @@ export default function DeleteRetailProduct({
 
     const options = {
       method: "DELETE",
-      baseURL: process.env.REACT_APP_BASE_URL,
+      baseURL: process.env.REACT_APP_API_BASE_URL,
       url: `api/retailproduct-delete/${outletId}/${productId}`,
       headers: { Authorization: "Bearer " + jwt },
     };

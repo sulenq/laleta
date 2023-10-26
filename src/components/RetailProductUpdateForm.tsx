@@ -52,7 +52,7 @@ export default function RetailProductUpdateForm({ outletId, product }: Props) {
     onSubmit: (values) => {
       const options = {
         method: "PUT",
-        baseURL: process.env.REACT_APP_BASE_URL,
+        baseURL: process.env.REACT_APP_API_BASE_URL,
         url: `api/retailproduct-update/${outletId}/${product?.id}`,
         headers: { Authorization: "Bearer " + jwt },
         data: values,

@@ -62,7 +62,7 @@ export default function WorkOutlets() {
   useEffect(() => {
     const options = {
       method: "GET",
-      baseURL: process.env.REACT_APP_BASE_URL,
+      baseURL: process.env.REACT_APP_API_BASE_URL,
       url: "api/outlet-by-user",
       headers: { Authorization: "Bearer " + jwt },
     };

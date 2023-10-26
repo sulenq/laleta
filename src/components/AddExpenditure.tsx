@@ -76,7 +76,7 @@ export default function AddExpenditure() {
       console.log(values.date);
       const options = {
         method: "POST",
-        baseURL: process.env.REACT_APP_BASE_URL,
+        baseURL: process.env.REACT_APP_API_BASE_URL,
         url: "api/retailproduct-create/" + outletId,
         headers: { Authorization: "Bearer " + jwt },
         data: values,

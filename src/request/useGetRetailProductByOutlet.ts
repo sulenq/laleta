@@ -12,7 +12,7 @@ const useGetRetailProductByOutlet = (outletId: string | undefined) => {
   useEffect(() => {
     const options = {
       method: "GET",
-      baseURL: process.env.REACT_APP_BASE_URL,
+      baseURL: process.env.REACT_APP_API_BASE_URL,
       url: "api/retailproduct-by-outlet/" + outletId,
       headers: { Authorization: "Bearer " + jwt },
     };

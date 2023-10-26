@@ -15,7 +15,7 @@ const useGetRetailProduct = (productId: string | undefined) => {
   useEffect(() => {
     const getOutletOptions = {
       method: "GET",
-      baseURL: process.env.REACT_APP_BASE_URL,
+      baseURL: process.env.REACT_APP_API_BASE_URL,
       url: "api/retailproduct/" + productId,
       headers: { Authorization: "Bearer " + jwt },
     };

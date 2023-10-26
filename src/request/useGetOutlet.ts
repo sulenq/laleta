@@ -16,7 +16,7 @@ const useGetOutlet = () => {
   useEffect(() => {
     const getOutletOptions = {
       method: "GET",
-      baseURL: process.env.REACT_APP_BASE_URL,
+      baseURL: process.env.REACT_APP_API_BASE_URL,
       url: "api/outlet/" + outletId,
       headers: { Authorization: "Bearer " + jwt },
     };

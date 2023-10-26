@@ -16,7 +16,7 @@ const useGetEmployee = () => {
   useEffect(() => {
     const getEmployeeOptions = {
       method: "GET",
-      baseURL: process.env.REACT_APP_BASE_URL,
+      baseURL: process.env.REACT_APP_API_BASE_URL,
       url: "api/employee/" + employeeId,
       headers: { Authorization: "Bearer " + jwt },
     };

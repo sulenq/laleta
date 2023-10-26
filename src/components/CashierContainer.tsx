@@ -59,7 +59,7 @@ export default function CashierContainer({ activeNav, children }: any) {
     const fetch = async () => {
       const options = {
         method: "GET",
-        baseURL: process.env.REACT_APP_BASE_URL,
+        baseURL: process.env.REACT_APP_API_BASE_URL,
         url: `api/work/${user?.id}/${outletId}/${employeeId}`,
         headers: { Authorization: "Bearer " + jwt },
       };
