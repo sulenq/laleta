@@ -94,7 +94,7 @@ export default function SignIn() {
 
   useEffect(() => {
     const options = {
-      method: "POST",
+      method: "GET",
       baseURL: process.env.REACT_APP_API_BASE_URL,
       url: "api/user",
       headers: {
@@ -112,7 +112,7 @@ export default function SignIn() {
         setLoading(false);
       } catch (error) {
         console.error(error);
-        alert("Something wrong, try refreshing the page  or comeback later");
+        // alert("Something wrong, try refreshing the page  or comeback later");
         setLoading(false);
       }
     }
