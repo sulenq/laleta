@@ -22,7 +22,7 @@ import { PrimaryButton } from "../components/Buttons";
 import { useNavigate } from "react-router-dom";
 import { AuthState } from "../types";
 import { setCookie } from "typescript-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ export default function SignIn() {
 
       signin();
     },
-  });
+  }); 
 
   const handleForm = (event: any) => {
     const { name, value, checked } = event.target;
@@ -91,6 +91,29 @@ export default function SignIn() {
       formik.setFieldValue(name, value);
     }
   };
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      baseURL: process.env.REACT_APP_API_BASE_URL,
+      url: "api/user",
+    };
+
+    async function signin() {
+      setLoading(true);
+      try {
+        const response = await axios.request(options);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+        alert("Something wrong, try refreshing the page  or comeback later");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    signin();
+  }, []);
 
   return (
     <>
