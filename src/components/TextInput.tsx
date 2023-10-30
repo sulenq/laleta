@@ -14,6 +14,7 @@ export default function TextInput(props: any) {
         value={props?.formik.values[props?.name]}
         pr={"30px !important"}
       />
+      
       {props?.formik.values[props?.name] && (
         <IconButton
           aria-label="clear input"
