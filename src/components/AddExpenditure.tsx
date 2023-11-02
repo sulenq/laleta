@@ -115,7 +115,7 @@ export default function AddExpenditure() {
             });
           }
         } catch (error) {
-          console.error(error);
+          console.log(error);
           toast({
             title: "Error",
             description: "Try to refreshing the page or comeback later",

@@ -82,7 +82,7 @@ export default function CashierContainer({ activeNav, children }: any) {
           navigate("/signin");
         }
       } catch (error) {
-        console.error(error);
+        console.log(error);
         setError(true);
       } finally {
         setLoading(false);

@@ -58,7 +58,9 @@ export default function SignIn() {
       async function signin() {
         setLoading(true);
         try {
-          const response = await axios.request(options);
+          const response = await axios.post(options.url, options.data, {
+            baseURL: options.baseURL,
+          });
           if (response.data.status === 200) {
             const jwt = response.data.jwt;
             const authState: AuthState = response.data.payload;

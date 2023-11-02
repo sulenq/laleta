@@ -31,7 +31,7 @@ const useGetRetailProduct = (productId: string | undefined) => {
           setNotFound(true);
         }
       } catch (error) {
-        console.error(error);
+        console.log(error);
         setError(error);
       }
     };

@@ -69,7 +69,7 @@ export default function DeleteRetailProduct({
           });
         }
       } catch (error: any) {
-        console.error(error);
+        console.log(error);
         toast({
           title: "Error",
           description: error.message,

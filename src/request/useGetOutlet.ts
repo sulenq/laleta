@@ -33,7 +33,7 @@ const useGetOutlet = () => {
           navigate("/signin");
         }
       } catch (error) {
-        console.error(error);
+        console.log(error);
         setError(error);
       }
     };

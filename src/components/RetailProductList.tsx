@@ -93,7 +93,7 @@ export default function RetailProductList({ action }: Props) {
           setNotFound(true);
         }
       } catch (error) {
-        console.error(error);
+        console.log(error);
         setError(true);
       }
     };

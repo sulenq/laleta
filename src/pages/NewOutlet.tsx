@@ -128,7 +128,7 @@ export default function NewOutlet() {
             setAlertIsOpen(true);
           }
         } catch (error) {
-          console.error(error);
+          console.log(error);
           setAlertModal({
             img: "/img/bad.png",
             title: "Something Wrong",

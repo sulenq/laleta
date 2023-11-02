@@ -78,7 +78,7 @@ export default function WorkOutlets() {
           setWorkOutlets(404);
         }
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
 

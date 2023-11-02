@@ -84,7 +84,7 @@ export default function AdminContainer({ activeNav, children }: any) {
           navigate("/signin");
         }
       } catch (error) {
-        console.error(error);
+        console.log(error);
         setError(true);
       }
     };
